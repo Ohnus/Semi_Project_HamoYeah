@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+중간프로젝트 힘내자!
 </body>
 </html>
