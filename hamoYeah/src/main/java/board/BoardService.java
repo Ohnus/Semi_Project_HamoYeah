@@ -58,4 +58,12 @@ public class BoardService {
 		return dao.selectPlaceAndTag(content, tag);
 	}
 	
+	public ArrayList<BoardVo> getByComplete() {
+		return dao.selectComplete();
+	}
+
+	public ArrayList<BoardVo> getByOngoing() {
+		return dao.selectOngoing();
+	}
+	
 }
