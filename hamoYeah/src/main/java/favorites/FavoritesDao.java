@@ -87,13 +87,12 @@ public class FavoritesDao {
 	}
 
 	// delete -- 회색별로 둔 게시글만
-	public void delete(String memberId, int boardNum) {
+	public void delete(String memberId) {
 		Connection conn = dbconn.conn();
 		String sql = "delete from H_favorites where member_id = ? and del_cnt = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
-			pstmt.setInt(2, boardNum);
 
 			int number = pstmt.executeUpdate();
 			System.out.println(number + "줄이 삭제되었습니다.");
