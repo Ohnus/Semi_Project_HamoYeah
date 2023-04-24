@@ -61,5 +61,13 @@ public class BoardService {
 	public ArrayList<BoardVo> getByContentAndTag(String content, String tag)	{
 		return dao.selectPlaceAndTag(content, tag);
 	}
+		
+	public ArrayList<BoardVo> getByComplete() {
+		return dao.selectComplete();
+	}
 	
+	public ArrayList<BoardVo> getByOngoing() {
+		return dao.selectOngoing();
+	}
 }
+
