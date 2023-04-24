@@ -143,11 +143,11 @@ public class BoardDao {
 		return list;
 	}
 	
-	public ArrayList<BoardVo> selectBoardNum(int board_num) {
+	// 글 번호로 검색 	
+	public BoardVo selectBoardNum(int board_num) {
 		Connection conn = dbconn.conn();
-		ArrayList<BoardVo> list = new ArrayList();
-		
-		String sql = "select * from H_board where board_num=? order by board_num desc";
+
+		String sql = "select * from H_board where board_num=?";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -156,9 +156,9 @@ public class BoardDao {
 		
 			ResultSet rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+			if(rs.next()) {
+				return new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12));
 			}
 			
 		} catch (SQLException e) {
@@ -172,9 +172,10 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}	
-		return list;
+		return null;
 	}
 	
+
 	
 	// 멤버ID로 검색
 	public ArrayList<BoardVo> selectId(String memberId) {
