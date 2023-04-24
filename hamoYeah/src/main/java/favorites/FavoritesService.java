@@ -28,8 +28,8 @@ public class FavoritesService {
 	}
 
 	// delCnt가 1인거 다 delete
-	public void delete(String memberId, int boardNum) {
-		dao.delete(memberId, boardNum);
+	public void delete(String memberId) {
+		dao.delete(memberId);
 	}
 
 	// id로 select
