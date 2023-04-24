@@ -28,7 +28,7 @@ public class LoginHandler implements Handler {
 					// 신고만들어지면 신고글 불러와서 setAttribute에 담고 관리자페이지로 보내기
 					view = "/admin/adminPage.jsp";
 				} else {
-					view = "/index.jsp";
+					view = "/main.jsp";
 				}
 			}
 		}
