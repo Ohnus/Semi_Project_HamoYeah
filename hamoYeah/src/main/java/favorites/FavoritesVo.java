@@ -3,13 +3,15 @@ package favorites;
 public class FavoritesVo {
 	private String memberId;
 	private int boardNum;
+	private int delCnt;
 	
 	public FavoritesVo() {}
-	
-	public FavoritesVo(String memberId, int boardNum) {
+
+	public FavoritesVo(String memberId, int boardNum, int delCnt) {
 		super();
 		this.memberId = memberId;
 		this.boardNum = boardNum;
+		this.delCnt = delCnt;
 	}
 
 	public String getMemberId() {
@@ -28,9 +30,19 @@ public class FavoritesVo {
 		this.boardNum = boardNum;
 	}
 
+	public int getDelCnt() {
+		return delCnt;
+	}
+
+	public void setDelCnt(int delCnt) {
+		this.delCnt = delCnt;
+	}
+
 	@Override
 	public String toString() {
-		return "favoritesVo [memberId=" + memberId + ", boardNum=" + boardNum + "]";
+		return "FavoritesVo [memberId=" + memberId + ", boardNum=" + boardNum + ", delCnt=" + delCnt + "]";
 	}
+	
+	
 	
 }
