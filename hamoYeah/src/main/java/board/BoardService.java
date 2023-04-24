@@ -26,7 +26,7 @@ public class BoardService {
 		return dao.selectAll();
 	}
 	
-	public ArrayList<BoardVo> getByBoardNum(int board_num) {
+	public BoardVo getByBoardNum(int board_num) {
 		return dao.selectBoardNum(board_num);
 	}
 	
