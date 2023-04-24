@@ -41,3 +41,9 @@ public class reviewService {
 		return dao.selectByMemberId(member_id);
 	}
 }
+
+
+
+
+
+

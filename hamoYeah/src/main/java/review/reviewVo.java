@@ -11,7 +11,7 @@ public class reviewVo {
 	private String imagepath;
 	private String content;
 	
-	
+
 	public reviewVo() {};
 	
 	public reviewVo(String member_id, int review_num, int board_num, Date r_date, int likes, String imagepath,
