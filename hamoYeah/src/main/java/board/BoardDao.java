@@ -143,6 +143,38 @@ public class BoardDao {
 		return list;
 	}
 	
+	public ArrayList<BoardVo> selectBoardNum(int board_num) {
+		Connection conn = dbconn.conn();
+		ArrayList<BoardVo> list = new ArrayList();
+		
+		String sql = "select * from H_board where board_num=? order by board_num desc";
+			
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+		
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		return list;
+	}
+	
 	
 	// 멤버ID로 검색
 	public ArrayList<BoardVo> selectId(String memberId) {
@@ -424,7 +456,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from h_board where D_DAY < to_char(SYSDATE, 'YYYY-MM-DD')";
+		String sql = "select board_num from h_board where D_DAY < to_char(SYSDATE, 'YYYY-MM-DD')";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -456,7 +488,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from h_board where D_DAY > to_char(SYSDATE, 'YYYY-MM-DD')";
+		String sql = "select board_num from h_board where D_DAY > to_char(SYSDATE, 'YYYY-MM-DD')";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

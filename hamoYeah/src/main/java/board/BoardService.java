@@ -26,6 +26,10 @@ public class BoardService {
 		return dao.selectAll();
 	}
 	
+	public ArrayList<BoardVo> getByBoardNum(int board_num) {
+		return dao.selectBoardNum(board_num);
+	}
+	
 	public ArrayList<BoardVo> getById(String memberId) {
 		return dao.selectId(memberId);
 	}
@@ -56,14 +60,6 @@ public class BoardService {
 	
 	public ArrayList<BoardVo> getByContentAndTag(String content, String tag)	{
 		return dao.selectPlaceAndTag(content, tag);
-	}
-	
-	public ArrayList<BoardVo> getByComplete() {
-		return dao.selectComplete();
-	}
-
-	public ArrayList<BoardVo> getByOngoing() {
-		return dao.selectOngoing();
 	}
 	
 }
