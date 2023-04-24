@@ -34,5 +34,4 @@ public class LoginHandler implements Handler {
 		}
 		return view;
 	}
-
 }
