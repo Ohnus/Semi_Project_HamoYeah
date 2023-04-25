@@ -525,6 +525,7 @@ public class BoardDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, vo.getOk());
+			pstmt.setInt(2, vo.getBoardNum());
 			
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 수정되었습니다.");
