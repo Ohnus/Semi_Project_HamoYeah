@@ -15,11 +15,12 @@ public class BoardVo {
 	private int peopleMax;
 	private int y_card;
 	private int process;
+	private int ok;
 
 	public BoardVo() {}
-	
+
 	public BoardVo(String memberId, int boardNum, Date wDate, String title, String content, String imagepath,
-			String place, String dDay, String tag, int peopleMax, int y_card, int process) {
+			String place, String dDay, String tag, int peopleMax, int y_card, int process, int ok) {
 		this.memberId = memberId;
 		this.boardNum = boardNum;
 		this.wDate = wDate;
@@ -32,6 +33,7 @@ public class BoardVo {
 		this.peopleMax = peopleMax;
 		this.y_card = y_card;
 		this.process = process;
+		this.ok = ok;
 	}
 
 	public String getMemberId() {
@@ -130,12 +132,21 @@ public class BoardVo {
 		this.process = process;
 	}
 
+	public int getOk() {
+		return ok;
+	}
+
+	public void setOk(int ok) {
+		this.ok = ok;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVo [memberId=" + memberId + ", boardNum=" + boardNum + ", wDate=" + wDate + ", title=" + title
 				+ ", content=" + content + ", imagepath=" + imagepath + ", place=" + place + ", dDay=" + dDay + ", tag="
-				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + "]";
+				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + ", ok=" + ok + "]";
 	}
 	
 }
 
+	
