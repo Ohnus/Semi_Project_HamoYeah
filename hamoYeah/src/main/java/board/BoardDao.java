@@ -255,8 +255,8 @@ public class BoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "+" + place + "+");
-		
+			pstmt.setString(1, "%" + place + "%");
+	
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -289,7 +289,7 @@ public class BoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "+" + title + "+");
+			pstmt.setString(1, "%" + title + "%");
 		
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -323,7 +323,7 @@ public class BoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "+" +content+ "+");
+			pstmt.setString(1, "%" +content+ "%");
 		
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -358,8 +358,8 @@ public class BoardDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 	
 			
-			pstmt.setString(1, "+" + place + "+");
-			pstmt.setString(2, "+" + tag + "+");
+			pstmt.setString(1, "%" + place + "%");
+			pstmt.setString(2, "%" + tag + "%");
 		
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -393,8 +393,8 @@ public class BoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "+" + title+ "+");
-			pstmt.setString(2, "+" + tag + "+");
+			pstmt.setString(1, "%" + title+ "%");
+			pstmt.setString(2, "%" + tag + "%");
 		
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -427,8 +427,8 @@ public class BoardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "+" + content + "+");
-			pstmt.setString(2, "+" + tag + "+");
+			pstmt.setString(1, "%" + content + "%");
+			pstmt.setString(2, "%" + tag + "%");
 		
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -457,7 +457,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select board_num from h_board where D_DAY < to_char(SYSDATE, 'YYYY-MM-DD')";
+		String sql = "select * from h_board where D_DAY < to_char(SYSDATE, 'YYYY-MM-DD')";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -489,7 +489,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select board_num from h_board where D_DAY > to_char(SYSDATE, 'YYYY-MM-DD')";
+		String sql = "select * from h_board where D_DAY > to_char(SYSDATE, 'YYYY-MM-DD')";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
