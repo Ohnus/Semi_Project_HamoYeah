@@ -24,11 +24,10 @@
 	// input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
 	// 따라서 초기화하고자 할 경우 아래 코드
 	function reset(img) {
-		document.getElementById('del').onload = function(){
-			document.getElementById('preview').src = "";
-		}
-		img.upload.select();
-		document.selection.clear();
+		document.getElementById('preview').src = "";
+		document.getElementById('img').value = null;
+// 		img.upload.select();
+// 		document.selection.clear();
 	    }
 	function checkId() {
 		const xhttp = new XMLHttpRequest();
@@ -51,7 +50,11 @@
 	}
 	function checkPhone() {
 		const xhttp = new XMLHttpRequest();
-		let param = "?phone=" + f.phone.value;
+		let phone1 = f.phone1.value;
+		let phone2 = f.phone2.value;
+		let phone3 = f.phone3.value;
+		let phone = phone1 + phone2 + phone3;
+		let param = "?phone=" + phone;
 		xhttp.open("get", "${pageContext.request.contextPath}/member/phonecheck.do" + param);
 		xhttp.send();
 
@@ -92,7 +95,10 @@
 		let id = document.getElementById("H_id").value;
 		let password = document.getElementById("H_pwd").value;
 		let name = document.getElementById("H_name").value;
-		let phone = document.getElementById("H_phone").value;
+		let phone1 = document.getElementById("H_phone1").value;
+		let phone2 = document.getElementById("H_phone2").value;
+		let phone3 = document.getElementById("H_phone3").value;
+		let phone = phone1 + phone2 + phone3;
 		let age = document.getElementById("H_age").value;
 		let gender = document.getElementById("H_gender").value;
 		let nickname = document.getElementById("H_nickname").value;
@@ -110,12 +116,13 @@
 			event.preventDefault();
 			return;
 		}
-		if (tnc == 'n') {
+		if (tnc == 'n' || tnc == null) {
 			alert("회원가입을 위해 이용약관에 동의해주세요.")
 			event.preventDefault();
 			return;
 		}
 		f.action = "${pageContext.request.contextPath }/member/join.do";
+		f.submit();
 	}
 </script>
 </head>
@@ -127,7 +134,7 @@
 			<tr>
 				<td colspan="2">
 				<input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
-				<img id="preview"><br/>
+				<img src="../img/a.jpg" id="preview" style="width: 200px; height: 200px"><br/>
 				<input type="button" value="삭제" id="del" onclick="reset(this.img);">
 <!-- 				<input type="file" class="hidden_input" id="imageSelector" name="imagepath" accept="image/jpeg,image/jpg,image/png" multiple> -->
 <!-- 				<img src="" class="thumb" style="width: 200px; height: 200px"> -->
@@ -145,12 +152,25 @@
 				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6></td>
 			</tr>
 			<tr>
+				<td>비밀번호 확인</td>
+				<td><input type="password" name="pwdcheck" id="H_pwdcheck"><br/>
+<!-- 				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6> -->
+				</td>
+			</tr>
+			<tr>
 				<td>이름</td>
 				<td><input type="text" name="name" id="H_name"></td>
 			</tr>
 			<tr>
 				<td>핸드폰번호</td>
-				<td><input type="text" name="phone" ID="H_phone">
+				<td>
+				<select name="phone1" id="H_phone1">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="017">011</option>
+				</select>
+				<input type="text" name="phone2" ID="H_phone2" pattern="\d*" maxlength="4">
+				<input type="text" name="phone3" ID="H_phone3" pattern="\d*" maxlength="4">
 				<span id="res2"></span>
 				<input type="button" value="중복확인" onclick="checkPhone()"></td>
 			</tr>
@@ -215,11 +235,11 @@
 			<tr>
 				<td colspan="2" align="right">
 				<input type="radio" value="y" name="tnc">동의 
-				<input type="radio" value="n" name="tnc">미동의 
+				<input type="radio" value="n" name="tnc" checked>미동의 
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="submit" value="가입" onclick="check()"></td>
+				<td colspan="2" align="right"><input type="button" value="가입" onclick="check()"></td>
 			</tr>
 		</table>
 	</form>

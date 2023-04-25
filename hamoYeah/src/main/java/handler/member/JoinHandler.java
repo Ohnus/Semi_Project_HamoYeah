@@ -34,7 +34,10 @@ public class JoinHandler implements Handler {
 			String memberId = multipart.getParameter("memberId");
 			String pwd = multipart.getParameter("pwd");
 			String name = multipart.getParameter("name");
-			String phone = multipart.getParameter("phone");
+			String phone1 = multipart.getParameter("phone1");
+			String phone2 = multipart.getParameter("phone2");
+			String phone3 = multipart.getParameter("phone3");
+			String phone = phone1 + phone2 + phone3;
 			String nickname = multipart.getParameter("nickname");
 			String gender = multipart.getParameter("gender");
 			String age = multipart.getParameter("age");

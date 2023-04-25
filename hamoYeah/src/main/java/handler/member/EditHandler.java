@@ -40,21 +40,39 @@ public class EditHandler implements Handler {
 			
 			String memberId = request.getParameter("memberId");
 			String pwd = multipart.getParameter("pwd");
-			String phone = multipart.getParameter("phone");
-			String age = multipart.getParameter("age");
+			String phone1 = multipart.getParameter("phone1");
+			String phone2 = multipart.getParameter("phone2");
+			String phone3 = multipart.getParameter("phone3");
+			String phone = phone1 + phone2 + phone3;
 			String nickname = multipart.getParameter("nickname");
-			String tag1 = multipart.getParameter("tag");
-			String tag2 = multipart.getParameter("tag");
-			String tag3 = multipart.getParameter("tag");
+			String age = multipart.getParameter("age");
+			String[] tagVal = multipart.getParameterValues("tag");
+			String tag1 = null;
+			String tag2 = null;
+			String tag3 = null;
+			if (tagVal != null) {
+				if (tagVal.length > 0) {
+					tag1 = tagVal[0];
+				}
+				if (tagVal.length > 1) {
+					tag2 = tagVal[1];
+				}
+				if (tagVal.length > 2) {
+					tag3 = tagVal[2];
+				}
+			}
 			String intro = multipart.getParameter("intro");
-			
 			File f = multipart.getFile("imagepath");
-			String imagepath = "\\HmemberImg\\"+f.getName();
-			
+			String imagepath = "";
+			if (f == null) {
+				imagepath = "\\HmemberImg\\nopic.png"; 
+			} else {
+				imagepath = "\\HmemberImg\\" + f.getName();
+			}			
 			HMemberService service = new HMemberService();
 			service.editInfo(new HMemberVo(memberId, pwd, "", phone, nickname, "", age, intro, tag1, tag2, tag3, imagepath));
 			
-			HMemberVo vo = service.getHMember(memberId);
+			HMemberVo vo = service.getHMember(memberId); // 수정된 정보가 아니라 기존 정보 담아서 보내기 때문에 수정된 정보가 안보임
 			request.setAttribute("vo", vo);
 			request.setAttribute("view", "/member/memberform.jsp");
 			view = "/main.jsp";

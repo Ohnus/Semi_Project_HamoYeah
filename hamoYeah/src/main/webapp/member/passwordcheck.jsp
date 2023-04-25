@@ -29,8 +29,8 @@
 			<td>비밀번호</td>
 			<td>
 				<form action="" method="post" id="f">
-					<input type="password" name="pwd" id="pwdip"><input
-						type="submit" value="확인" onclick="check();">
+					<input type="password" name="pwd" id="pwdip">
+					<input type="submit" value="확인" onclick="check();">
 				</form>
 			</td>
 		</tr>

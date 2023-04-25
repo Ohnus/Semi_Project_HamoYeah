@@ -17,6 +17,10 @@ public class LoginHandler implements Handler {
 //			request.setAttribute("view", "/member/login.jsp");
 			view = "/member/login.jsp";
 		} else {
+			
+			
+			
+			
 			String memberId = request.getParameter("memberId");
 			String pwd = request.getParameter("pwd");
 			HMemberService service = new HMemberService();
