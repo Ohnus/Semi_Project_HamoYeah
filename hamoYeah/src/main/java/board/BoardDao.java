@@ -21,7 +21,7 @@ public class BoardDao {
 	public void insert(BoardVo vo) {
 		Connection conn = dbconn.conn();
 		
-		String sql = "insert into H_board values(?, seq_H_board.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into H_board values(?, seq_H_board.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -36,6 +36,7 @@ public class BoardDao {
 			pstmt.setInt(8, vo.getPeopleMax());
 			pstmt.setInt(9, vo.getY_card());
 			pstmt.setInt(10, vo.getProcess());
+			pstmt.setInt(11, vo.getOk());
 
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 추가되었습니다.");
@@ -126,7 +127,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -158,7 +159,7 @@ public class BoardDao {
 			
 			if(rs.next()) {
 				return new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13));
 			}
 			
 		} catch (SQLException e) {
@@ -182,7 +183,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where memberID=? order by board_num desc";
+		String sql = "select * from H_board where member_id=? order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -193,7 +194,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -227,7 +228,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -261,7 +262,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -295,7 +296,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -329,7 +330,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -365,7 +366,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -400,7 +401,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -434,7 +435,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -452,7 +453,7 @@ public class BoardDao {
 	}
 	
 	
-	// 모임 완료된 글 검색 (설정된 모임일 보다 과거)
+	// 모임 완료된 글 검색
 	public ArrayList<BoardVo> selectComplete() {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
@@ -466,7 +467,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -484,7 +485,7 @@ public class BoardDao {
 	}
 	
 	
-	// 모임 진행중인 글 검색 (설정된 모임일이거나 미래)
+	// 모임 진행중인 글 검색
 	public ArrayList<BoardVo> selectOngoing() {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
@@ -498,7 +499,7 @@ public class BoardDao {
 			
 			while(rs.next()) {
 				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
 			
 		} catch (SQLException e) {
@@ -514,6 +515,33 @@ public class BoardDao {
 		}	
 		return list;
 	}
+	
+	// 참여 인원 업데이트
+	public void updateParticipate(BoardVo vo) {
+		Connection conn = dbconn.conn();
+		
+		String sql = "update H_board set ok=? where board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, vo.getOk());
+			
+			int num = pstmt.executeUpdate();
+			System.out.println(num + "줄이 수정되었습니다.");
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
 
 

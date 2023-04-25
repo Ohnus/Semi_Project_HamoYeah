@@ -69,5 +69,8 @@ public class BoardService {
 	public ArrayList<BoardVo> getByOngoing() {
 		return dao.selectOngoing();
 	}
+	
+	public void EditParticipate(BoardVo vo) {
+		dao.updateParticipate(vo);;
+	}
 }
-
