@@ -25,17 +25,17 @@ public class ParticipateService {
 	}
 
 	// select (미승인)
-	public ArrayList<ParticipateVo> getOk0(int boardNum) {
+	public ArrayList<String> getOk0(int boardNum) {
 		return dao.selectOk0(boardNum);
 	}
 
 	// select (승인)
-	public ArrayList<ParticipateVo> getOk1(int boardNum) {
+	public ArrayList<String> getOk1(int boardNum) {
 		return dao.selectOk1(boardNum);
 	}
 
 	// select memberId -- 참여한 모임에 띄울 거.
-	public ArrayList<ParticipateVo> getBoard(String memberId) {
+	public ArrayList<Integer> getBoard(String memberId) {
 		return dao.selectBoard(memberId);
 	}
 }
