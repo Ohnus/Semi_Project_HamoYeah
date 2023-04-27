@@ -60,7 +60,6 @@ function ok(num){
 		let result = confirm('승인 후에는 되돌릴 수 없습니다. 승인하시겠습니까?');
 		if(result){
 			let param = "?boardNum=" + num;
-			alert('갑니다~');
 			f.action = "${pageContext.request.contextPath}/member/okList.do" + param;
 			f.submit();
 		}
@@ -71,7 +70,6 @@ function ok(num){
 <div class="content">
 <div class="con1">
 	<!-- 승인한 사람 리스트 -->
-	<!-- 여기에 (3/5) 이렇게 보여주고 싶음. -->
 	<c:forEach var="vo" items="${list1}">
 		<table>
 			<tr>

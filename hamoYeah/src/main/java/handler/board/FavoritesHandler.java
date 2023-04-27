@@ -20,8 +20,7 @@ public class FavoritesHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		String view = "";
-//		String memberId = request.getParameter("memberId");
-		String memberId = "aaa";
+		String memberId = request.getParameter("memberId");
 		BoardService servBoard = new BoardService();
 		FavoritesService servFav = new FavoritesService();
 		ParticipateService servPar = new ParticipateService();

@@ -32,7 +32,7 @@ h3, h4, h5 {
 <div class="on0">
 <h5>미승인</h5>
 <c:forEach var="vo" items="${listOn0}">
-	<table border="1" href="/main.jsp">
+	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
 			<td>${vo.tag}  <span></span></td></tr>
 		<tr><td>${vo.title }</td></tr>
