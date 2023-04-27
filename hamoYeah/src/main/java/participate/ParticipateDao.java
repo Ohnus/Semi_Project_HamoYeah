@@ -141,17 +141,17 @@ public class ParticipateDao {
 	}
 	
 	// select memberId -- 참여한 모임에 띄울 거. 
-	public ArrayList<Integer> selectBoard(String memberId) {
-		ArrayList<Integer> list = new ArrayList<>();
+	public ArrayList<ParticipateVo> selectPvo(String memberId) {
+		ArrayList<ParticipateVo> list = new ArrayList<>();
 		Connection conn = dbconn.conn();
-		String sql = "select board_num from H_participate where member_id = ?";
+		String sql = "select * from H_participate where member_id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
 
 			ResultSet rs = pstmt.executeQuery(); // select 실행
 			while (rs.next()) { // 첫 줄로 이동하여 데이터 있는지 확인
-				list.add(rs.getInt(1));
+				list.add(new ParticipateVo(rs.getString(1), rs.getInt(2), rs.getInt(3)));
 			}
 
 		} catch (SQLException e) {
