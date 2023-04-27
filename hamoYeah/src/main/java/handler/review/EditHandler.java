@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.BoardService;
-import board.BoardVo;
 import handler.Handler;
 import review.reviewService;
 import review.reviewVo;

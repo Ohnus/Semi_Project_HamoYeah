@@ -2,7 +2,6 @@ package handler.board;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

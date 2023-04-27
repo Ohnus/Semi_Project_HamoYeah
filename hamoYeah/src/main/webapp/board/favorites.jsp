@@ -29,7 +29,7 @@ function change(board, id){
 	xhttp.send(param);
 }
 </script>
-</head>
+</head>  
 <body>
 <h3>내가 찜한 모임</h3>
 <!-- forEach로 리스트 불러오기. 노란 별 이미지 넣어서. -->

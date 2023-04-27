@@ -77,7 +77,7 @@ window.onload = function() {
 <td rowspan="4"><input type="file" name="imagepath" id="imagepath" style="display:none">
 
 <label for="imagepath">
-	<img src="../systemImg/imageadd.png" width="150px" height="150px" id="upload-preview">
+	<img src="../img/imageadd.png" width="150px" height="150px" id="upload-preview">
 </label>
 
 <input type="file" style="display:none" id="imagepath" accept="image/*">

@@ -1,6 +1,5 @@
 package handler.board;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;

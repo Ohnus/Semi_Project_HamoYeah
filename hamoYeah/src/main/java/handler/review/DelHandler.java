@@ -1,13 +1,10 @@
 package handler.review;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import handler.Handler;
 import review.reviewService;
-import review.reviewVo;
 
 public class DelHandler implements Handler {
 

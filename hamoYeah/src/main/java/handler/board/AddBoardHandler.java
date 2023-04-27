@@ -2,8 +2,6 @@ package handler.board;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +32,7 @@ public class AddBoardHandler implements Handler {
 				String memberId = multipart.getParameter("memberId");
 				String title = multipart.getParameter("title");
 				String content = multipart.getParameter("content");
-				String imagepath = multipart.getParameter("imagepath");
+//				String imagepath = multipart.getParameter("imagepath");
 				String place = multipart.getParameter("place");
 				String dDay = multipart.getParameter("dDay");
 				String tag = multipart.getParameter("tag");
@@ -52,7 +50,7 @@ public class AddBoardHandler implements Handler {
 				// 업로드된 파일의 파일객체 반환
 				File f = multipart.getFile("imagepath");
 				// getName(): 파일명 반환
-				String fname = "\\img\\" + f.getName();
+				String fname = "\\HmemberImg\\" + f.getName();
 
 				BoardService service = new BoardService();
 				service.addBoard(new BoardVo(memberId, 0, null, title, content, fname, place, dDay, tag, peopleMax,

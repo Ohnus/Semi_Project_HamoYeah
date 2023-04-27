@@ -1,12 +1,9 @@
 package handler.review;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oreilly.servlet.MultipartRequest;
 
 import handler.Handler;
 import review.reviewService;

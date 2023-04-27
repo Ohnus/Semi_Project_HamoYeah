@@ -9,7 +9,6 @@ import board.BoardService;
 import board.BoardVo;
 import handler.Handler;
 import participate.ParticipateService;
-import participate.ParticipateVo;
 
 public class HostHandler implements Handler {
 

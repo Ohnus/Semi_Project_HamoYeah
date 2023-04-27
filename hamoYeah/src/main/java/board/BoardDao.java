@@ -89,7 +89,7 @@ public class BoardDao {
 	public void delete(int board_num) {
 		Connection conn = dbconn.conn();
 		
-		String sql = "delete H_board wehre board_num=?";
+		String sql = "delete H_board where board_num=?";
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
