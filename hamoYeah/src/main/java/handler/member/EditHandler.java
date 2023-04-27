@@ -37,8 +37,15 @@ public class EditHandler implements Handler {
 				e.printStackTrace();
 			}
 			
+			HMemberVo vo = new HMemberVo();
 			String memberId = request.getParameter("memberId");
 			String pwd = multipart.getParameter("pwd");
+			String resetpwd = "";
+			if(pwd == null) {
+				resetpwd = vo.getPwd();
+			} else {
+				resetpwd = pwd;
+			}
 			String phone1 = multipart.getParameter("phone1");
 			String phone2 = multipart.getParameter("phone2");
 			String phone3 = multipart.getParameter("phone3");
@@ -69,9 +76,9 @@ public class EditHandler implements Handler {
 				imagepath = "\\HmemberImg\\" + f.getName();
 			}
 			HMemberService service = new HMemberService();
-			service.editInfo(new HMemberVo(memberId, pwd, "", phone, nickname, "", age, intro, tag1, tag2, tag3, imagepath));
+			service.editInfo(new HMemberVo(memberId, resetpwd, "", phone, nickname, "", age, intro, tag1, tag2, tag3, imagepath));
 			
-			HMemberVo vo = service.getHMember(memberId);
+			vo = service.getHMember(memberId);
 			request.setAttribute("vo", vo);
 //			request.setAttribute("view", "/member/editInfo.jsp");
 			view = "redirect:/member/mypage.do?memberId=" + memberId;
