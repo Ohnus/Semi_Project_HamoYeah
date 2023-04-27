@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conn.DBConnect;
 
@@ -16,7 +17,7 @@ public class CommentDao {
 	
 	public void insert(CommentVo vo) {
 		Connection conn = dbconn.conn();
-		String sql = "insert into h_comment values(?, ?, seq_comment.nextval, ?, ?)";
+		String sql = "insert into h_comment values(?, ?, seq_h_comment.nextval, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);		
 			pstmt.setString(1, vo.getMemberId());
@@ -39,7 +40,58 @@ public class CommentDao {
 			}
 		}
 	}
-	
+	//1차 댓글 검색
+	public ArrayList<CommentVo> selectByboardNum(int boardNum){
+		ArrayList<CommentVo> list = new ArrayList<>();
+		Connection conn = dbconn.conn();
+		String sql = "select * from h_comment where board_num=? and re_rep_num=0";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new CommentVo(rs.getString(1),rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));				
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+		
+	}
+	//대댓글 검색
+	public ArrayList<CommentVo> selectByrepNum(int repNum){
+		ArrayList<CommentVo> list = new ArrayList<>();
+		Connection conn = dbconn.conn();
+		String sql = "select * from h_comment where rep_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, repNum);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new CommentVo(rs.getString(1),rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));				
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+		
+	}
 	public void delete(String memberId) {
 		Connection conn = dbconn.conn();
 

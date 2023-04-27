@@ -1,11 +1,14 @@
 package comment;
 
+import java.util.ArrayList;
+
 public class CommentVo {
 	private String memberId;
 	private int boardNum;
 	private int repNum;
 	private int reRepNum;
 	private String content;
+	private ArrayList<CommentVo> re_rep;
 	
 	public CommentVo() {
 		
@@ -17,6 +20,19 @@ public class CommentVo {
 		this.repNum = repNum;
 		this.reRepNum = reRepNum;
 		this.content = content;
+	}
+	public CommentVo(String memberId, int boardNum, String content, int reRepNum) {
+		super();
+		this.memberId = memberId;
+		this.boardNum = boardNum;
+		this.content = content;
+	}
+	
+	public ArrayList<CommentVo> getRe_rep() {
+		return re_rep;
+	}
+	public void setRe_rep(ArrayList<CommentVo> re_rep) {
+		this.re_rep = re_rep;
 	}
 	public String getMemberId() {
 		return memberId;
