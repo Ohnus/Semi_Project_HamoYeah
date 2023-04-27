@@ -65,7 +65,7 @@ public class EditHandler implements Handler {
 			File f = multipart.getFile("imagepath");
 			String imagepath = "";
 			if (f == null) {
-				imagepath = "\\HmemberImg\\nopic.png"; 
+				imagepath = "\\HmemberImg\\nopic.jpg"; 
 			} else {
 				imagepath = "\\HmemberImg\\" + f.getName();
 			}			
@@ -74,8 +74,8 @@ public class EditHandler implements Handler {
 			
 			HMemberVo vo = service.getHMember(memberId); // 수정된 정보가 아니라 기존 정보 담아서 보내기 때문에 수정된 정보가 안보임
 			request.setAttribute("vo", vo);
-			request.setAttribute("view", "/member/memberform.jsp");
-			view = "/main.jsp";
+//			request.setAttribute("view", "/member/editInfo.jsp");
+			view = "redirect:/member/mypage.do?memberId=" + memberId;
 		}
 		return view;
 	}

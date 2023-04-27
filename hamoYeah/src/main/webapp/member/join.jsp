@@ -13,7 +13,7 @@
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				document.getElementById('preview').style = "width: 200px; height: 200px";
+// 				document.getElementById('preview').style = "width: 200px; height: 200px";
 				document.getElementById('preview').src = e.target.result;
 			};
 			reader.readAsDataURL(input.files[0]);
@@ -21,13 +21,9 @@
 			document.getElementById('preview').src = "";
 		}
 	}
-	// input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
-	// 따라서 초기화하고자 할 경우 아래 코드
-	function reset(img) {
-		document.getElementById('preview').src = "";
+	function imgReset() {
+		document.getElementById('preview').src = "../img/a.jpg";
 		document.getElementById('img').value = null;
-// 		img.upload.select();
-// 		document.selection.clear();
 	    }
 	function checkId() {
 		const xhttp = new XMLHttpRequest();
@@ -92,37 +88,77 @@
 	}
 	
 	function check() {
-		let id = document.getElementById("H_id").value;
-		let password = document.getElementById("H_pwd").value;
-		let name = document.getElementById("H_name").value;
-		let phone1 = document.getElementById("H_phone1").value;
-		let phone2 = document.getElementById("H_phone2").value;
-		let phone3 = document.getElementById("H_phone3").value;
-		let phone = phone1 + phone2 + phone3;
-		let age = document.getElementById("H_age").value;
-		let gender = document.getElementById("H_gender").value;
-		let nickname = document.getElementById("H_nickname").value;
-		let tnc = document.querySelector('input[name="tnc"]:checked').value;
-		// querySelector: DOM 요소를 선택하는 데 사용, getElementBy는 HTMLCollection 또는 NodeList형태로 반환
-		// querySelector는 NodeList형태로 반환, 선택자의 다양한 유형을 지원하므로 복잡한 선택 작업 가능함
-		let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
-		if (id == '' || password == '' || name == '' || phone == '' || age == '' || gender == '' || nickname == '') {
-			alert("관심사와 한줄 소개를 제외한 양식을 모두 입력해 주세요.")
-			event.preventDefault();
-			return;
+		const xhttp = new XMLHttpRequest();
+		
+		let phoneCheck1 = f.phone1.value;
+		let phoneCheck2 = f.phone2.value;
+		let phoneCheck3 = f.phone3.value;
+		let phoneCheck = phoneCheck1 + phoneCheck2 + phoneCheck3;
+		
+		let param = "memberId=" + f.memberId.value;
+		param += "&phone=" + phoneCheck;
+		param += "&nickname=" + f.nickname.value;
+		xhttp.open("POST", "${pageContext.request.contextPath}/member/joincheck.do");
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(param);
+
+		xhttp.onload = function() {
+			let val = xhttp.responseText;
+			let obj = JSON.parse(val);
+			if (obj.flag == 1) {
+				alert("중복된 아이디입니다.");
+				event.preventDefault();
+			} else if(obj.flag == 2) {
+				alert("중복된 핸드폰번호입니다.");
+				event.preventDefault();
+			} else if(obj.flag == 3){
+				alert("중복된 닉네임입니다.");
+				event.preventDefault();
+			} else if(obj.flag == 0) {
+				let id = document.getElementById("H_id").value;
+				let password = document.getElementById("H_pwd").value;
+				let passwordcheck = document.getElementById("H_pwdcheck").value;
+				let name = document.getElementById("H_name").value;
+				let phone1 = document.getElementById("H_phone1").value;
+				let phone2 = document.getElementById("H_phone2").value;
+				let phone3 = document.getElementById("H_phone3").value;
+				let phone = phone1 + phone2 + phone3;
+				let age = document.getElementById("H_age").value;
+				let gender = document.getElementById("H_gender").value;
+				let nickname = document.getElementById("H_nickname").value;
+				let tnc = document.querySelector('input[name="tnc"]:checked').value;
+				// querySelector: DOM 요소를 선택하는 데 사용, getElementBy는 HTMLCollection 또는 NodeList형태로 반환
+				// querySelector는 NodeList형태로 반환, 선택자의 다양한 유형을 지원하므로 복잡한 선택 작업 가능함
+// 				let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
+				if(password != passwordcheck) {
+					alert("입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.");
+					event.preventDefault();
+					return;
+// 					let msg = '<h6 style="color:red">입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.</h6>';
+// 					let res4 = document.getElementById("res4");
+// 					res4.style.color = "red";
+// 					res4.innerHTML = msg;
+				}
+				if (id == '' || password == '' || name == '' || phone == '' || age == '' || gender == '' || nickname == '') {
+					alert("관심사와 한줄 소개를 제외한 양식을 모두 입력해 주세요.")
+					event.preventDefault();
+					return;
+				}
+// 				if (!str.test(password)) {
+// 					alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
+// 					event.preventDefault();
+// 					return;
+// 				}
+				if (tnc == 'n' || tnc == null) {
+					alert("회원가입을 위해 이용약관에 동의해주세요.")
+					event.preventDefault();
+					return;
+				}
+				f.action = "${pageContext.request.contextPath }/member/join.do";
+				f.submit();
+			}
 		}
-		if (!str.test(password)) {
-			alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
-			event.preventDefault();
-			return;
-		}
-		if (tnc == 'n' || tnc == null) {
-			alert("회원가입을 위해 이용약관에 동의해주세요.")
-			event.preventDefault();
-			return;
-		}
-		f.action = "${pageContext.request.contextPath }/member/join.do";
-		f.submit();
+
 	}
 </script>
 </head>
@@ -134,11 +170,8 @@
 			<tr>
 				<td colspan="2">
 				<input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
-				<img src="../img/a.jpg" id="preview" style="width: 200px; height: 200px"><br/>
-				<input type="button" value="삭제" id="del" onclick="reset(this.img);">
-<!-- 				<input type="file" class="hidden_input" id="imageSelector" name="imagepath" accept="image/jpeg,image/jpg,image/png" multiple> -->
-<!-- 				<img src="" class="thumb" style="width: 200px; height: 200px"> -->
-<!-- 				<input type="button" value="삭제" class="dellink" onclick="void(0);"> -->
+				<img src="../img/nopic.jpg" id="preview" style="width: 200px; height: 200px"><br/>
+				<input type="button" value="삭제" id="del" onclick="imgReset();">
 				</td>
 			</tr>
 			<tr>
@@ -154,6 +187,7 @@
 			<tr>
 				<td>비밀번호 확인</td>
 				<td><input type="password" name="pwdcheck" id="H_pwdcheck"><br/>
+				<span id="res4"></span>
 <!-- 				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6> -->
 				</td>
 			</tr>
@@ -201,16 +235,16 @@
 			<tr>
 				<td>관심사</td>
 				<td>
-				<input type="checkbox" name="tag" id="t" value="문화/예술">문화/예술 
-				<input type="checkbox" name="tag" id="t" value="운동/액티비티">운동/액티비티 
-				<input type="checkbox" name="tag" id="t" value="푸드/드링크">푸드/드링크 
-				<input type="checkbox" name="tag" id="t" value="취미">취미 
-				<input type="checkbox" name="tag" id="t" value="봉사활동">봉사활동 <br />
-				<input type="checkbox" name="tag" id="t" value="반려동물">반려동물 
-				<input type="checkbox" name="tag" id="t" value="자기계발">자기계발 
-				<input type="checkbox" name="tag" id="t" value="대화">대화 
-				<input type="checkbox" name="tag" id="t" value="창작">창작 
-				<input type="checkbox" name="tag" id="t" value="멍때리기">멍때리기 
+				<input type="checkbox" name="tag" id="t" value="문화/예술" class="tagtest">문화/예술 
+				<input type="checkbox" name="tag" id="t" value="운동/액티비티" class="tagtest">운동/액티비티 
+				<input type="checkbox" name="tag" id="t" value="푸드/드링크" class="tagtest">푸드/드링크 
+				<input type="checkbox" name="tag" id="t" value="취미" class="tagtest">취미 
+				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동 <br />
+				<input type="checkbox" name="tag" id="t" value="반려동물" class="tagtest">반려동물 
+				<input type="checkbox" name="tag" id="t" value="자기계발" class="tagtest">자기계발 
+				<input type="checkbox" name="tag" id="t" value="대화" class="tagtest">대화 
+				<input type="checkbox" name="tag" id="t" value="창작" class="tagtest">창작 
+				<input type="checkbox" name="tag" id="t" value="멍때리기" class="tagtest">멍때리기 
 				<script>
 				const maxAllowed = 3;
 				const checkboxes = document.querySelectorAll('input[type=checkbox]');

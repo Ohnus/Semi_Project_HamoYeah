@@ -5,6 +5,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.startup.SetAllPropertiesRule;
+import org.json.simple.JSONObject;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -19,14 +23,15 @@ public class JoinHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		String view = "";
 		if (request.getMethod().equals("GET")) {
-//			request.setAttribute("view", "/member/join.jsp");
+			
 			view = "/member/join.jsp"; // include 안하고 회원가입 페이지로 따로 이동
 		} else {
 			int size = 100 * 1024 * 1024; // 100M
 
 			MultipartRequest multipart = null;
 			try {
-				multipart = new MultipartRequest(request, HMemberService.path, size, "UTF-8", new DefaultFileRenamePolicy());
+				multipart = new MultipartRequest(request, HMemberService.path, size, "UTF-8",
+						new DefaultFileRenamePolicy());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -60,13 +65,12 @@ public class JoinHandler implements Handler {
 			File f = multipart.getFile("imagepath");
 			String imagepath = "";
 			if (f == null) {
-				imagepath = "\\HmemberImg\\nopic.png"; 
+				imagepath = "\\HmemberImg\\nopic.jpg";
 			} else {
 				imagepath = "\\HmemberImg\\" + f.getName();
 			}
 			HMemberService service = new HMemberService();
 			service.join(new HMemberVo(memberId, pwd, name, phone, nickname, gender, age, intro, tag1, tag2, tag3, imagepath));
-
 			view = "redirect:/member/login.do";
 		}
 		return view;

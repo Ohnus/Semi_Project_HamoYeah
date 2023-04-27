@@ -20,8 +20,8 @@
 			document.getElementById('preview').src = "";
 		}
 	}
-	function reset() {
-		document.getElementById('preview').src = "";
+	function imgReset() {
+		document.getElementById('preview').src = "../img/a.jpg";
 		document.getElementById('img').value = null;
 //		input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
 //		따라서 초기화하고자 할 경우 아래 코드
@@ -76,26 +76,70 @@
 		btn.style.display = "none";
 	}
 	function edit() {
-		let password = document.getElementById("H_pwd").value;
-		let phone1 = document.getElementById("H_phone1").value;
-		let phone2 = document.getElementById("H_phone2").value;
-		let phone3 = document.getElementById("H_phone3").value;
-		let phone = phone1 + phone2 + phone3;
-		let age = document.getElementById("H_age").value;
-		let nickname = document.getElementById("H_nickname").value;
-		let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
-		if (phone == '' || age == '' || nickname == '') {
-			alert("관심사와 한줄 소개를 제외한 양식을 모두 입력해 주세요.")
+		const xhttp = new XMLHttpRequest();
+
+		let phoneCheck1 = f.phone1.value;
+		let phoneCheck2 = f.phone2.value;
+		let phoneCheck3 = f.phone3.value;
+		let phoneCheck = phoneCheck1 + phoneCheck2 + phoneCheck3;
+	
+		let param = "?memberId=" + f.memberId.value;
+		param += "&phone=" + phoneCheck;
+		param += "&nickname=" + f.nickname.value;
+		xhttp.open("get", "${pageContext.request.contextPath}/member/editcheck.do" + param);
+		xhttp.send(param);
+
+		xhttp.onload = function() {
+			let val = xhttp.responseText;
+			let obj = JSON.parse(val);
+			if(obj.flag == 1) {
+				alert("중복된 핸드폰번호입니다.");
+				event.preventDefault();
+			} else if(obj.flag == 2){
+				alert("중복된 닉네임입니다.");
+				event.preventDefault();
+			} else if(obj.flag == 0) {
+				let password = document.getElementById("H_pwd").value;
+				let passwordcheck = document.getElementById("H_pwdcheck").value;
+				let phone1 = document.getElementById("H_phone1").value;
+				let phone2 = document.getElementById("H_phone2").value;
+				let phone3 = document.getElementById("H_phone3").value;
+				let phone = phone1 + phone2 + phone3;
+				let age = document.getElementById("H_age").value;
+				let nickname = document.getElementById("H_nickname").value;
+// 				let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
+				if(password != passwordcheck) {
+					alert("입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.");
+					event.preventDefault();
+					return;
+				}
+				if (phone == '' || age == '' || nickname == '') {
+					alert("관심사와 한줄 소개를 제외한 양식을 모두 입력해 주세요.")
+					event.preventDefault();
+					return;
+				}
+// 				if (!str.test(password)) {
+// 				alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
+// 				event.preventDefault();
+// 				return;
+// 				}
+				f.action = "${pageContext.request.contextPath}/member/edit.do?memberId=${sessionScope.loginId }";
+				f.submit();
+			}
+		}
+	}
+	function delmember(){
+		let check = confirm("정말 탈퇴하시겠습니까?");
+		if(check == true){
+			let out = prompt("탈퇴를 진행하시려면 '탈퇴'를 입력하세요.");
+			if(out == "탈퇴"){
+				location.href="${pageContext.request.contextPath}/member/delete.do?memberId=${sessionScope.loginId }";
+				return;
+			}
+		} else {
 			event.preventDefault();
 			return;
 		}
-		if (!str.test(password)) {
-			alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
-			event.preventDefault();
-			return;
-		}
-		f.action = "${pageContext.request.contextPath}/member/edit.do?memberId=${sessionScope.loginId }";
-		f.submit();
 	}
 	window.onload = function(){
 		let a = document.getElementById("H_phone1");
@@ -121,15 +165,24 @@
 				<input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
 				<!-- 경로 오류날 때 입력값 띄워서 확인해보기! -->
 				<img src="${vo.imagepath }" id="preview" style="width: 200px; height: 200px"><br/>
-				<input type="button" value="삭제" id="del" onclick="reset();">
+				<input type="button" value="삭제" id="del" onclick="imgReset();">
 			</td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="pwd" id="H_pwd"><br />
+			<td>
+			<input type="hidden" value="${sessionScope.loginId }" name="memberId" id="H_memberId">
+			<input type="password" name="pwd" id="H_pwd"><br />
 			<!-- 비밀번호만 따로 수정하게 만들까? 핸들러 하나 추가해서 비밀번호만 업데이트 되도록? 고민고민 -->
 			<!-- submit에 onclick 함수 부여하고 비밀번호 핸들러로 슝 -->
 				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6></td>
+		</tr>
+		<tr>
+			<td>비밀번호 확인</td>
+			<td><input type="password" name="pwdcheck" id="H_pwdcheck"><br/>
+			<span id="res4"></span>
+<!-- 		<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6> -->
+			</td>
 		</tr>
 		<tr>
 			<td>핸드폰번호</td>
@@ -177,7 +230,8 @@
 			<input type="checkbox" name="tag" id="t7" value="자기계발" ${tag.contains("자기계발") ? "checked" : ""}>자기계발 
 			<input type="checkbox" name="tag" id="t8" value="대화" ${tag.contains("대화") ? "checked" : ""}>대화 
 			<input type="checkbox" name="tag" id="t9" value="창작" ${tag.contains("창작") ? "checked" : ""}>창작 
-			<input type="checkbox" name="tag" id="t10" value="멍때리기" ${tag.contains("멍때리기") ? "checked" : ""}>멍때리기 
+			<input type="checkbox" name="tag" id="t10" value="멍때리기" ${tag.contains("멍때리기") ? "checked" : ""}>멍때리기
+<%-- 			<br/>${tag[0]} / ${tag[1]} / ${tag[2]} --%>
 			<script>
 				const maxAllowed = 3;
 				const checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -198,8 +252,9 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-			<input type="submit" value="수정" onclick="edit();">
+			<input type="button" value="수정" onclick="edit()">
 			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/member/mypage.do?memberId=${sessionScope.loginId}'">
+			<input type="button" value="탈퇴" onclick="delmember()">
 			</td>
 		</tr>
 	</table>

@@ -85,8 +85,8 @@ public class ParticipateDao {
 	}
 	
 	// select (미승인)
-	public ArrayList<ParticipateVo> selectOk0(int boardNum) {
-		ArrayList<ParticipateVo> list = new ArrayList<>();
+	public ArrayList<String> selectOk0(int boardNum) {
+		ArrayList<String> list = new ArrayList<>();
 		Connection conn = dbconn.conn();
 		String sql = "select member_id from H_participate where ok = 0 and board_num = ?";
 		try {
@@ -95,7 +95,7 @@ public class ParticipateDao {
 
 			ResultSet rs = pstmt.executeQuery(); // select 실행
 			while (rs.next()) { // 첫 줄로 이동하여 데이터 있는지 확인
-				list.add(new ParticipateVo(rs.getString(1), rs.getInt(2), rs.getInt(3)));
+				list.add(rs.getString(1));
 			}
 
 		} catch (SQLException e) {
@@ -113,8 +113,8 @@ public class ParticipateDao {
 	}
 	
 	// select (승인)
-	public ArrayList<ParticipateVo> selectOk1(int boardNum) {
-		ArrayList<ParticipateVo> list = new ArrayList<>();
+	public ArrayList<String> selectOk1(int boardNum) {
+		ArrayList<String> list = new ArrayList<>();
 		Connection conn = dbconn.conn();
 		String sql = "select member_id from H_participate where ok = 1 and board_num = ?";
 		try {
@@ -123,7 +123,7 @@ public class ParticipateDao {
 			
 			ResultSet rs = pstmt.executeQuery(); // select 실행
 			while (rs.next()) { // 첫 줄로 이동하여 데이터 있는지 확인
-				list.add(new ParticipateVo(rs.getString(1), rs.getInt(2), rs.getInt(3)));
+				list.add(rs.getString(1));
 			}
 
 		} catch (SQLException e) {
@@ -141,10 +141,10 @@ public class ParticipateDao {
 	}
 	
 	// select memberId -- 참여한 모임에 띄울 거. 
-	public ArrayList<ParticipateVo> selectBoard(String memberId) {
+	public ArrayList<ParticipateVo> selectPvo(String memberId) {
 		ArrayList<ParticipateVo> list = new ArrayList<>();
 		Connection conn = dbconn.conn();
-		String sql = "select board_num from H_participate where memberId = ?";
+		String sql = "select * from H_participate where member_id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
