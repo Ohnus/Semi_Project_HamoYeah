@@ -18,8 +18,7 @@ public class ParticipateListHandler implements Handler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		// String memberId = request.getParameter("memberId");
-		String memberId = "aaa";
+		String memberId = request.getParameter("memberId");
 		BoardService servBoard = new BoardService();
 		ParticipateService servPar = new ParticipateService();
 		BoardVo bvo = new BoardVo();

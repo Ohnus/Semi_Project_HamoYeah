@@ -35,9 +35,8 @@ function change(board, id){
 <!-- forEach로 리스트 불러오기. 노란 별 이미지 넣어서. -->
 <c:forEach var="vo" items="${finalList}">
 		<table border="1">
-<%-- 			<tr><td rowspan="4"></td><td>${vo.tag}<img src="../img/F1.png" id="img_${vo.boardNum}" style="width:10ps; height:10px;" onclick="change(${vo.boardNum}, ${sessionScope.loginId})"></td></tr> --%>
 			<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
-				<td>${vo.tag}<img src="../img/F1.png" id="img_${vo.boardNum}" style="width:30ps; height:30px;" onclick="change('${vo.boardNum}', 'aaa')"></td></tr>
+				<td>${vo.tag}<img src="../img/F1.png" id="img_${vo.boardNum}" style="width:30ps; height:30px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId}')"></td></tr>
 			<tr><td>${vo.title }</td></tr>
 			<tr><td>${vo.place}/${vo.dDay}</td></tr>
 			<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
