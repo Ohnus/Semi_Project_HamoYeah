@@ -18,14 +18,14 @@ public class reviewDao {
 	//리뷰작성(add)
 	public void insert(reviewVo vo) {
 		Connection conn = dbconn.conn();
-		String sql = "insert into H_review values(?,seq_H_review.nextval, ?, sysdate,0,?,?)";
+		String sql = "insert into H_review values(?,seq_H_review.nextval, ?, sysdate,0,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMember_id());
 			pstmt.setInt(2, vo.getBoard_num());
 			pstmt.setString(3, vo.getImagepath());
 			pstmt.setString(4, vo.getContent());
-
+			pstmt.setString(5, vo.getTag());
 			int num = pstmt.executeUpdate();
 			System.out.println(num + " 줄이 추가되었다");
 		} catch (SQLException e) {
@@ -65,27 +65,7 @@ public class reviewDao {
 		}
 	}
 
-	// delete: primary key(review_num)로 찾아서 삭제
-	public void delete(int review_num) {
-		Connection conn = dbconn.conn();
-		String sql = "delete from H_review where review_num=?";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, review_num);
-			int num = pstmt.executeUpdate();
-			System.out.println(num + " 줄이 삭제됨");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 	
 	//selectAll(review 전체목록 띄우기)
 	public ArrayList<reviewVo> selectAll(){
@@ -109,6 +89,7 @@ public class reviewDao {
 				e.printStackTrace();
 			}
 		}
+		
 		return list;
 	}
 	
@@ -164,7 +145,75 @@ public class reviewDao {
 		return list;
 	}
 	
-}
+	//selectByReviewNum(ReviewNum로 검색)
+	public reviewVo selectByReviewNum(int review_num) {
+		Connection conn = dbconn.conn();
+		String sql = "select * from H_review where review_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, review_num);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	//board num(primary key)으로 찾아서 삭제
+	public void delete(String member_id) {
+		Connection conn = dbconn.conn();
+		String sql = "delete from h_review where member_id=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			int num = pstmt.executeUpdate();
+			System.out.println(num + " 줄이 삭제됨");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// delete: primary key(review_num)로 찾아서 삭제
+		public void delete(int review_num) {
+			Connection conn = dbconn.conn();
+			String sql = "delete from H_review where review_num=?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, review_num);
+				int num = pstmt.executeUpdate();
+				System.out.println(num + " 줄이 삭제됨");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 
