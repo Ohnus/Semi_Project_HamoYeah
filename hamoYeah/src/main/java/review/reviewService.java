@@ -1,13 +1,18 @@
 package review;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
 
 public class reviewService {
 	private reviewDao dao;
-	public final static String downDir ="C:\\down\\";
-
+	public final static String path = "C:\\Users\\Heesoo KIM\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
 	
+	public reviewService() {
+		dao = new reviewDao();
+	}
 	
 	//리뷰작성(add)
 	public void addReview(reviewVo vo) {
@@ -40,10 +45,9 @@ public class reviewService {
 	public ArrayList<reviewVo> selectByMemberId(String member_id){
 		return dao.selectByMemberId(member_id);
 	}
+	
+	public reviewVo getByReviewNum(int review_num) {
+		return dao.selectByReviewNum(review_num);
+	}
 }
-
-
-
-
-
 

@@ -10,7 +10,15 @@ public class reviewVo {
 	private int likes;
 	private String imagepath;
 	private String content;
-	
+	private String tag;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public reviewVo() {};
 	
@@ -25,6 +33,21 @@ public class reviewVo {
 		this.imagepath = imagepath;
 		this.content = content;
 	}
+	
+	public reviewVo(String member_id, int review_num, int board_num, Date r_date, int likes, String imagepath,
+			String content, String tag) {
+		super();
+		this.member_id = member_id;
+		this.review_num = review_num;
+		this.board_num = board_num;
+		this.r_date = r_date;
+		this.likes = likes;
+		this.imagepath = imagepath;
+		this.content = content;
+		this.tag = tag;
+	}
+
+	
 	public String getMember_id() {
 		return member_id;
 	}

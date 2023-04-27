@@ -1,11 +1,11 @@
-package handler.review;
+package handler.likes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import handler.Handler;
 
-public class WriteReviewHandler implements Handler {
+public class UpHandler implements Handler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
