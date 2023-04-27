@@ -35,7 +35,7 @@ public class ParticipateService {
 	}
 
 	// select memberId -- 참여한 모임에 띄울 거.
-	public ArrayList<Integer> getBoard(String memberId) {
-		return dao.selectBoard(memberId);
+	public ArrayList<ParticipateVo> getPvo(String memberId) {
+		return dao.selectPvo(memberId);
 	}
 }
