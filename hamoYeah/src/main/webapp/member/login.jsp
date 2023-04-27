@@ -30,6 +30,12 @@ function loginbtn(){
 			location.href = "${pageContext.request.contextPath}/main.jsp";
 		}
 	}
+// 			if("${sessionScope.loginId}" == "master"){
+// 				location.href = "${pageContext.request.contextPath}/admin/manage.do";
+// 			} else {
+// 				location.href = "${pageContext.request.contextPath}/main.jsp";
+// 			}
+// 		}
 }
 </script>
 </head>

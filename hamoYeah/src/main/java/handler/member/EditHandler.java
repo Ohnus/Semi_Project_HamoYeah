@@ -68,11 +68,11 @@ public class EditHandler implements Handler {
 				imagepath = "\\HmemberImg\\nopic.jpg"; 
 			} else {
 				imagepath = "\\HmemberImg\\" + f.getName();
-			}			
+			}
 			HMemberService service = new HMemberService();
 			service.editInfo(new HMemberVo(memberId, pwd, "", phone, nickname, "", age, intro, tag1, tag2, tag3, imagepath));
 			
-			HMemberVo vo = service.getHMember(memberId); // 수정된 정보가 아니라 기존 정보 담아서 보내기 때문에 수정된 정보가 안보임
+			HMemberVo vo = service.getHMember(memberId);
 			request.setAttribute("vo", vo);
 //			request.setAttribute("view", "/member/editInfo.jsp");
 			view = "redirect:/member/mypage.do?memberId=" + memberId;
