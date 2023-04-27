@@ -19,11 +19,11 @@ public class HMemberService {
 	}
 	
 	public HMemberVo getHMemberByPhone(String phone) {
-		return dao.selectById(phone);
+		return dao.selectByPhone(phone);
 	}
 	
 	public HMemberVo getHMemberByNickname(String nickname) {
-		return dao.selectById(nickname);
+		return dao.selectByNickname(nickname);
 	}
 	
 	public ArrayList<HMemberVo> getAll(){

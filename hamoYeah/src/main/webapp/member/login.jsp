@@ -6,27 +6,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-// function login(){
-// 	const xhttp = new XMLHttpRequest();
-// 	let param = "?memberId=" + f.memberId.value;
-// 	param += "&pwd=" + f.pwd.value;
-// 	xhttp.open("POST", "${pageContext.request.contextPath}/member/idcheck.do");
-// 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-// 	xhttp.send(param);
+function loginbtn(){
+	const xhttp = new XMLHttpRequest();
+	
+	let param = "memberId=" + f.memberId.value;
+	param += "&pwd=" + f.pwd.value;
+	xhttp.open("POST", "${pageContext.request.contextPath}/member/login.do");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
 
-// 	xhttp.onload = function() {
-// 		let val = xhttp.responseText;
-// 		let html = '<h5 style="color:';
-// 		let obj = JSON.parse(val);
-// 		if (obj.flag) { // obj.flag(key) = true or false
-// 			html += 'blue">사용가능한 아이디입니다.</h5>';
-// 		} else {
-// 			html += 'red">사용 불가능한 아이디입니다.</h5>';
-// 		}
-// 		let res = document.getElementById("res");
-// 		res.innerHTML = html;
-// 	}
-// }
+	xhttp.onload = function() {
+		let val = xhttp.responseText;
+		let obj = JSON.parse(val);
+		if (obj.flag == 0) {
+			alert("일치하는 회원정보가 없습니다. 아이디, 비밀번호를 다시 확인해주세요.");
+			event.preventDefault();
+		} else if(obj.flag == 1) {
+			alert("일치하는 회원정보가 없습니다. 아이디, 비밀번호를 다시 확인해주세요.");
+			event.preventDefault();
+		} else if(obj.flag == 2){
+			location.href = "${pageContext.request.contextPath}/admin/manage.do";
+		} else if(obj.flag == 3){
+			location.href = "${pageContext.request.contextPath}/main.jsp";
+		}
+	}
+}
 </script>
 </head>
 <body>
@@ -42,7 +46,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-				<input type="submit" value="로그인">
+				<input type="button" value="로그인" onclick="loginbtn()">
 				<a href="${pageContext.request.contextPath }/member/join.do">회원가입</a>
 				</td>
 			</tr>

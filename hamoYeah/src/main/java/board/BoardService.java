@@ -61,7 +61,7 @@ public class BoardService {
 	public ArrayList<BoardVo> getByContentAndTag(String content, String tag)	{
 		return dao.selectPlaceAndTag(content, tag);
 	}
-		
+	
 	public ArrayList<BoardVo> getByComplete() {
 		return dao.selectComplete();
 	}
@@ -72,5 +72,13 @@ public class BoardService {
 	
 	public void EditParticipate(BoardVo vo) {
 		dao.updateParticipate(vo);;
+	}
+	
+	public void Recovery(int boardnum) {
+		dao.updateProcessRe(boardnum);
+	}
+	
+	public void Stop(int boardnum) {
+		dao.updateProcessStop(boardnum);
 	}
 }

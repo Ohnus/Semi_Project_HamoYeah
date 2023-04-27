@@ -543,6 +543,50 @@ public class BoardDao {
 		}
 	}
 	
+	// 신고된 글 복구
+	public void updateProcessRe(int boardnum) {
+		Connection conn = dbconn.conn();
+		String sql = "update H_board set process=1, y_card=0 where board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardnum);
+			int num = pstmt.executeUpdate();
+			System.out.println(num + "줄이 수정되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 신고된 글 삭제
+	public void updateProcessStop(int boardnum) {
+		Connection conn = dbconn.conn();
+		String sql = "update H_board set process=2 where board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardnum);
+			int num = pstmt.executeUpdate();
+			System.out.println(num + "줄이 수정되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
 
 
