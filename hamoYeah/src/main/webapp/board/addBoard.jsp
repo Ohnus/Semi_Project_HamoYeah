@@ -66,7 +66,7 @@ window.onload = function() {
 
 <table border="1">
 <tr><td colspan="4">모임 게시글 등록</td></tr>
-<tr><td>작성자</td><td colspan="3">${sessionScope.loginId }</td></tr>
+<tr><td>작성자</td><td colspan="3">${sessionScope.loginId }<input type="hidden" name="memberId" value="${sessionScope.loginId }"></td></tr>
 <tr><td colspan="4">
 <input type="text" name="title" id="title" placeholder="제목을 입력해주세요(최대 40자)"> </td></tr>
 
