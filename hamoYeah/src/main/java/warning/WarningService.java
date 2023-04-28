@@ -1,5 +1,6 @@
 package warning;
 
+import java.util.ArrayList;
 
 public class WarningService {
 private WarningDao dao;
@@ -8,7 +9,11 @@ private WarningDao dao;
 		dao = new WarningDao();
 	}
 	
-	public void join(WarningVo vo) {
+	public void addWarning(WarningVo vo) {
 		dao.insert(vo);
+	}
+	
+	public ArrayList<WarningVo> selectByNum(int boardNum) {
+		return dao.select(boardNum);
 	}
 }

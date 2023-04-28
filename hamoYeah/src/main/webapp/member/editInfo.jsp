@@ -169,6 +169,10 @@
 			</td>
 		</tr>
 		<tr>
+			<td>아이디</td>
+			<td><span id="memberId">${sessionScope.loginId }</span></td>
+		</tr>
+		<tr>
 			<td>비밀번호</td>
 			<td>
 			<input type="hidden" value="${sessionScope.loginId }" name="memberId" id="H_memberId">
@@ -220,7 +224,7 @@
 		</tr>
 		<tr>
 			<td>관심사</td>
-			<td> <!-- c:if태그로 체크된거 표시? -->
+			<td>
 			<input type="checkbox" name="tag" id="t1" value="문화/예술" ${tag.contains("문화/예술") ? "checked" : ""}>문화/예술 
 			<input type="checkbox" name="tag" id="t2" value="운동/액티비티" ${tag.contains("운동/액티비티") ? "checked" : ""}>운동/액티비티 
 			<input type="checkbox" name="tag" id="t3" value="푸드/드링크" ${tag.contains("푸드/드링크") ? "checked" : ""}>푸드/드링크 
