@@ -1,6 +1,9 @@
 package board;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import comment.CommentVo;
 
 public class BoardVo {
 	private String memberId;
@@ -16,8 +19,10 @@ public class BoardVo {
 	private int y_card;
 	private int process;
 	private int ok;
+	private ArrayList<CommentVo> reps; //수정
 
-	public BoardVo() {}
+	public BoardVo() {
+	}
 
 	public BoardVo(String memberId, int boardNum, Date wDate, String title, String content, String imagepath,
 			String place, String dDay, String tag, int peopleMax, int y_card, int process, int ok) {
@@ -34,6 +39,14 @@ public class BoardVo {
 		this.y_card = y_card;
 		this.process = process;
 		this.ok = ok;
+	}
+
+	public ArrayList<CommentVo> getReps() {
+		return reps;
+	}
+
+	public void setReps(ArrayList<CommentVo> reps) {
+		this.reps = reps;
 	}
 
 	public String getMemberId() {
@@ -144,9 +157,8 @@ public class BoardVo {
 	public String toString() {
 		return "BoardVo [memberId=" + memberId + ", boardNum=" + boardNum + ", wDate=" + wDate + ", title=" + title
 				+ ", content=" + content + ", imagepath=" + imagepath + ", place=" + place + ", dDay=" + dDay + ", tag="
-				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + ", ok=" + ok + "]";
+				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + ", ok=" + ok
+				+ ", reps=" + reps + "]";
 	}
-	
-}
 
-	
+}
