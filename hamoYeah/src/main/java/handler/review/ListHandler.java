@@ -30,8 +30,6 @@ public class ListHandler implements Handler {
 		
 		
 		
-		
-		
 		request.setAttribute("view", "/review/list.jsp");
 		return "/review/list.jsp";
 		

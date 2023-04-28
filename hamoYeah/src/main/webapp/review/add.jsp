@@ -87,7 +87,6 @@
 <tr><th>이미지</th>
 <td><input type="file" id="imagepath" name="imagepath"> 
 
-
 </td></tr>
 <tr><th>작성</th><td>
 	<input type="submit" value="저장" onclick="fincheck()">

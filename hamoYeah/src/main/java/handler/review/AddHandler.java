@@ -31,7 +31,8 @@ public class AddHandler implements Handler {
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 			BoardService bservice = new BoardService();
 			BoardVo vo = bservice.getByBoardNum(boardNum);
-						
+				
+			
 			//작성자(session.loginId)가 안당겨짐
 			//보드의 태그가 안당겨짐
 			//원글번호가 안당겨짐

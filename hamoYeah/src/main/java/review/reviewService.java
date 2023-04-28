@@ -36,12 +36,10 @@ public class reviewService {
 		return dao.selectByMemberId(tag);
 	}
 
-	
 	//selectByMember(작성자로 검색)
 	public ArrayList<reviewVo> getByMemberId(String memberId){
 		return dao.selectByMemberId(memberId);
 	}
-	
 	
 	public reviewVo getByReviewNum(int reviewNum) {
 		return dao.selectByReviewNum(reviewNum);

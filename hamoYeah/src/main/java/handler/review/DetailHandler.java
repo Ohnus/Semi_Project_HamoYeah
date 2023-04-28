@@ -15,7 +15,6 @@ public class DetailHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 
-	
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 		reviewService service = new reviewService();
 				
