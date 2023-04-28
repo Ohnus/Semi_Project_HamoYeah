@@ -617,6 +617,37 @@ public class BoardDao {
 			}	
 			return list;
 		}
+		
+		// process 1 (복구) 검색
+		public ArrayList<BoardVo> selectRecovery() {
+			Connection conn = dbconn.conn();
+			ArrayList<BoardVo> list = new ArrayList();
+			
+			String sql = "select * from h_board where process = 1 order by board_num desc";
+				
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+				ResultSet rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
+							rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+			return list;
+		}
 	
 }
 
