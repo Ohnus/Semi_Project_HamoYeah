@@ -27,7 +27,7 @@ function loginbtn(){
 		} else if(obj.flag == 2){
 			location.href = "${pageContext.request.contextPath}/admin/manage.do";
 		} else if(obj.flag == 3){
-			location.href = "${pageContext.request.contextPath}/main.jsp";
+			location.href = "${pageContext.request.contextPath}/board/boardList.do";
 		}
 	}
 // 			if("${sessionScope.loginId}" == "master"){

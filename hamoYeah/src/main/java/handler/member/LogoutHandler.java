@@ -12,7 +12,7 @@ public class LogoutHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);//새 세션 말고 쓰던 세션 가져와라
 		session.invalidate();//세션 무효화
-		return "/main.jsp";
+		return "redirect:/board/boardList.do";
 	}
 
 }
