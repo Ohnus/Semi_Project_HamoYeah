@@ -50,6 +50,7 @@ public class EditBoardHandler implements Handler {
 				String dDay = multipart.getParameter("dDay");
 				String tag = multipart.getParameter("tag");
 				int peopleMax = Integer.parseInt(multipart.getParameter("peopleMax"));
+			
 				
 				BoardService service = new BoardService();
 				

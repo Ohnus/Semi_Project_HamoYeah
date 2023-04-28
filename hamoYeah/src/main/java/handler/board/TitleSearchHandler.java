@@ -10,7 +10,7 @@ import board.BoardService;
 import board.BoardVo;
 import handler.Handler;
 
-public class TagSearchHandler implements Handler {
+public class TitleSearchHandler implements Handler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -24,19 +24,17 @@ public class TagSearchHandler implements Handler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
-		String tag = request.getParameter("id");
+
+		String title = request.getParameter("searchText");
 		
 		BoardService service = new BoardService();
-		ArrayList<BoardVo> list = service.getByTag(tag);
+		ArrayList<BoardVo> list = service.getByTitle(title);
 		
 		request.setAttribute("list", list);
-		request.setAttribute("view", "/board/boardAllList.jsp");
+		request.setAttribute("view", "/board/boardKeywordList.jsp");
 		
 		return "/main.jsp";
-		
-		
 	}
 
 }
