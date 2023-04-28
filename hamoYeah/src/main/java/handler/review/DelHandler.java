@@ -1,5 +1,6 @@
 package handler.review;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,16 +13,14 @@ public class DelHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 	
-		String path = "C:\\Users\\Heesoo KIM\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps";
-		int num = Integer.parseInt(request.getParameter("num"));
-		reviewService s = new reviewService();
-//		reviewVo vo = s.getReview_num(num);
-//		String delf = path+vo.getPath();
-//		File f =new File(delf);
-//		f.delete();
-		s.delReview(num);
+		System.out.println("왔냐");
+		
+		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+		reviewService service = new reviewService();
+		service.delReview(reviewNum);
 		
 		
-		return "/review/list.jsp";
+		return "/review/list.do";
 	}
 }
+
