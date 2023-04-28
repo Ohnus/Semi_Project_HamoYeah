@@ -26,7 +26,9 @@ public class ProcessHandler implements Handler {
 			ArrayList<WarningVo> list = wservice.selectByNum(boardNum);
 			request.setAttribute("bvo", bvo);
 			request.setAttribute("list", list);
-			view = "/admin/managePost.jsp";
+			
+			request.setAttribute("view", "/admin/managePost.jsp");
+			view = "/main.jsp";
 		} else {
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));			
 			int proNum = Integer.parseInt(request.getParameter("proNum"));			

@@ -44,7 +44,6 @@ public class FavoritesHandler implements Handler {
 				}
 			}
 
-
 			// 참가승인된 사람 수를 ok 변수에 넣기.
 			int cnt = 0;
 			for (int i = 0; i < finalList.size(); i++) {
@@ -66,19 +65,22 @@ public class FavoritesHandler implements Handler {
 
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 			fvo = servFav.getFavVo(boardNum, memberId);
-
 			int color = 0;
-			if (fvo.getDelCnt() == 0) { // 노란버튼 누름 (즐겨찾기 취소)
-				servFav.editDel0to1(fvo);
-				color = 1;
-			} else { // 회색버튼 누름 (취소 되돌리기)
-				servFav.editDel1to0(fvo);
-			}
 
+			if (fvo == null) {
+				servFav.insert(new FavoritesVo(memberId, boardNum, 0));
+			} else {
+				if (fvo.getDelCnt() == 0) { // 노란버튼 누름 (즐겨찾기 취소)
+					servFav.editDel0to1(fvo);
+					color = 1;
+				} else { // 회색버튼 누름 (취소 되돌리기)
+					servFav.editDel1to0(fvo);
+				}
+
+			}
 			JSONObject obj = new JSONObject();
 			obj.put("color", color);
 			String txt = obj.toJSONString();
-
 			view = "responsebody/" + txt;
 		}
 		return view;

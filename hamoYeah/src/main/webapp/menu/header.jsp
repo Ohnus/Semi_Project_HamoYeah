@@ -34,10 +34,16 @@ function a(){
 		<a href="${pageContext.request.contextPath}/member/join.do">회원가입</a>
 		<a href="${pageContext.request.contextPath}/member/login.do">로그인</a>
 	</c:if>
-	<c:if test="${not empty sessionScope.loginId }">
+	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId eq 'master'}">
+		<table>
+			<tr><td><a href="${pageContext.request.contextPath}/admin/manage.do">관리자 페이지</a></td>
+				<td><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></td></tr>
+		</table>
+	</c:if>
+	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne 'master'}">
 <table>
 <tr>
-		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/boardList.do">모임</a></td>
+		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/boardAllList.do">모임</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/addBoard.do?memberId=${sessionScope.loginId}">모임등록</a></td>
 		<td><a onmouseover="showH()">히스토리</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/review/reviewList.do">후기</a></td>
@@ -63,5 +69,6 @@ function a(){
 </tr>
 </table>
 	</c:if>
+<!-- memberId=${sessionScope.loginId} -->
 </body>
 </html>
