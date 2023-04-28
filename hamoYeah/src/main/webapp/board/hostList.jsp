@@ -17,6 +17,14 @@ h3, h4 {
 <h3>내가 주최한 모임</h3>
 <h4>진행중인 모임</h4>
 <c:forEach var="vo" items="${listOn}">
+<c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
+	<table border="1" style="border-color:red;">
+		<tr><td>신고된 게시글입니다.</td></tr>
+		<tr><td>${vo.title }</td></tr> <!-- 디테일 링크 걸기 -->
+		<tr><td>${vo.place}/${vo.dDay}</td></tr>
+	</table>
+</c:if>
+<c:if test="${vo.y_card ne 3}"> <!-- ne: != -->
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td><td>${vo.tag}</td></tr>
 		<tr><td>${vo.title }</td></tr>
@@ -24,10 +32,19 @@ h3, h4 {
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
 	<input type="button" value="승인하기" onclick="location.href='${pageContext.request.contextPath}/member/okList.do?boardNum=${vo.boardNum}'">
+</c:if>
 </c:forEach>
 
 <h4>완료된 모임</h4>
 <c:forEach var="vo" items="${listOff}">
+<c:if test="${vo.y_card eq 3}">  <!-- eq: == -->
+	<table border="1" style="border-color:red;">
+		<tr><td>신고된 게시글입니다.</td></tr>
+		<tr><td>${vo.title }</td></tr> <!-- 디테일 링크 걸기 -->
+		<tr><td>${vo.place}/${vo.dDay}</td></tr>
+	</table>
+</c:if>
+<c:if test="${vo.y_card ne 3}"> <!-- ne: != -->
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td><td>${vo.tag}</td></tr>
 		<tr><td>${vo.title }</td></tr>
@@ -35,6 +52,7 @@ h3, h4 {
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
 	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
+</c:if>
 </c:forEach>
 
 </body>

@@ -29,35 +29,21 @@ public class FavoritesHandler implements Handler {
 
 		if (request.getMethod().equals("GET")) {
 			servFav.deleteCnt1(memberId); // delCnt 가 1인 게시글 지우기
-			
+
 			ArrayList<FavoritesVo> listFav = servFav.getFavList(memberId); // 즐겨찾기 불러오기.
-			ArrayList<BoardVo> listOff = servBoard.getByComplete(); // 완료된 모임 전체 리스트
-			ArrayList<BoardVo> finalList = new ArrayList<>(); // 최종으로 담을 리스트 
-			
-			if (listOff.size() == 0) { // 완료된 모임 검색된 게 없으면 
-				for (int j = 0; j < listFav.size(); j++) {
-					fvo = listFav.get(j);
-					bvo = servBoard.getByBoardNum(fvo.getBoardNum());
-					finalList.add(bvo);
-				}
-			} else { // 검색된 게시글이 있으면 
-				for (int j = 0; j < listOff.size(); j++) {
-					bvo = listOff.get(j);
-					for (int i = 0; i < listFav.size(); i++) {
-						fvo = listFav.get(i);
-						if (bvo.getBoardNum() == fvo.getBoardNum()) {
-							servFav.deleteEnd(fvo.getBoardNum()); // 즐겨찾기 중 완료된거 삭제
-						} 
+			ArrayList<BoardVo> listOn = servBoard.getAllBoard(); // 진행중 & yCard<3 전체 리스트
+			ArrayList<BoardVo> finalList = new ArrayList<>(); // 최종으로 담을 리스트
+
+			for (int j = 0; j < listOn.size(); j++) {
+				bvo = listOn.get(j);
+				for (int i = 0; i < listFav.size(); i++) {
+					fvo = listFav.get(i);
+					if (bvo.getBoardNum() == fvo.getBoardNum()) {
+						finalList.add(bvo);
 					}
 				}
 			}
-			
-			listFav = servFav.getFavList(memberId); // 삭제되지 않은 즐겨찾기만 다시 검색.
-			for (int i=0; i<listFav.size(); i++) {
-				fvo = listFav.get(i);
-				bvo = servBoard.getByBoardNum(fvo.getBoardNum()); // 즐겨찾기 글번호로 게시글 불러오기.
-				finalList.add(bvo);
-			}
+
 
 			// 참가승인된 사람 수를 ok 변수에 넣기.
 			int cnt = 0;
@@ -71,17 +57,16 @@ public class FavoritesHandler implements Handler {
 				servBoard.EditParticipate(bvo);
 				cnt = 0;
 			}
-			
 
 			request.setAttribute("finalList", finalList);
 			request.setAttribute("view", "/board/favorites.jsp");
 			view = "/main.jsp";
 
 		} else { // 즐겨찾기 버튼을 누름 -- post 방식으로 옴.
-			
+
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 			fvo = servFav.getFavVo(boardNum, memberId);
-			
+
 			int color = 0;
 			if (fvo.getDelCnt() == 0) { // 노란버튼 누름 (즐겨찾기 취소)
 				servFav.editDel0to1(fvo);
