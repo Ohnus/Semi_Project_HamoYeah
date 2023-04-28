@@ -83,7 +83,7 @@ window.onload = function() {
 <input type="file" style="display:none" id="imagepath" accept="image/*">
 
 
-<td>최대참여인원</td><td><input type="number" name="peopleMax" id="peopleMax"></td><td>명</td></tr>
+<td>최대참여인원</td><td><input type="number" min="1" name="peopleMax" id="peopleMax"></td><td>명</td></tr>
 
 <tr><td>모임진행일시</td><td colspan="2"><input type="datetime-local" name="dDay" id="dDay" onchange="checkDatetime()"></tr>
 
@@ -103,7 +103,7 @@ window.onload = function() {
 </td></tr>
 
 <tr><td>모임장소설정</td><td colspan="2"><input type="text" name="place" id="place" placeholder="(예시)서울 여의도 한강공원"></td></tr>
-<tr><td colspan="2"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/index.jsp'"></td>
+<tr><td colspan="2"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/board/boardAllList.do'"></td>
 <td colspan="2"><input type="button" value="등록" onclick="finCheck()"></td>
 </tr>
 

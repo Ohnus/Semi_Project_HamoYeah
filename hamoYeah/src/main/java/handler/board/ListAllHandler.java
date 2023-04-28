@@ -17,10 +17,15 @@ public class ListAllHandler implements Handler {
 		
 		BoardService service = new BoardService();
 		ArrayList<BoardVo> list = service.getAllBoard();
+	
 		request.setAttribute("list", list);
-		request.setAttribute("view", "/board/boardList.jsp");
+		request.setAttribute("view", "/board/boardAllList.jsp");
 		
 		return "/main.jsp";
+
 	}
 
 }
+
+
+

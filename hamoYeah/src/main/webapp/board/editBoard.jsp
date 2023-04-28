@@ -22,26 +22,6 @@ function checkDatetime() {
     } 
 }
 
-// function finCheck(num) {
-// 	let title = document.getElementById("title").value;
-// 	let content = document.getElementById("content").value;	
-// 	let imagepath = document.getElementById("imagepath").value;	
-// 	let place = document.getElementById("place").value;	
-// 	let dDay = document.getElementById("dDay").value;	
-// 	let tag = document.getElementById("tag").value;	
-// 	let peopleMax = document.getElementById("peopleMax").value;	
-	
-// 	if (title == '' || content == '' || imagepath == '' || place == '' || dDay == '' || tag == '' || peopleMax == '') {
-//   		alert("입력되지 않은 값이 있습니다. 다시 확인해주세요.")
-//    		event.preventDefault();
-//    		return;
-// 	}
-	
-// 	let param = "?boardNum=" + num;
-// 	f.action = "${pageContext.request.contextPath }/board/editBoard.do" + param;
-// 	f.submit();
-// }
-
 window.onload = function() {
 	  document.getElementById("imagepath").addEventListener("change", function(event) {
 			var file = event.target.files[0];
@@ -79,6 +59,16 @@ function delBoard(boardNum) {
 	}
 }
 
+function editTag() {
+	tagSelected.style.display = "none";
+	tag.style.display = "";
+	tagEdit.style.display = "none";
+}
+
+function alertdDay() {
+	alert("모임진행일시는 수정이 불가능합니다.");
+}
+
     
 </script>
 </body>
@@ -107,9 +97,9 @@ function delBoard(boardNum) {
 <input type="file" style="display:none" id="imagepath" accept="image/*">
 
 
-<td>최대참여인원</td><td><input type="number" name="peopleMax" id="peopleMax" value="${vo.peopleMax }"></td><td>명</td></tr>
+<td>최대참여인원</td><td><input type="number" min="1" name="peopleMax" id="peopleMax" value="${vo.peopleMax }"></td><td>명</td></tr>
 
-<tr><td>모임진행일시</td><td colspan="2"><input type="datetime-local" name="dDay" id="dDay" value="${vo.dDay }" onchange="checkDatetime()"></tr>
+<tr><td>모임진행일시</td><td colspan="2"><input type="text" name="dDay" id="dDay" value="${vo.dDay }" readonly></tr>
 
 
 <tr><td>관심태그설정</td>
@@ -125,10 +115,12 @@ function delBoard(boardNum) {
 	<option value="성장/자기계발">성장/자기계발</option>
 	<option value="대화/친목">대화/친목</option>
 </select>
+<input type="button" value="수정" id="tagEdit" onclick="editTag()">
 </td></tr>
 
+
 <tr><td>모임장소설정</td><td colspan="2"><input type="text" name="place" id="place" value="${vo.place }"></td></tr>
-<tr><td colspan="4"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/index.jsp'">
+<tr><td colspan="4"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/board/boardAllList.do'">
 <input type="submit" value="수정" onclick="editBoard(${vo.boardNum})">
 <input type="button" value="삭제" onclick="delBoard(${vo.boardNum})"></td></tr>
 
