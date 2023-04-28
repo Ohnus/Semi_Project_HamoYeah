@@ -39,7 +39,9 @@ public class ManageHandler implements Handler {
 			}
 			
 			request.setAttribute("list", list);
-			view = "/admin/adminPage.jsp";
+			request.setAttribute("view", "/admin/adminPage.jsp");
+			
+			view = "/main.jsp";
 			
 		} else { // 콤보박스 비동기로 올 때 (처리중)
 			System.out.println("처리중 왔습니다~");
