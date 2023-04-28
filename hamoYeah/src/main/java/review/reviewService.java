@@ -1,9 +1,5 @@
 package review;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class reviewService {
@@ -25,8 +21,8 @@ public class reviewService {
 	}
 
 	//리뷰삭제(delete): primary key(review_num)로 찾아서 삭제
-	public void delReview(int review_num) {
-		dao.delete(review_num);
+	public void delReview(int reviewNum) {
+		dao.delete(reviewNum);
 	}
 	
 	//selectAll(review 전체목록 띄우기)
@@ -36,18 +32,19 @@ public class reviewService {
 
 	
 	//selectByTag(Tag로 검색)
-	public reviewVo getByTag(String tag) {
-		return dao.selectByTag(tag);
+	public ArrayList<reviewVo> getByTag(String tag) {
+		return dao.selectByMemberId(tag);
 	}
 
 	
 	//selectByMember(작성자로 검색)
-	public ArrayList<reviewVo> selectByMemberId(String member_id){
-		return dao.selectByMemberId(member_id);
+	public ArrayList<reviewVo> getByMemberId(String memberId){
+		return dao.selectByMemberId(memberId);
 	}
 	
-	public reviewVo getByReviewNum(int review_num) {
-		return dao.selectByReviewNum(review_num);
+	
+	public reviewVo getByReviewNum(int reviewNum) {
+		return dao.selectByReviewNum(reviewNum);
 	}
 }
 

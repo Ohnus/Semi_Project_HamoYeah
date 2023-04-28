@@ -25,14 +25,21 @@ public class AddHandler implements Handler {
 		String view = "";
 
 		if (request.getMethod().equals("GET")) {
-			//participate.jsp에서 값 불러오기			
-			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-			BoardService service = new BoardService();
-			BoardVo vo = service.getByBoardNum(boardNum);
-			request.setAttribute("vo", vo);
+			//participate.jsp에서 값 불러오기		
 			
-
+			//보드의 
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			BoardService bservice = new BoardService();
+			BoardVo vo = bservice.getByBoardNum(boardNum);
+						
+			//작성자(session.loginId)가 안당겨짐
+			//보드의 태그가 안당겨짐
+			//원글번호가 안당겨짐
+				
+			request.setAttribute("vo", vo);
 			view = "/review/add.jsp";
+			
+			
 		} else {
 			
 			int size = 100 * 1024 * 1024;
@@ -49,8 +56,8 @@ public class AddHandler implements Handler {
 			}
 
 			// 폼파라미터 읽기
-			String writer = multipart.getParameter("member_id");
-			int bnum = Integer.parseInt(multipart.getParameter("board_num"));
+			String memberId = multipart.getParameter("memberId");
+			int boardNum = Integer.parseInt(multipart.getParameter("boardNum"));
 			String content = multipart.getParameter("content");
 			String tag = multipart.getParameter("tag");
 			
@@ -58,8 +65,14 @@ public class AddHandler implements Handler {
 			// 업로드된 파일객체 반환
 			File f = multipart.getFile("imagepath");
 			String fname = "\\img\\" + f.getName();
+			System.out.println(memberId);
+			System.out.println(boardNum);
+			System.out.println(content);
+			System.out.println(tag);
+			System.out.println(fname);
+			
 			reviewService service = new reviewService();
-			service.addReview(new reviewVo(writer, 0, bnum, null, 0, fname, content, tag));
+			service.addReview(new reviewVo(memberId, 0, boardNum, null, 0, fname, content, tag));
 			
 			view = "redirect:/review/list.do";
 			

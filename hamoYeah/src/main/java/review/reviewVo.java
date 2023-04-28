@@ -3,10 +3,10 @@ package review;
 import java.sql.Date;
 
 public class reviewVo {
-	private String member_id;
-	private int review_num;
-	private int board_num;
-	private Date r_date;
+	private String memberId;
+	private int reviewNum;
+	private int boardNum;
+	private Date rDate;
 	private int likes;
 	private String imagepath;
 	private String content;
@@ -22,25 +22,25 @@ public class reviewVo {
 
 	public reviewVo() {};
 	
-	public reviewVo(String member_id, int review_num, int board_num, Date r_date, int likes, String imagepath,
+	public reviewVo(String memberId, int reviewNum, int boardNum, Date rDate, int likes, String imagepath,
 			String content) {
 		super();
-		this.member_id = member_id;
-		this.review_num = review_num;
-		this.board_num = board_num;
-		this.r_date = r_date;
+		this.memberId = memberId;
+		this.reviewNum = reviewNum;
+		this.boardNum = boardNum;
+		this.rDate = rDate;
 		this.likes = likes;
 		this.imagepath = imagepath;
 		this.content = content;
 	}
 	
-	public reviewVo(String member_id, int review_num, int board_num, Date r_date, int likes, String imagepath,
+	public reviewVo(String memberId, int reviewNum, int boardNum, Date rDate, int likes, String imagepath,
 			String content, String tag) {
 		super();
-		this.member_id = member_id;
-		this.review_num = review_num;
-		this.board_num = board_num;
-		this.r_date = r_date;
+		this.memberId = memberId;
+		this.reviewNum = reviewNum;
+		this.boardNum = boardNum;
+		this.rDate = rDate;
 		this.likes = likes;
 		this.imagepath = imagepath;
 		this.content = content;
@@ -48,29 +48,29 @@ public class reviewVo {
 	}
 
 	
-	public String getMember_id() {
-		return member_id;
+	public String getmemberId() {
+		return memberId;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setmemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public int getReview_num() {
-		return review_num;
+	public int getreviewNum() {
+		return reviewNum;
 	}
-	public void setReview_num(int review_num) {
-		this.review_num = review_num;
+	public void setreviewNum(int reviewNum) {
+		this.reviewNum = reviewNum;
 	}
-	public int getBoard_num() {
-		return board_num;
+	public int getboardNum() {
+		return boardNum;
 	}
-	public void setBoard_num(int board_num) {
-		this.board_num = board_num;
+	public void setboardNum(int boardNum) {
+		this.boardNum = boardNum;
 	}
-	public Date getR_date() {
-		return r_date;
+	public Date getrDate() {
+		return rDate;
 	}
-	public void setR_date(Date r_date) {
-		this.r_date = r_date;
+	public void setrDate(Date rDate) {
+		this.rDate = rDate;
 	}
 	public int getLikes() {
 		return likes;
@@ -92,7 +92,7 @@ public class reviewVo {
 	}
 	@Override
 	public String toString() {
-		return "reviewVo [member_id=" + member_id + ", review_num=" + review_num + ", board_num=" + board_num
-				+ ", r_date=" + r_date + ", likes=" + likes + ", imagepath=" + imagepath + ", content=" + content + "]";
+		return "reviewVo [memberId=" + memberId + ", reviewNum=" + reviewNum + ", boardNum=" + boardNum
+				+ ", rDate=" + rDate + ", likes=" + likes + ", imagepath=" + imagepath + ", content=" + content + "]";
 	}
 }

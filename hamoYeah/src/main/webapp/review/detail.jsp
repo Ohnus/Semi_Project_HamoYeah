@@ -14,15 +14,18 @@ response.setCharacterEncoding("utf-8");
 <body>
 
 
-<form action="${pageContext.request.contextPath }/review/detail" method="post">
+<form action="${pageContext.request.contextPath }/review/detail.do" method="post">
 <table border="1" width="800" height="250">
+
+
 	<tr height="75">
-		<td rowspan="2" width="150">${ m.file} 이미지</td>
-		<td>${m.tag } 태그</td>
+		<td rowspan="2" width="150"><img src="${vo.imagepath }" width="150px" height="100px"></td>
+		<td><input type="text" value="${vo.tag }" readonly></td>
 	</tr>	
 	<tr>
-		<td>${m.content } 내용</td>
+		<td><input type="text" value="${vo.content }"></td>
 	</tr>
+
 </table>
 </form>
 
@@ -35,19 +38,19 @@ response.setCharacterEncoding("utf-8");
 		    <li>
 		      <div class="review">
 		        <div class="review-info">
-		          <span class="review-user">${vo.member_id }</span>
-		          <span class="review-date">${vo.r_date }</span>
+		          <span class="review-user">${vo.memberId }</span>
+		          <span class="review-date">${vo.rDate }</span>
 		          
 		           <c:if test="${not empty sessionScope.loginId }">
 			          <input type="submit" value="수정">
-			          <input type="button" value="삭제" onclick="javascript:location.href='${pageContext.request.contextPath }/review/edit?num=${vo.board_num}'">
+			          <input type="button" value="삭제" onclick="javascript:location.href='${pageContext.request.contextPath }/review/edit?num=${vo.boardNum}'">
 		        	</c:if>
 		        </div>
 		        
 		        <div class="review-content">
-		          <h3 class="review-title">${vo.review_num } 리뷰</h3>
+		          <h3 class="review-title">${vo.reviewNum } 리뷰</h3>
 		             <div class="images">
-		            <img src="${vo.imagepath }" alt="사진을 추가해주세요.">
+		            <img src="${vo.imagepath }" width="150px" height="100px">
 		         </div>
 		          <p class="review-text">${vo.content }</p>
 		        </div>

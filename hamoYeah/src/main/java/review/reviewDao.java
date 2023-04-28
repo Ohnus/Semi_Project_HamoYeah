@@ -21,8 +21,8 @@ public class reviewDao {
 		String sql = "insert into H_review values(?,seq_H_review.nextval, ?, sysdate,0,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getMember_id());
-			pstmt.setInt(2, vo.getBoard_num());
+			pstmt.setString(1, vo.getmemberId());
+			pstmt.setInt(2, vo.getboardNum());
 			pstmt.setString(3, vo.getImagepath());
 			pstmt.setString(4, vo.getContent());
 			pstmt.setString(5, vo.getTag());
@@ -49,7 +49,7 @@ public class reviewDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getContent());
 			pstmt.setString(2, vo.getImagepath());
-			pstmt.setString(3, vo.getMember_id());
+			pstmt.setString(3, vo.getmemberId());
 			int num = pstmt.executeUpdate();
 			System.out.println(num + " 줄이 수정됨");
 		} catch (SQLException e) {
@@ -93,17 +93,17 @@ public class reviewDao {
 		return list;
 	}
 	
-	
-	//selectByTag(Tag로 검색)
-	public reviewVo selectByTag(String tag) {
+	//selectByTag(Tag로 검색)	>>> arraylist로 반환
+	public ArrayList<reviewVo> selectByTag(String tag) {
 		Connection conn = dbconn.conn();
+		ArrayList<reviewVo> list = new ArrayList<>();
 		String sql = "select * from H_review where tag=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, tag);
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+			while(rs.next()) {
+				list.add(new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
