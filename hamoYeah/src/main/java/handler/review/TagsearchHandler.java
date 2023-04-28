@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.BoardService;
+import board.BoardVo;
 import handler.Handler;
-import review.reviewService;
-import review.reviewVo;
 
-public class SearchHandler implements Handler {
+public class TagsearchHandler implements Handler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		try {
@@ -23,14 +24,15 @@ public class SearchHandler implements Handler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		
 		String tag = request.getParameter("id");
 		
-		reviewService service = new reviewService();
-		ArrayList<reviewVo> list = service.getByTag(tag);
+		BoardService service = new BoardService();
+		ArrayList<BoardVo> list = service.getByTag(tag);
+		
 		request.setAttribute("list", list);
-		request.setAttribute("view", "/review/search.jsp");
+		request.setAttribute("view", "/review/list.jsp");
 		
 		return "/main.jsp";
 	}

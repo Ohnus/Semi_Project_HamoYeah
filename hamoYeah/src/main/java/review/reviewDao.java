@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import board.BoardVo;
 import conn.DBConnect;
 
 public class reviewDao {
@@ -49,7 +50,7 @@ public class reviewDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getContent());
 			pstmt.setString(2, vo.getImagepath());
-			pstmt.setString(3, vo.getmemberId());
+			pstmt.setInt(3, vo.getreviewNum());
 			int num = pstmt.executeUpdate();
 			System.out.println(num + " 줄이 수정됨");
 		} catch (SQLException e) {
@@ -76,7 +77,7 @@ public class reviewDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				list.add(new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+				list.add(new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,7 +122,7 @@ public class reviewDao {
 
 	
 	//selectByMember(작성자로 검색)
-	public ArrayList<reviewVo> selectByMemberId(String member_id){
+	public ArrayList<reviewVo> selectByMemberId(String memberId){
 		Connection conn = dbconn.conn();
 		ArrayList<reviewVo> list = new ArrayList<>();
 		String sql = "select * from H_review where member_id=?";
@@ -146,15 +147,15 @@ public class reviewDao {
 	}
 	
 	//selectByReviewNum(ReviewNum로 검색)
-	public reviewVo selectByReviewNum(int review_num) {
+	public reviewVo selectByReviewNum(int reviewNum) {
 		Connection conn = dbconn.conn();
 		String sql = "select * from H_review where review_num=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, review_num);
+			pstmt.setInt(1, reviewNum);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+				return new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -169,36 +170,41 @@ public class reviewDao {
 		}
 		return null;
 	}
-	
-	//board num(primary key)으로 찾아서 삭제
-	public void delete(String member_id) {
-		Connection conn = dbconn.conn();
-		String sql = "delete from h_review where member_id=?";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			int num = pstmt.executeUpdate();
-			System.out.println(num + " 줄이 삭제됨");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+		
+	//selectByBoardNum(BoardNum로 검색)
+		public ArrayList<BoardVo> selectByBoardNum(int BoardNum) {
+			ArrayList<BoardVo> list = new ArrayList();
+			Connection conn = dbconn.conn();
+			String sql = "select * from H_Board where Board_num=?";
 			try {
-				conn.close();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, BoardNum);
+				ResultSet rs = pstmt.executeQuery();
+				while(rs.next()) {
+					list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
+							rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			return list;
 		}
-	}
 	
-	// delete: primary key(review_num)로 찾아서 삭제
-		public void delete(int review_num) {
+		
+		public void delete(int reviewNum) {
 			Connection conn = dbconn.conn();
-			String sql = "delete from H_review where review_num=?";
+			String sql = "delete from h_review where review_num=?";
 			try {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, review_num);
+				pstmt.setInt(1, reviewNum);
 				int num = pstmt.executeUpdate();
 				System.out.println(num + " 줄이 삭제됨");
 			} catch (SQLException e) {
@@ -214,3 +220,6 @@ public class reviewDao {
 			}
 		}
 	}
+
+
+

@@ -47,6 +47,7 @@ public class reviewVo {
 		this.tag = tag;
 	}
 
+	
 	public String getmemberId() {
 		return memberId;
 	}

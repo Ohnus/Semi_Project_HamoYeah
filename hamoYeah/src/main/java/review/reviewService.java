@@ -2,6 +2,8 @@ package review;
 
 import java.util.ArrayList;
 
+import board.BoardVo;
+
 public class reviewService {
 	private reviewDao dao;
 	public final static String path = "C:\\Users\\Heesoo KIM\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
@@ -20,7 +22,7 @@ public class reviewService {
 		dao.update(vo);
 	}
 
-	//리뷰삭제(delete): primary key(review_num)로 찾아서 삭제
+	//리뷰삭제(delete): primary key(reviewNum)로 찾아서 삭제
 	public void delReview(int reviewNum) {
 		dao.delete(reviewNum);
 	}
@@ -36,13 +38,22 @@ public class reviewService {
 		return dao.selectByMemberId(tag);
 	}
 
+	
 	//selectByMember(작성자로 검색)
 	public ArrayList<reviewVo> getByMemberId(String memberId){
 		return dao.selectByMemberId(memberId);
 	}
 	
+	
 	public reviewVo getByReviewNum(int reviewNum) {
 		return dao.selectByReviewNum(reviewNum);
 	}
+	
+	//selectByBoardNum(BoardNum로 검색)
+			public ArrayList<BoardVo> getByBoardNum(int BoardNum) {
+				return dao.selectByBoardNum(BoardNum);
+			}
+	
+	
 }
 

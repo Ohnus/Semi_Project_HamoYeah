@@ -14,14 +14,16 @@ public class DetailHandler implements Handler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-
+		String tag = request.getParameter("tag");
+	
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 		reviewService service = new reviewService();
 				
 		reviewVo vo = service.getByReviewNum(reviewNum);
 		request.setAttribute("vo", vo);
+		request.setAttribute("tag", tag);
 		request.setAttribute("view", "/review/list.jsp");
-		return "/review/detail.jsp";
+		return "/main.jsp";
 		
 	}
 }
