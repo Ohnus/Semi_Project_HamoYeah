@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class BoardService {
 	private BoardDao dao;
-	public final static String path = "C:\\Users\\원유경\\Desktop\\Eclipse\\Web Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
-
+	//public final static String path = "C:\\Users\\원유경\\Desktop\\Eclipse\\Web Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
+	public final static String path = "/Users/choeyeeun/Desktop/web_workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/img/";
+	
 	public BoardService() {
 		dao = new BoardDao();
 	}
@@ -80,5 +81,9 @@ public class BoardService {
 	
 	public void Stop(int boardnum) {
 		dao.updateProcessStop(boardnum);
+	}
+	
+	public ArrayList<BoardVo> getYCard3() {
+		return dao.selectYCard3();
 	}
 }
