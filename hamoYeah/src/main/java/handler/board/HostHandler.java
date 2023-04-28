@@ -24,6 +24,14 @@ public class HostHandler implements Handler {
 		ArrayList<BoardVo> on = servBoard.getByOngoing(); // 진행중인 전체 리스트
 		ArrayList<BoardVo> off = servBoard.getByComplete(); // 완료된 전체 리스트
 		
+//		for(BoardVo vo:on) {
+//			System.out.println("on:"+vo);
+//		}
+//		for(BoardVo vo:off) {
+//			System.out.println("off:"+vo);
+//		}
+		
+		
 		// 진행중인 리스트 중 멤버아이디가 같은거를 listOn에 담기
 		ArrayList<BoardVo> listOn = new ArrayList<>(); // 진행중인 주최 리스트 담을거.
 		for (BoardVo vo:on) {
@@ -64,6 +72,13 @@ public class HostHandler implements Handler {
 			servBoard.EditParticipate(bvo);
 			cnt = 0;
 		}
+		
+//		for(BoardVo vo:listOn) {
+//			System.out.println("listOn:"+vo);
+//		}
+//		for(BoardVo vo:listOff) {
+//			System.out.println("listOff:"+vo);
+//		}
 
 		request.setAttribute("listOn", listOn);
 		request.setAttribute("listOff", listOff);
