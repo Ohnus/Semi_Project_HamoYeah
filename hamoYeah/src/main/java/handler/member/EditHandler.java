@@ -37,11 +37,12 @@ public class EditHandler implements Handler {
 				e.printStackTrace();
 			}
 			
-			HMemberVo vo = new HMemberVo();
 			String memberId = request.getParameter("memberId");
+			HMemberService service = new HMemberService();
+			HMemberVo vo = service.getHMember(memberId);
 			String pwd = multipart.getParameter("pwd");
 			String resetpwd = "";
-			if(pwd == null) {
+			if(pwd.equals("")) {
 				resetpwd = vo.getPwd();
 			} else {
 				resetpwd = pwd;
@@ -75,7 +76,7 @@ public class EditHandler implements Handler {
 			} else {
 				imagepath = "\\HmemberImg\\" + f.getName();
 			}
-			HMemberService service = new HMemberService();
+			service = new HMemberService();
 			service.editInfo(new HMemberVo(memberId, resetpwd, "", phone, nickname, "", age, intro, tag1, tag2, tag3, imagepath));
 			
 			vo = service.getHMember(memberId);
