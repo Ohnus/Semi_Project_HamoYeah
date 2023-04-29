@@ -17,11 +17,12 @@
 			};
 			reader.readAsDataURL(input.files[0]);
 		} else {
-			document.getElementById('preview').src = "";
+			document.getElementById('preview').src = e.target.result;
+			// 이미지 업로드 하다가 취소 눌렀을 때 직전에 업로드한 이미지 유지하도록 수정
 		}
 	}
 	function imgReset() {
-		document.getElementById('preview').src = "../img/a.jpg";
+		document.getElementById('preview').src = "../img/nopic.jpg";
 		document.getElementById('img').value = null;
 //		input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
 //		따라서 초기화하고자 할 경우 아래 코드

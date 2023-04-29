@@ -18,7 +18,7 @@
 			};
 			reader.readAsDataURL(input.files[0]);
 		} else {
-			document.getElementById('preview').src = "";
+			document.getElementById('preview').src = e.target.result;
 		}
 	}
 	function imgReset() {
