@@ -195,9 +195,8 @@
 			<select name="phone1" id="H_phone1">
 			
 			</select>
-<%-- 			<input type="text" value="${phone1 }" name="phone1" ID="H_phone1" pattern="\d*" maxlength="3" readonly> --%>
-			<input type="text" value="${phone2 }" name="phone2" ID="H_phone2" pattern="\d*" maxlength="4">
-			<input type="text" value="${phone3 }" name="phone3" ID="H_phone3" pattern="\d*" maxlength="4">
+			<input type="text" value="${phone2 }" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
+			<input type="text" value="${phone3 }" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 			<span id="res2"></span>
 			<input type="button" value="중복확인" onclick="checkPhone()"></td>
 		</tr>

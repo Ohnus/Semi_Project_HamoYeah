@@ -11,21 +11,20 @@ import conn.DBConnect;
 
 public class BoardDao {
 	private DBConnect dbconn;
-	
-	public BoardDao () {
+
+	public BoardDao() {
 		dbconn = DBConnect.getInstance();
 	}
-	
-	
+
 	// 글 추가
 	public void insert(BoardVo vo) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "insert into H_board values(?, seq_H_board.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, vo.getMemberId());
 			pstmt.setString(2, vo.getTitle());
 			pstmt.setString(3, vo.getContent());
@@ -40,7 +39,7 @@ public class BoardDao {
 
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 추가되었습니다.");
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,15 +53,14 @@ public class BoardDao {
 		}
 	}
 
-	
 	// 글 수정
 	public void update(BoardVo vo) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "update H_board set title=?, content=?, imagepath=?, place=?, tag=?, people_max=? where board_num=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getImagepath());
@@ -70,10 +68,10 @@ public class BoardDao {
 			pstmt.setString(5, vo.getTag());
 			pstmt.setInt(6, vo.getPeopleMax());
 			pstmt.setInt(7, vo.getBoardNum());
-			
+
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 수정되었습니다.");
-				
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,22 +84,21 @@ public class BoardDao {
 			}
 		}
 	}
-	
-	
+
 	// 글 삭제
 	public void delete(int board_num) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "delete H_board where board_num=?";
-		
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, board_num);
-			
+
 			int num2 = pstmt.executeUpdate();
 			System.out.println(num2 + "줄이 삭제되었습니다.");
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,25 +111,25 @@ public class BoardDao {
 			}
 		}
 	}
-	
-	
+
 	// 전체 리스트 검색 (신고3회 미만, 진행중)
 	public ArrayList<BoardVo> selectAll() {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where y_card < 3 and D_DAY > to_char(SYSDATE, 'YY/MM/DD') order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,28 +140,29 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	// 글 번호로 검색 	
+
+	// 글 번호로 검색
 	public BoardVo selectBoardNum(int board_num) {
 		Connection conn = dbconn.conn();
 
 		String sql = "select * from H_board where board_num=?";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, board_num);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				return new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13));
+
+			if (rs.next()) {
+				return new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,31 +173,30 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return null;
 	}
-	
 
-	
 	// 멤버ID로 검색
 	public ArrayList<BoardVo> selectId(String memberId) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where member_id=? order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, memberId);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,30 +207,30 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-			
-	
+
 	// tag로 검색
 	public ArrayList<BoardVo> selectTag(String tag) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, tag);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -244,30 +241,30 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
 
-	
 	// 장소 키워드로 검색
 	public ArrayList<BoardVo> selectPlace(String place) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where place like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, "%" + place + "%");
-	
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -278,30 +275,30 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	
+
 	// 제목 키워드로 검색
 	public ArrayList<BoardVo> selectTitle(String title) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where title like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, "%" + title + "%");
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -312,30 +309,30 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
 
-	
 	// 내용 키워드로 검색
 	public ArrayList<BoardVo> selectContent(String content) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where content like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, "%" +content+ "%");
-		
+
+			pstmt.setString(1, "%" + content + "%");
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -346,32 +343,31 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	
+
 	// 장소 키워드 + 태그로 검색
 	public ArrayList<BoardVo> selectPlaceAndTag(String place, String tag) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where place like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-	
-			
+
 			pstmt.setString(1, "%" + place + "%");
 			pstmt.setString(2, "%" + tag + "%");
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -382,31 +378,31 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	
+
 	// 제목 키워드 + 태그로 검색
 	public ArrayList<BoardVo> selectTitleAndTag(String title, String tag) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where title like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, "%" + title+ "%");
+
+			pstmt.setString(1, "%" + title + "%");
 			pstmt.setString(2, "%" + tag + "%");
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -417,30 +413,31 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
+
 	// 내용 키워드 + 태그로 검색
 	public ArrayList<BoardVo> selectContentAndTag(String content, String tag) {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from H_board where content like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, "%" + content + "%");
 			pstmt.setString(2, "%" + tag + "%");
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -451,28 +448,28 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	
+
 	// 모임 완료된 글 검색
 	public ArrayList<BoardVo> selectComplete() {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from h_board where D_DAY < to_char(SYSDATE, 'YY/MM/DD')";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -483,28 +480,28 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
-	
+
 	// 모임 진행중인 글 검색
 	public ArrayList<BoardVo> selectOngoing() {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
-		
+
 		String sql = "select * from h_board where D_DAY > to_char(SYSDATE, 'YY/MM/DD')";
-			
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-		
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -515,24 +512,24 @@ public class BoardDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}	
+		}
 		return list;
 	}
-	
+
 	// 참여 인원 업데이트
 	public void updateParticipate(BoardVo vo) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "update H_board set ok=? where board_num=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, vo.getOk());
 			pstmt.setInt(2, vo.getBoardNum());
-			
+
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 수정되었습니다.");
-				
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -545,7 +542,7 @@ public class BoardDao {
 			}
 		}
 	}
-	
+
 	// 신고된 글 복구
 	public void updateProcessRe(int boardnum) {
 		Connection conn = dbconn.conn();
@@ -567,7 +564,7 @@ public class BoardDao {
 			}
 		}
 	}
-	
+
 	// 신고된 글 삭제
 	public void updateProcessStop(int boardnum) {
 		Connection conn = dbconn.conn();
@@ -589,69 +586,90 @@ public class BoardDao {
 			}
 		}
 	}
-	
+
 	// 신고된 게시글 보이기
-		public ArrayList<BoardVo> selectYCard3() {
-			Connection conn = dbconn.conn();
-			ArrayList<BoardVo> list = new ArrayList();
-			
-			String sql = "select * from h_board where y_card = 3 order by board_num desc";
-				
+	public ArrayList<BoardVo> selectYCard3() {
+		Connection conn = dbconn.conn();
+		ArrayList<BoardVo> list = new ArrayList();
+
+		String sql = "select * from h_board where y_card = 3 order by board_num desc";
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
 			try {
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-				ResultSet rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-							rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
-				}
-				
+				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}	
-			return list;
+			}
 		}
-		
-		// process 1 (복구) 검색
-		public ArrayList<BoardVo> selectRecovery() {
-			Connection conn = dbconn.conn();
-			ArrayList<BoardVo> list = new ArrayList();
-			
-			String sql = "select * from h_board where process = 1 order by board_num desc";
-				
+		return list;
+	}
+
+	// process 1 (복구) 검색
+	public ArrayList<BoardVo> selectRecovery() {
+		Connection conn = dbconn.conn();
+		ArrayList<BoardVo> list = new ArrayList();
+
+		String sql = "select * from h_board where process = 1 order by board_num desc";
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13)));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
 			try {
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-				ResultSet rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					list.add(new BoardVo(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), 
-							rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13)));
-				}
-				
+				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}	
-			return list;
+			}
 		}
+		return list;
+	}
 	
+	public void updateYcard(int boardNum) {
+		Connection conn = dbconn.conn();
+		String sql = "update h_board set y_card = (y_card+1) where board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			int num = pstmt.executeUpdate();
+			System.out.println(boardNum + "번 글 신고 접수 되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
-
-

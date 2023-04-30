@@ -46,7 +46,7 @@ function a(){
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/boardAllList.do?memberId=${sessionScope.loginId}">모임</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/addBoard.do?memberId=${sessionScope.loginId}">모임등록</a></td>
 		<td><a onmouseover="showH()">히스토리</a></td>
-		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/review/reviewList.do">후기</a></td>
+		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/review/list.do">후기</a></td>
 		<td><a onmouseover="showM()">마이페이지</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></td>
 		</tr>

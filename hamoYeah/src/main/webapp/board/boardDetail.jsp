@@ -19,7 +19,63 @@
 #comments {
 	text-align: center;
 }
+#modal.modal-overlay {
+	width: 100%; /* 뒤 블러 배경 꽉 차게 */
+	height: 100%; /* 뒤 블러 배경 꽉 차게 */
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none; /* 모달창 항시 띄울 지 말 지*/
+	flex-direction: column; /* 아이템(글자)가 세로방향으로 */
+	align-items: center; /* 모달창 가로 위치 */
+	justify-content: center; /* 모달창 세로 위치 */
+	background: rgba(255, 255, 255, 0.25);
+	/*  	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+	backdrop-filter: blur(1.5px); /* 오버레이 배경 흐리게 */
+	/*  	-webkit-backdrop-filter: blur(1.5px); */
+	/* 	border-radius: 10px; */
+	/* 	border: 1px solid rgba(255, 255, 255, 0.18); */
+}
 
+#modal .modal-window {
+	background: rgba(1, 1, 1, 0); /* 모달창 배경색 */
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* 테두리 그림자 */
+	/* 	-webkit-backdrop-filter: blur(13.5px); */
+	border-radius: 10px; /* 테두리 둥글게 */
+	border: 5px solid rgba(0, 0, 0, 0); /* 경계 투명 */
+	width: 400px;
+	height: 300px;
+	position: relative;
+	top: -100px;
+	padding: 10px;
+}
+
+#modal .title {
+	padding-left: 160px;
+	display: inline;
+	/* 	text-shadow: 1px 1px 2px gray; */
+	color: black;
+}
+
+#modal .title h3 {
+	display: inline;
+}
+
+#modal .close-area {
+	display: inline;
+	float: right;
+	padding-right: 10px;
+	cursor: pointer;
+	/* 	text-shadow: 1px 1px 2px gray; */
+	color: black;
+}
+
+#modal .content {
+	margin-top: 20px;
+	padding: 0px 10px;
+	/* 	text-shadow: 1px 1px 2px gray; */
+	color: gray;
+}
 </style>
 <script type="text/javascript">
 
@@ -123,7 +179,32 @@ function delBoard(boardNum, memberId) {
 		location.href = "${pageContext.request.contextPath}/board/deleteBoard.do" + param;
 	}
 }
-
+// 신고하기 기타의견 제약조건
+function reportBoard(){
+	let checkedRadio = document.querySelector("input[type=radio]:checked").value;
+	if(checkedRadio == 6){
+		let etc = document.getElementById("etc").value; // textarea value 먼저 변수에 담고
+		if(etc == ''){ // value가 널이라면
+			alert("기타 의견을 입력해 주세요.");
+			event.preventDefault();
+			return;
+		}
+		document.getElementById("warnetc").value = etc; // 널이 아니면 라디오버튼에 담기
+		
+	}
+// 	const boardNum = document.getElementById("${boardvo.boardNum}").value;
+// 	const reportedBoards = sessionStorage.getItem("reportedBoards");
+// 	if (reportedBoards && reportedBoards.includes(boardNum)) {
+// 	    alert("이미 신고한 게시물입니다.");
+// 	    event.preventDefault();
+// 	    return;
+// 	}
+// 	sessionStorage.setItem("reportedBoards", reportedBoards ? reportedBoards + "," + boardNum : boardNum);
+	alert("신고 접수가 완료되었습니다.");
+// 	document.getElementById("reportbtn").onClick = null;
+	f.action="${pageContext.request.contextPath}/board/warning.do";
+	f.submit();
+}
 </script>
 </head>
 <body>
@@ -140,7 +221,63 @@ function delBoard(boardNum, memberId) {
 	<c:if test="${boardvo.fav eq 1}"> 
 		<img src="../img/F1.png" id="img" style="width:20px; height:20px;"  onclick="fav('${boardvo.boardNum}', '${sessionScope.loginId }')">
 	</c:if>
-	<input type="button" value="신고">
+	<input type="button" id="reportbtn" value="신고">
+		<div id="modal" class="modal-overlay">
+		<div class="modal-window">
+			<div class="title">
+				<h3>신고하기</h3>
+			</div>
+			<div class="close-area">X</div>
+			<div class="content">
+				<form action="" method="post" name="f">
+				<input type="hidden" name="memberId" value="${sessionScope.loginId }">
+				<input type="hidden" name="boardNum" id="${boardvo.boardNum}" value="${boardvo.boardNum}">
+				<input type="radio" name="content" id="warn" value="1">정치적 글<br/>
+				<input type="radio" name="content" id="warn" value="2">테러조장 글<br/>
+				<input type="radio" name="content" id="warn" value="3">폭력적 글<br/>
+				<input type="radio" name="content" id="warn" value="4">홍보목적 글<br/>
+				<input type="radio" name="content" id="warn" value="5">유해한 글<br/>
+				<input type="radio" name="content" id="warnetc" value="6" onclick="this.form.textarea.disabled=false">기타<br/>
+				<textarea name="textarea" id="etc" cols="50" rows="7" style="scrolling:yes" placeholder="기타 의견을 입력해 주세요." disabled></textarea>
+				<input type="hidden" name="memberId" id="id" value="s1">
+				<input type="hidden" name="boardNum" id="num" value="4">
+				<input type="button" value="신고" id="reportbtn2" onclick="reportBoard()">
+				<input type="button" name="cancelbtn" id="cancelbtn" value="취소">
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+	const modal = document.getElementById("modal")
+	function modalOn() {
+		modal.style.display = "flex"
+	}
+	function isModalOn() {
+		return modal.style.display === "flex"
+	}
+	function modalOff() {
+    	modal.style.display = "none"
+	}
+	const btnModal = document.getElementById("reportbtn")
+	btnModal.addEventListener("click", e => {
+    	modalOn()
+	})
+	const closeBtn = modal.querySelector(".close-area")
+	closeBtn.addEventListener("click", e => {
+    	modalOff()
+	})
+	modal.addEventListener("click", e => {
+    	const evTarget = e.target
+    	if(evTarget.classList.contains("modal-overlay")) {
+        	modalOff()
+    	}
+	})
+	window.addEventListener("keyup", e => {
+    	if(isModalOn() && e.key === "Escape") {
+        	modalOff()
+    	}
+	})
+	</script>
 </c:if>
 	
 <div id="content">

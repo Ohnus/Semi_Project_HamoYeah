@@ -149,7 +149,7 @@
 // 					event.preventDefault();
 // 					return;
 // 				}
-				if (tnc == 'n' || tnc == null) {
+				if (tnc == 'n') {
 					alert("회원가입을 위해 이용약관에 동의해주세요.")
 					event.preventDefault();
 					return;
@@ -203,8 +203,8 @@
 					<option value="011">011</option>
 					<option value="017">011</option>
 				</select>
-				<input type="text" name="phone2" ID="H_phone2" pattern="\d*" maxlength="4">
-				<input type="text" name="phone3" ID="H_phone3" pattern="\d*" maxlength="4">
+				<input type="text" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
+				<input type="text" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 				<span id="res2"></span>
 				<input type="button" value="중복확인" onclick="checkPhone()"></td>
 			</tr>
@@ -224,7 +224,7 @@
 				<td>성별</td>
 				<td><input type="radio" name="gender" value="m" id="H_gender">남성
 					<input type="radio" name="gender" value="w" id="H_gender">여성
-					<input type="radio" name="gender" value="n" id="H_gender">선택안함</td>
+					<input type="radio" name="gender" value="n" id="H_gender" checked>선택안함</td>
 			</tr>
 			<tr>
 				<td>닉네임</td>
@@ -264,7 +264,10 @@
 				<td><textarea cols="80" rows="10" name="intro"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea cols="100" rows="15" readonly>이용약관</textarea></td>
+				<td colspan="2">
+<!-- 				<textarea cols="100" rows="15" readonly>이용약관</textarea> -->
+				<iframe src="../tnc/tnc" width="700" height="250"></iframe>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
