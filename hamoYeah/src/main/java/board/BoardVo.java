@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import comment.CommentVo;
+import member.HMemberVo;
 
 public class BoardVo {
 	private String memberId;
@@ -19,7 +20,8 @@ public class BoardVo {
 	private int y_card;
 	private int process;
 	private int ok;
-	private ArrayList<CommentVo> reps; //수정
+	private ArrayList<CommentVo> reps; //추가(boardDetail.jsp에서 댓글 리스트 불러오는데 사용됨)
+	private ArrayList<HMemberVo> mvolist; //추가(boardDetail.jsp에서 참여자 리스트 불러오는데 사용됨)
 
 	public BoardVo() {
 	}
@@ -47,6 +49,14 @@ public class BoardVo {
 
 	public void setReps(ArrayList<CommentVo> reps) {
 		this.reps = reps;
+	}
+
+	public ArrayList<HMemberVo> getMvolist() {
+		return mvolist;
+	}
+
+	public void setMvolist(ArrayList<HMemberVo> mvolist) {
+		this.mvolist = mvolist;
 	}
 
 	public String getMemberId() {
@@ -158,7 +168,7 @@ public class BoardVo {
 		return "BoardVo [memberId=" + memberId + ", boardNum=" + boardNum + ", wDate=" + wDate + ", title=" + title
 				+ ", content=" + content + ", imagepath=" + imagepath + ", place=" + place + ", dDay=" + dDay + ", tag="
 				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + ", ok=" + ok
-				+ ", reps=" + reps + "]";
+				+ ", reps=" + reps + ", mvolist=" + mvolist + "]";
 	}
 
 }
