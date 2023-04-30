@@ -9,18 +9,18 @@
 <script>
 
 
-function checkDatetime() {
-    // 입력된 날짜와 시간 가져오기
-    var input = document.getElementById("dDay").value;
+// function checkDatetime() {
+//     // 입력된 날짜와 시간 가져오기
+//     var input = document.getElementById("dDay").value;
 
-    var now = new Date();
+//     var now = new Date();
 
-    // 입력된 값과 현재 시간 비교
-    var inputDatetime = new Date(input);
-    if (inputDatetime < now) {
-      alert("과거의 날짜와 시간을 입력하셨습니다.");
-    } 
-}
+//     // 입력된 값과 현재 시간 비교
+//     var inputDatetime = new Date(input);
+//     if (inputDatetime < now) {
+//       alert("과거의 날짜와 시간을 입력하셨습니다.");
+//     } 
+// }
 
 window.onload = function() {
 	  document.getElementById("imagepath").addEventListener("change", function(event) {
@@ -48,16 +48,16 @@ function editBoard(boardNum) {
 }
 
 
-function delBoard(boardNum) {
-	let check = confirm("정말 삭제하시겠습니까?");
-	if (check == true) {
-		let param = boardNum;
-		let form = document.getElementById("f");
-		f.action = "${pageContext.request.contextPath}/board/deleteBoard.do?boardNum=" + param;
-		f.submit();
-		return;
-	}
-}
+// function delBoard(boardNum) {
+// 	let check = confirm("정말 삭제하시겠습니까?");
+// 	if (check == true) {
+// 		let param = boardNum;
+// 		let form = document.getElementById("f");
+// 		f.action = "${pageContext.request.contextPath}/board/deleteBoard.do?boardNum=" + param;
+// 		f.submit();
+// 		return;
+// 	}
+// }
 
 function editTag() {
 	tagSelected.style.display = "none";
@@ -80,30 +80,28 @@ function alertdDay() {
 
 <table border="1">
 <tr><td colspan="4">모임 게시글 등록</td></tr>
-<tr><td>작성자</td><td colspan="3">${vo.memberId }<input type="hidden" value="${vo.memberId }"></td></tr>
+<tr><td>작성자</td><td colspan="3">${vo.memberId }<input type="hidden" name="memberId" value="${vo.memberId }"></td></tr>
 <tr><td colspan="4">
 <input type="text" name="title" id="title" value="${vo.title }"> </td></tr>
 
 <tr><td colspan="4">
-<textarea rows="12" cols="20" name="content" id="content">${vo.title }</textarea></td></tr>
+<textarea rows="12" cols="20" name="content" id="content">${vo.content }</textarea></td></tr>
 
 <tr>
 <td rowspan="4"><input type="file" name="imagepath" id="imagepath" style="display:none">
-
 <label for="imagepath">
 	<img src="${vo.imagepath }" width="150px" height="150px" id="upload-preview">
 </label>
-
 <input type="file" style="display:none" id="imagepath" accept="image/*">
 
 
-<td>최대참여인원</td><td><input type="number" min="1" name="peopleMax" id="peopleMax" value="${vo.peopleMax }"></td><td>명</td></tr>
+<td>최대참여인원</td><td><input type="number" min="1" name="peopleMax" id="peopleMax" value="${vo.peopleMax }">명</td></tr>
 
-<tr><td>모임진행일시</td><td colspan="2"><input type="text" name="dDay" id="dDay" value="${vo.dDay }" readonly></tr>
+<tr><td>모임진행일시</td><td><input type="text" name="dDay" id="dDay" value="${vo.dDay }" readonly onclick="alertdDay()"></tr>
 
 
 <tr><td>관심태그설정</td>
-<td colspan="2">
+<td>
 <span id="tagSelected">${vo.tag }</span>
 <select name ="tag" id="tag" style="display:none">
 	<option value="문화/예술">문화/예술</option>
@@ -119,10 +117,11 @@ function alertdDay() {
 </td></tr>
 
 
-<tr><td>모임장소설정</td><td colspan="2"><input type="text" name="place" id="place" value="${vo.place }"></td></tr>
-<tr><td colspan="4"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/board/boardAllList.do'">
+<tr><td>모임장소설정</td><td><input type="text" name="place" id="place" value="${vo.place }"></td></tr>
+<tr><td colspan="4"><input type="button" value="back" onclick="location.href='${pageContext.request.contextPath }/board/boardAllList.do?memberId=${sessionScope.loginId }'">
 <input type="submit" value="수정" onclick="editBoard(${vo.boardNum})">
-<input type="button" value="삭제" onclick="delBoard(${vo.boardNum})"></td></tr>
+<%-- <input type="button" value="삭제" onclick="delBoard(${vo.boardNum})"> --%>
+</td></tr>
 
 
 </table>

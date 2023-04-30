@@ -18,7 +18,7 @@ public class WarningHandler implements Handler {
 		String content = request.getParameter("content");
 		WarningService service = new WarningService();
 		service.addWarning(new WarningVo(memberId, boardNum, content));
-		view = "/board/boardDetail.do?boardNum=" + boardNum;
+		view = "/board/boardDetail.do?boardNum=" + boardNum + "&memberId=" + memberId;
 		return view;
 	}
 }

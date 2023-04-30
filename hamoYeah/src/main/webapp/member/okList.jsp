@@ -39,6 +39,10 @@ div.con2{
 
 <body>
 	<h2>${title }</h2>
+<c:if test="${empty list0 && empty list1}">
+<h5>참여 신청한 사람이 없습니다.</h5>
+</c:if>
+<c:if test="${not empty list0 || not empty list1}">
 <div class="header">
 <div class="head1">
 	<h4>승인</h4>
@@ -47,7 +51,10 @@ div.con2{
 <div class="head2">
 	<h4>미승인</h4>
 	<h5><span id="cnt">0</span> / ${rest}</h5>
+	<c:if test="${rest ne 0}">
 	<input type="button" id="ok" value="승인하기" onclick="ok(${boardNum})">
+	</c:if>
+
 </div>
 </div>
 <script>
@@ -117,6 +124,7 @@ function ok(num){
 	</form>
 </div>
 </div>
+</c:if>
 
 </body>
 </html>

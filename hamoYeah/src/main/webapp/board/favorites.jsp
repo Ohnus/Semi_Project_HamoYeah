@@ -32,15 +32,20 @@ function change(board, id){
 </head>  
 <body>
 <h3>내가 찜한 모임</h3>
-<!-- forEach로 리스트 불러오기. 노란 별 이미지 넣어서. -->
+<c:if test="${empty finalList}">
+<h5>즐겨찾기한 모임이 없습니다.</h5>
+</c:if>
+
+<c:if test="${not empty finalList}">
 <c:forEach var="vo" items="${finalList}">
 		<table border="1">
 			<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
 				<td>${vo.tag}<img src="../img/F1.png" id="img_${vo.boardNum}" style="width:30ps; height:30px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId}')"></td></tr>
-			<tr><td>${vo.title }</td></tr>
+			<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 			<tr><td>${vo.place}/${vo.dDay}</td></tr>
 			<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 		</table>
 </c:forEach>
+</c:if>
 </body>
 </html>

@@ -9,6 +9,8 @@ import board.BoardService;
 import board.BoardVo;
 import comment.CommentService;
 import comment.CommentVo;
+import favorites.FavoritesService;
+import favorites.FavoritesVo;
 import handler.Handler;
 import member.HMemberService;
 import member.HMemberVo;
@@ -23,6 +25,7 @@ public class BoardDetailHandler implements Handler {
 		String view = "";
 		int boardNum = Integer.parseInt(request.getParameter("boardNum")); // 게시글 번호 빨리 받아와
 		ParticipateService servPar = new ParticipateService();
+		FavoritesService servFav = new FavoritesService();
 
 		if (request.getMethod().equals("GET")) {
 
@@ -31,6 +34,15 @@ public class BoardDetailHandler implements Handler {
 			//게시글 가져오기
 			BoardService boardService = new BoardService();
 			BoardVo boardvo = boardService.getByBoardNum(boardNum);
+			
+			// 로그인 한 사람의 즐겨찾기 여부 확인.
+			String memberId = (request.getParameter("memberId") == null) ? "" : request.getParameter("memberId");
+			FavoritesVo fvo = servFav.getFavVo(boardvo.getBoardNum(), memberId);
+			if (fvo == null) {
+				boardvo.setFav(0);
+			} else {
+				boardvo.setFav(1);
+			}
 			
 			//게시글 작성자 정보 가져오기
 			HMemberService service1 = new HMemberService();
@@ -54,7 +66,8 @@ public class BoardDetailHandler implements Handler {
 			request.setAttribute("boardvo", boardvo);
 			request.setAttribute("membervo", membervo);
 
-			view = "/board/boardDetail.jsp";
+			request.setAttribute("view", "/board/boardDetail.jsp");
+			view = "/main.jsp";
 			
 		} else { //참가 신청 버튼 눌렀을때 실행될 코드 적어야 함
 

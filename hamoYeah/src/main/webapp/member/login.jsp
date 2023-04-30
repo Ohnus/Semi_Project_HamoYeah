@@ -27,7 +27,8 @@ function loginbtn(){
 		} else if(obj.flag == 2){
 			location.href = "${pageContext.request.contextPath}/admin/manage.do";
 		} else if(obj.flag == 3){
-			location.href = "${pageContext.request.contextPath}/board/boardAllList.do";
+			// 여기서 ${sessionScope.loginId} 가 안담기는 거 같음.. ㅎ..
+			location.href = "${pageContext.request.contextPath}/board/boardAllList.do?memberId="+f.memberId.value;
 		}
 	}
 // 			if("${sessionScope.loginId}" == "master"){
@@ -44,7 +45,7 @@ function loginbtn(){
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="memberId"></td>
+				<td><input type="text" name="memberId" id="memberId"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>

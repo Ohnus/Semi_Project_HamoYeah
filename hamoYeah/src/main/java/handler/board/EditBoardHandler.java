@@ -19,7 +19,7 @@ public class EditBoardHandler implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 
-		String view = "/board/editBoard.jsp";
+		String view = "/main.jsp";
 		if (request.getMethod().equals("GET")) { // 수정 버튼 누르면 기존 게시글의 정보를 담아서 수정 폼으로 이동
 
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
@@ -47,7 +47,6 @@ public class EditBoardHandler implements Handler {
 				String content = multipart.getParameter("content");
 				String imagepath = multipart.getParameter("imagepath");
 				String place = multipart.getParameter("place");
-				String dDay = multipart.getParameter("dDay");
 				String tag = multipart.getParameter("tag");
 				int peopleMax = Integer.parseInt(multipart.getParameter("peopleMax"));
 			
@@ -60,19 +59,19 @@ public class EditBoardHandler implements Handler {
 				// 이미지 수정 안했을 경우(받아올 값이 없을 경우): 이름이 있으면 즉, 이미지를 수정했으면 새로운 경로 생성 / 아니라면 기존 글의 경로를 넣어줌
 				String fname = null;
 				if (f != null) {
-					fname = "\\img\\" + f.getName();
+					fname = "/img/" + f.getName();
 				}else {
 					BoardVo vo = service.getByBoardNum(boardNum);
 					fname = vo.getImagepath();
 				}
 
 				service.editBoard(
-						new BoardVo(null, boardNum, null, title, content, fname, place, dDay, tag, peopleMax, 0, 0, 0));
+						new BoardVo(null, boardNum, null, title, content, fname, place, null, tag, peopleMax, 0, 0, 0));
 
-				BoardVo vo = service.getByBoardNum(boardNum);
-				request.setAttribute("vo", vo);
+//				BoardVo vo = service.getByBoardNum(boardNum);
+//				request.setAttribute("vo", vo);
 
-				view = "redirect:/board/boardDetail.do?boardNum=" + boardNum;
+				view = "redirect:/board/boardDetail.do?boardNum=" + boardNum + "&memberId=" + memberId;
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

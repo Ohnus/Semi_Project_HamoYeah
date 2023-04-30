@@ -59,14 +59,17 @@ public class BoardDao {
 	public void update(BoardVo vo) {
 		Connection conn = dbconn.conn();
 		
-		String sql = "update H_board set title=?, content=?, imagepath=? where board_num=?";
+		String sql = "update H_board set title=?, content=?, imagepath=?, place=?, tag=?, people_max=? where board_num=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getImagepath());
-			pstmt.setInt(4, vo.getBoardNum());
+			pstmt.setString(4, vo.getPlace());
+			pstmt.setString(5, vo.getTag());
+			pstmt.setInt(6, vo.getPeopleMax());
+			pstmt.setInt(7, vo.getBoardNum());
 			
 			int num = pstmt.executeUpdate();
 			System.out.println(num + "줄이 수정되었습니다.");
@@ -217,7 +220,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where tag=? order by board_num desc";
+		String sql = "select * from H_board where tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -251,7 +254,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where place like ? order by board_num desc";
+		String sql = "select * from H_board where place like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -285,7 +288,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where title like ? order by board_num desc";
+		String sql = "select * from H_board where title like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -319,7 +322,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where content like ? order by board_num desc";
+		String sql = "select * from H_board where content like ? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -353,7 +356,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where place like ? and tag=? order by board_num desc";
+		String sql = "select * from H_board where place like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -389,7 +392,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where title like ? and tag=? order by board_num desc";
+		String sql = "select * from H_board where title like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -423,7 +426,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 		
-		String sql = "select * from H_board where content like ? and tag=? order by board_num desc";
+		String sql = "select * from H_board where content like ? and tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') and y_card < 3 order by board_num desc";
 			
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
