@@ -111,7 +111,7 @@ h3, h4, h5 {
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
-	<input type="button" value="후기 작성하기" onclick="location.href='${pageContext.request.contextPath}/review/writeReview.do?boardNum=${vo.boardNum}'">
+	<input type="button" value="후기 작성하기" onclick="location.href='${pageContext.request.contextPath}/review/add.do?boardNum=${vo.boardNum}'">
 	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
 </c:if>
 </c:forEach>

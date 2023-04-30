@@ -22,7 +22,7 @@ public class DetailHandler implements Handler {
 		reviewVo vo = service.getByReviewNum(reviewNum);
 		request.setAttribute("vo", vo);
 		request.setAttribute("tag", tag);
-		request.setAttribute("view", "/review/list.jsp");
+		request.setAttribute("view", "/review/detail.jsp");
 		return "/main.jsp";
 		
 	}
