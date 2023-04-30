@@ -43,7 +43,7 @@ function a(){
 	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne 'master'}">
 <table>
 <tr>
-		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/boardAllList.do">모임</a></td>
+		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/boardAllList.do?memberId=${sessionScope.loginId}">모임</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/board/addBoard.do?memberId=${sessionScope.loginId}">모임등록</a></td>
 		<td><a onmouseover="showH()">히스토리</a></td>
 		<td><a onmouseover="a()" href="${pageContext.request.contextPath}/review/reviewList.do">후기</a></td>

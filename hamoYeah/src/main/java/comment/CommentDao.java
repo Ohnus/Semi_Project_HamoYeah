@@ -71,7 +71,7 @@ public class CommentDao {
 	public ArrayList<CommentVo> selectByboardNum(int boardNum){
 		ArrayList<CommentVo> list = new ArrayList<>();
 		Connection conn = dbconn.conn();
-		String sql = "select * from h_comment where board_num=? and re_rep_num=0";
+		String sql = "select * from h_comment where board_num=? and re_rep_num=0 order by rep_num";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);

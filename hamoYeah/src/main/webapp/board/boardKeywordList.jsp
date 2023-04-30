@@ -19,16 +19,19 @@ function searchByKeyword() {
 
 	if (type == "1") {
 		let param = "?place=" + searchText;
+		param += "&memberId=${sessionScope.loginId}";
 		k.action = "${pageContext.request.contextPath }/board/placeList.do" + param;
 		k.submit();
 		
 	} else if (type == "2") {
 		let param = "?title=" + searchText;
+		param += "&memberId=${sessionScope.loginId}";
 		k.action = "${pageContext.request.contextPath }/board/titleList.do" + param;
 		k.submit();
 		
 	} else if (type == "3") {
 		let param = "?content=" + searchText;
+		param += "&memberId=${sessionScope.loginId}";
 		k.action = "${pageContext.request.contextPath }/board/contentList.do" + param;
 		k.submit();
 	}
@@ -43,9 +46,9 @@ function change(board, id) {
 		let obj = JSON.parse(xhttp.responseText);
 		let img = document.getElementById("img_" + board);
 		if(obj.color == 0){
-			img.src = "../systemImg/F1.png";
+			img.src = "../img/F1.png";
 		} else {
-			img.src = "../systemImg/F2.jpeg";
+			img.src = "../img/F2.jpeg";
 		}
 	}
 	
@@ -78,7 +81,7 @@ function change(board, id) {
 </form>
 
 <br/>
-
+<c:if test="${empty list }"><p>검색결과가 없습니다.</p></c:if>
 <c:forEach var="vo" items="${list }">
 <%-- <input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath }/board/editBoard.do?boardNum=' + ${vo.boardNum}"> --%>
 <table border="1" style="width:600px, height:200px">
@@ -86,8 +89,13 @@ function change(board, id) {
 
 <tr><td rowspan="4">
 <img src="${vo.imagepath }" style="width:100px; height:100px;"></td><td>${vo.tag }</td>
+<c:if test="${vo.fav eq 0}"> 
 <td><img src="../img/F2.jpeg" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
-<tr><td colspan="2"><a href="${pageContext.request.contextPath }/board/detail.do">${vo.title }</a></td></tr>
+</c:if>
+<c:if test="${vo.fav eq 1}"> 
+<td><img src="../img/F1.png" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
+</c:if>
+<tr><td colspan="2"><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">${vo.title }</a></td></tr>
 <tr><td>장소/시간</td><td>${vo.dDay } ${vo.place }</td></tr>
 <tr><td><img src="../img/people.png" style="width:20x; height:20px;"></td><td>${vo.ok } / ${vo.peopleMax }</td></tr>
 

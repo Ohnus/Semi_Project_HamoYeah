@@ -27,6 +27,11 @@ h3, h4, h5 {
 </head>
 <body>
 <h3>내가 참여한 모임</h3>
+<c:if test="${empty listOn0 && empty listOn1 && empty listOn2}">
+<h5>참여 신청한 모임이 없습니다.</h5>
+</c:if>
+
+<c:if test="${not empty listOn0 || not empty listOn1 || not empty listOn2}">
 <h4>진행중인 모임</h4>
 <div class="on">
 <div class="on0">
@@ -35,7 +40,7 @@ h3, h4, h5 {
 <c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
 	<table border="1" style="border-color:red;">
 		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 	</table>
 </c:if>
@@ -43,7 +48,7 @@ h3, h4, h5 {
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
 			<td>${vo.tag}  <span></span></td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
@@ -56,7 +61,7 @@ h3, h4, h5 {
 <c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
 	<table border="1" style="border-color:red;">
 		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 	</table>
 </c:if>
@@ -64,7 +69,7 @@ h3, h4, h5 {
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
 			<td>${vo.tag}  <span></span></td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
@@ -77,7 +82,7 @@ h3, h4, h5 {
 <c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
 	<table border="1" style="border-color:red;">
 		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 	</table>
 </c:if>
@@ -85,7 +90,7 @@ h3, h4, h5 {
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td>
 			<td>${vo.tag}  <span></span></td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
@@ -93,21 +98,24 @@ h3, h4, h5 {
 </c:forEach>
 </div>
 </div>
+</c:if>
 
-
+<c:if test="${empty listOff}">
+</c:if>
+<c:if test="${not empty listOff}">
 <h4>완료된 모임</h4>
 <c:forEach var="vo" items="${listOff}">
 <c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
 	<table border="1" style="border-color:red;">
 		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 	</table>
 </c:if>
 <c:if test="${vo.y_card ne 3}"> <!-- ne: != -->
 	<table border="1">
 		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td><td>${vo.tag}</td></tr>
-		<tr><td>${vo.title }</td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
@@ -115,6 +123,6 @@ h3, h4, h5 {
 	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
 </c:if>
 </c:forEach>
-
+</c:if>
 </body>
 </html>

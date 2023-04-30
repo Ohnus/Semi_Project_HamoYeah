@@ -20,7 +20,7 @@ public class AddBoardHandler implements Handler {
 		// TODO Auto-generated method stub
 		
 		
-		String view = "/board/addBoard.jsp";
+		String view = "/main.jsp";
 		if (request.getMethod().equals("GET")) {// request.getMethod(): 요청 방식(get/post)값 반환
 			request.setAttribute("view", "/board/addBoard.jsp");
 		} else {
@@ -50,12 +50,12 @@ public class AddBoardHandler implements Handler {
 				// 업로드된 파일의 파일객체 반환
 				File f = multipart.getFile("imagepath");
 				// getName(): 파일명 반환
-				String fname = "\\img\\" + f.getName();
+				String fname = "/img/" + f.getName();
 				
 				BoardService service = new BoardService();
 				service.addBoard(new BoardVo(memberId, 0, null, title, content, fname, place, dDay, tag, peopleMax, y_card, process, ok));
 				
-				view = "redirect:/board/boardList.do";
+				view = "redirect:/board/boardAllList.do?memberId="+memberId;
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -22,6 +22,7 @@ public class BoardVo {
 	private int ok;
 	private ArrayList<CommentVo> reps; //추가(boardDetail.jsp에서 댓글 리스트 불러오는데 사용됨)
 	private ArrayList<HMemberVo> mvolist; //추가(boardDetail.jsp에서 참여자 리스트 불러오는데 사용됨)
+	private int fav; // 보드 리스트에서 즐겨찾기 여부 담음.
 
 	public BoardVo() {
 	}
@@ -41,6 +42,14 @@ public class BoardVo {
 		this.y_card = y_card;
 		this.process = process;
 		this.ok = ok;
+	}
+
+	public int getFav() {
+		return fav;
+	}
+
+	public void setFav(int fav) {
+		this.fav = fav;
 	}
 
 	public ArrayList<CommentVo> getReps() {
@@ -168,7 +177,9 @@ public class BoardVo {
 		return "BoardVo [memberId=" + memberId + ", boardNum=" + boardNum + ", wDate=" + wDate + ", title=" + title
 				+ ", content=" + content + ", imagepath=" + imagepath + ", place=" + place + ", dDay=" + dDay + ", tag="
 				+ tag + ", peopleMax=" + peopleMax + ", y_card=" + y_card + ", process=" + process + ", ok=" + ok
-				+ ", reps=" + reps + ", mvolist=" + mvolist + "]";
+				+ ", reps=" + reps + ", mvolist=" + mvolist + ", fav=" + fav + "]";
 	}
+
+
 
 }
