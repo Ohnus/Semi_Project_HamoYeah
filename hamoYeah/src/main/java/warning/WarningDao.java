@@ -58,4 +58,28 @@ public class WarningDao {
 		return list;
 	}
 	
+	public WarningVo selectByIdNum(String memberId, int boardNum) {
+		Connection conn = dbconn.conn();
+		String sql = "select * from h_warning where member_id=? and board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, boardNum);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return new WarningVo(rs.getString(1), rs.getInt(2), rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 }

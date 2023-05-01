@@ -3,6 +3,8 @@ package handler.board;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import board.BoardService;
 import handler.Handler;
 import warning.WarningService;
@@ -19,10 +21,20 @@ public class WarningHandler implements Handler {
 		String content = request.getParameter("content");
 		System.out.println(content);
 		WarningService service = new WarningService();
-		BoardService bservice = new BoardService();
-		bservice.plusYcard(boardNum);
-		service.addWarning(new WarningVo(memberId, boardNum, content));
-		view = "redirect:/board/boardDetail.do?boardNum=" + boardNum + "&memberId=" + memberId;
+		WarningVo vo = service.getByIdNum(memberId, boardNum);
+		boolean flag = (vo==null);
+		if(flag) {
+			BoardService bservice = new BoardService();
+			bservice.plusYcard(boardNum);
+			service.addWarning(new WarningVo(memberId, boardNum, content));
+		} else {
+			System.out.println("이미 신고한 게시글");
+		}
+		JSONObject obj = new JSONObject();
+		obj.put("flag", flag);
+		String txt = obj.toJSONString();
+		
+		view = "responsebody/" + txt;
 		return view;
 	}
 }

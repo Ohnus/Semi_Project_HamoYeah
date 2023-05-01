@@ -190,20 +190,27 @@ function reportBoard(){
 			return;
 		}
 		document.getElementById("warnetc").value = etc; // 널이 아니면 라디오버튼에 담기
-		
 	}
-// 	const boardNum = document.getElementById("${boardvo.boardNum}").value;
-// 	const reportedBoards = sessionStorage.getItem("reportedBoards");
-// 	if (reportedBoards && reportedBoards.includes(boardNum)) {
-// 	    alert("이미 신고한 게시물입니다.");
-// 	    event.preventDefault();
-// 	    return;
-// 	}
-// 	sessionStorage.setItem("reportedBoards", reportedBoards ? reportedBoards + "," + boardNum : boardNum);
-	alert("신고 접수가 완료되었습니다.");
-// 	document.getElementById("reportbtn").onClick = null;
-	f.action="${pageContext.request.contextPath}/board/warning.do";
-	f.submit();
+	const xhttp = new XMLHttpRequest();
+	let param = "?memberId=${sessionScope.loginId}";
+	param += "&boardNum=${boardvo.boardNum}";
+	param += "&content=" + document.querySelector("input[type=radio]:checked").value;
+	xhttp.open("get", "${pageContext.request.contextPath}/board/warning.do" + param);
+	xhttp.send();
+
+	xhttp.onload = function() {
+		let val = xhttp.responseText;
+		let obj = JSON.parse(val);
+		if (obj.flag) {
+			alert("신고 접수가 완료되었습니다.");
+			event.preventDefault();
+			return;
+		} else {
+			alert("이미 신고한 게시글입니다.");
+			event.preventDefault();
+			return;
+		}
+	}
 }
 </script>
 </head>
@@ -232,17 +239,16 @@ function reportBoard(){
 				<form action="" method="post" name="f">
 				<input type="hidden" name="memberId" value="${sessionScope.loginId }">
 				<input type="hidden" name="boardNum" id="${boardvo.boardNum}" value="${boardvo.boardNum}">
-				<input type="radio" name="content" id="warn" value="1">정치적 글<br/>
-				<input type="radio" name="content" id="warn" value="2">테러조장 글<br/>
-				<input type="radio" name="content" id="warn" value="3">폭력적 글<br/>
-				<input type="radio" name="content" id="warn" value="4">홍보목적 글<br/>
-				<input type="radio" name="content" id="warn" value="5">유해한 글<br/>
+				<input type="radio" name="content" id="warn" value="1" onclick="this.form.textarea.disabled=true">정치적 글<br/>
+				<input type="radio" name="content" id="warn" value="2" onclick="this.form.textarea.disabled=true">테러조장 글<br/>
+				<input type="radio" name="content" id="warn" value="3" onclick="this.form.textarea.disabled=true">폭력적 글<br/>
+				<input type="radio" name="content" id="warn" value="4" onclick="this.form.textarea.disabled=true">홍보목적 글<br/>
+				<input type="radio" name="content" id="warn" value="5" onclick="this.form.textarea.disabled=true">유해한 글<br/>
 				<input type="radio" name="content" id="warnetc" value="6" onclick="this.form.textarea.disabled=false">기타<br/>
 				<textarea name="textarea" id="etc" cols="50" rows="7" style="scrolling:yes" placeholder="기타 의견을 입력해 주세요." disabled></textarea>
 				<input type="hidden" name="memberId" id="id" value="s1">
 				<input type="hidden" name="boardNum" id="num" value="4">
 				<input type="button" value="신고" id="reportbtn2" onclick="reportBoard()">
-				<input type="button" name="cancelbtn" id="cancelbtn" value="취소">
 				</form>
 			</div>
 		</div>

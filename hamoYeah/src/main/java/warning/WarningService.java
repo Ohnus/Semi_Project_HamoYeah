@@ -16,4 +16,8 @@ private WarningDao dao;
 	public ArrayList<WarningVo> selectByNum(int boardNum) {
 		return dao.select(boardNum);
 	}
+	
+	public WarningVo getByIdNum(String memberId, int boardNum) {
+		return dao.selectByIdNum(memberId, boardNum);
+	}
 }
