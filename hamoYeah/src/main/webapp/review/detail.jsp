@@ -10,56 +10,52 @@ response.setCharacterEncoding("utf-8");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function likes(num){
+   const xhttp = new XMLHttpRequest();
+      
+      xhttp.onload = function(){
+         let val = xhttp.responseText;
+         let arr = JSON.parse(val);
+         let html = '';
+         html = arr.cnt;
+         let res = document.getElementById("likenum");
+         res.innerHTML = html;//responseText: 서버로부터 받은 응답값
+      }
+      
+      let param = "?reviewNum=" + num;
+      param += "&writer=${sessionScope.loginId}";
+      
+      //요청 전송방식, 서버페이지 url 설정. get방식인 경우 url뒤에 파람 붙임
+      xhttp.open("GET", "${pageContext.request.contextPath}/review/likes.do"+param);
+      xhttp.send();
+}
+</script>
+
 </head>
 <body>
 
 
-<form action="${pageContext.request.contextPath }/review/detail.do" method="post">
-<table border="1" width="800" height="250">
+      <form action="${pageContext.request.contextPath }/review/edit.do?num=${vo.reviewNum}" method="post">
+         <table border="1" width="800" height="250">
+            <tr height="75">
+               <td rowspan="2" width="150"><img src="${vo.imagepath }" width="150px" height="100px"></td>
+               <td>관심사: <input type="text" value="${vo.tag }" readonly></td>
+            </tr>   
+            <tr>
+               <td>내용: <textarea rows="4" name="content" cols="50" >${vo.content }</textarea></td>
+            </tr>
+            <c:if test="${sessionScope.loginId eq vo.memberId }">
+            <a href="${pageContext.request.contextPath }/review/edit.do?num=${vo.reviewNum}"><input type="button" value="수정"></a>
+            </c:if>
+            <c:if test="${sessionScope.loginId eq vo.memberId }">
+            <input type="button" value="삭제" onclick="javascript:location.href='${pageContext.request.contextPath }/review/del.do?reviewNum=${vo.reviewNum}'">
+            </c:if>
+         </table>
+         <input type="button" value="좋아요" onclick="likes(${vo.reviewNum})"><span id="likenum">${cnt }</span>
+      </form>
 
 
-	<tr height="75">
-		<td rowspan="2" width="150"><img src="${vo.imagepath }" width="150px" height="100px"></td>
-		<td><input type="text" value="${vo.tag }" readonly></td>
-	</tr>	
-	<tr>
-		<td><input type="text" value="${vo.content }"></td>
-	</tr>
-
-</table>
-</form>
-
-<!-- 상세페이지 밑에 리스트 띄우기 -->
-		<div class="review-list">
-		  <h1>더 많은 후기 피드</h1>
-		 <ul>
-		  <c:forEach var="vo" items="${list }">
-		    <form action="" method="post">
-		    <li>
-		      <div class="review">
-		        <div class="review-info">
-		          <span class="review-user">${vo.memberId }</span>
-		          <span class="review-date">${vo.rDate }</span>
-		          
-		           <c:if test="${not empty sessionScope.loginId }">
-			          <input type="submit" value="수정">
-			          <input type="button" value="삭제" onclick="javascript:location.href='${pageContext.request.contextPath }/review/edit?num=${vo.boardNum}'">
-		        	</c:if>
-		        </div>
-		        
-		        <div class="review-content">
-		          <h3 class="review-title">${vo.reviewNum } 리뷰</h3>
-		             <div class="images">
-		            <img src="${vo.imagepath }" width="150px" height="100px">
-		         </div>
-		          <p class="review-text">${vo.content }</p>
-		        </div>
-		      </div>
-		    </li>
-		    </form>
-		  </c:forEach>
-		  </ul>
-		</div>
 
 </body>
 </html>

@@ -10,12 +10,12 @@
 
 function searchByTag(id) {
 
-	let param = "?id=" + document.getElementById(id).value; // 해당 구문은 무조건 쌍으로 설정. 보냈을 때 어떤 것의 값인지 알아야하기 때문
+   let param = "?id=" + document.getElementById(id).value; // 해당 구문은 무조건 쌍으로 설정. 보냈을 때 어떤 것의 값인지 알아야하기 때문
 
-	f.action = "${pageContext.request.contextPath }/review/tagsearch.do" + param;
-	f.submit();
+   f.action = "${pageContext.request.contextPath }/review/tagsearch.do" + param;
+   f.submit();
 }
-	
+   
 </script>
 </head>
 <body>
