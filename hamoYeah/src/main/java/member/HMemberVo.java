@@ -13,6 +13,7 @@ public class HMemberVo {
 	private String tag2;
 	private String tag3;
 	private String imagepath;
+	private int participate; // boardDetail에서 참여 여부 저장 
 	
 	public HMemberVo() {
 	}
@@ -32,6 +33,16 @@ public class HMemberVo {
 		this.tag2 = tag2;
 		this.tag3 = tag3;
 		this.imagepath = imagepath;
+	}
+	
+	
+
+	public int getParticipate() {
+		return participate;
+	}
+
+	public void setParticipate(int participate) {
+		this.participate = participate;
 	}
 
 	public String getMemberId() {
