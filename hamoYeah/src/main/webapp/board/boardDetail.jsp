@@ -80,13 +80,29 @@
 <script type="text/javascript">
 
 //참가신청 버튼 실행시
-function par(){
-// 	const xhttp = new XMLHttpRequest();
-// 	let param = "memberId=" + ${sessionScope.loginId};
-// 	param += "&boardNum=" + ${boardvo.boardNum}; 
-// 	xhttp.open("POST", "${pageContext.request.contextPath}/board/boardDetail.do");
-// 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-// 	xhttp.send(param);		
+function par(boardNum, memberId){
+	const xhttp = new XMLHttpRequest();
+	
+	xhttp.onload = function(){
+		let obj = JSON.parse(xhttp.responseText);
+		if(obj.flag){ // 참가신청 버튼을 눌렀음.
+			let result = confirm('신청되었습니다. 주최자의 사정에 의해 거절될 수 있습니다. 히스토리로 이동하시겠습니까?');
+			if(result){
+				location.href = "${pageContext.request.contextPath}/board/participateList.do?memberId=${sessionScope.loginId}";
+			} else {
+				location.href = "${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${boardvo.boardNum}&memberId=${sessionScope.loginId}";
+			}
+		} else { // 신청 취소 버튼을 눌렀음.
+			alert('신청 취소되었습니다.');
+			location.href = "${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${boardvo.boardNum}&memberId=${sessionScope.loginId}";
+		}
+	}
+	
+	let param = "memberId=" + memberId;
+	param += "&boardNum=" + boardNum; 
+	xhttp.open("POST", "${pageContext.request.contextPath}/board/boardDetail.do");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);		
 }
 
 //댓글
@@ -102,10 +118,9 @@ function comm(){
     		html += '<div id=' + obj.repNum + '>';
     		html += '<span class="author">' + obj.memberId + '   </span>';
     		html += '<span class="content">' + obj.content;
-    		// 여기부터 
+    		// ajax 에서는 jstl을 못씀! jstl은 페이지 로드될 때에만 작동되기 때문..
     		html += '<c:if test="${sessionScope.loginId eq' + obj.memberId + '}">';
     		html += "<input type='button' value='삭제' onclick='del(\"" + obj.repNum + "\")'>";
-    		// 여기까지 안 됨 ^^..
     		html += '</c:if></span></div><br/>'
     	}
 		let div = document.getElementById("reps");
@@ -305,22 +320,36 @@ function reportBoard(){
 <%-- 	<h5>${membervo.intro }</h5> <!-- membervo 한줄소개  --> --%>
 </div>
 
-	<br /> <br/>
 	<br /> 
 	
 <div id="participate">	
-	<!-- 참여자 리스트 -->
-<!-- 	<div id="ok"> -->
-<%-- 		<c:forEach var="membervo" items="${mvolist }"> --%>
-<%-- 			<div id="${membervo.memberId }"> --%>
-<%-- 			<img src="${membervo.imagepath }"><br/> --%>
-<%-- 			${membervo.nickname }<br/> --%>
-<!-- 			</div> -->
-<%-- 		</c:forEach> --%>
-<!-- 	</div> -->
-	
-	<input type="button" value="참여신청" onclick="par()">
-	<br/><br/>
+	<!-- 승인된 참여자 리스트 -->
+	<h4> participate </h4>
+	<div id="ok">
+		<c:forEach var="mvo" items="${boardvo.mvolist}">
+			<div id="${mvo.memberId }">
+				<img src="${mvo.imagepath }" style="width:50px; height:50px;"><br/>
+				${mvo.nickname }
+			</div>
+		</c:forEach>
+	</div>
+	<br/>
+	<!-- 로그인했고 본인 글 아닐 때에만 참여신청 버튼 뜸! -->
+	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne boardvo.memberId }">
+		<!-- 참여 신청 안했다면? -->
+		<c:if test="${membervo.participate eq 0 && boardvo.ok ne boardvo.peopleMax}">
+			<input type="button" value="참여신청" onclick="par('${boardvo.boardNum}', '${sessionScope.loginId}')" style="background-color:red;">
+		</c:if>
+		<!-- 참여 신청을 이미 했다면? 혹은 승인됐지만 신청 취소하고 싶다면? -->
+		<c:if test="${membervo.participate eq 1 || membervo.participate eq 2 }">
+			<input type="button" value="신청취소" onclick="par('${boardvo.boardNum}', '${sessionScope.loginId}')" style="background-color:grey;">
+		</c:if>
+		<!-- 참여 신청 안했는데 최대 인원이 다 찼다면?-->	
+		<c:if test="${membervo.participate eq 0 && boardvo.ok eq boardvo.peopleMax}">
+			<input type="button" value="신청마감" onclick="alert('신청이 마감되었습니다.')" style="background-color:grey;">
+		</c:if>
+	</c:if>
+	<br/>
 </div>
 
 <c:if test="${not empty sessionScope.loginId && boardvo.y_card < 3}">

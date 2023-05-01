@@ -10,13 +10,14 @@ import board.BoardVo;
 import favorites.FavoritesService;
 import favorites.FavoritesVo;
 import handler.Handler;
+import member.HMemberVo;
+import participate.ParticipateService;
 
 public class ListAllHandler implements Handler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		
 		BoardService service = new BoardService();
 		ArrayList<BoardVo> list = service.getAllBoard();
 		FavoritesVo fvo = new FavoritesVo();
@@ -37,6 +38,21 @@ public class ListAllHandler implements Handler {
 					bvo.setFav(1);
 				}
 			}
+		}
+		
+		// ok 갱신 
+		ParticipateService servPar = new ParticipateService();
+		BoardService servBoard = new BoardService();
+		int cnt = 0;
+		for (int i = 0; i < list.size(); i++) {
+			BoardVo bvo = list.get(i);
+			ArrayList<String> parList = servPar.getOk1(bvo.getBoardNum()); // ok=1인 memberId만 리스트 담기
+			for (int j = 0; j < parList.size(); j++) {
+				cnt++;
+			}
+			bvo.setOk(cnt);
+			servBoard.EditParticipate(bvo);
+			cnt = 0;
 		}
 		
 		

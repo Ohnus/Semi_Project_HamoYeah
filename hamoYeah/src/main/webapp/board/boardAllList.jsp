@@ -111,11 +111,13 @@ function change(board, id) {
 <tr><td rowspan="4">
 <img src="${vo.imagepath }" style="width:100px; height:100px;"></td><td>${vo.tag }</td>
 
-<c:if test="${vo.fav eq 0}"> 
-<td><img src="../img/F2.jpeg" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
-</c:if>
-<c:if test="${vo.fav eq 1}"> 
-<td><img src="../img/F1.png" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
+<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne vo.memberId }">
+	<c:if test="${vo.fav eq 0}"> 
+		<td><img src="../img/F2.jpeg" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
+	</c:if>
+	<c:if test="${vo.fav eq 1}"> 
+		<td><img src="../img/F1.png" id="img_${vo.boardNum }" style="width:20px; height:20px;" onclick="change('${vo.boardNum}', '${sessionScope.loginId }')"></td></tr>
+	</c:if>
 </c:if>
 
 <tr><td colspan="2"><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}&memberId=${sessionScope.loginId}">${vo.title }</a></td></tr>

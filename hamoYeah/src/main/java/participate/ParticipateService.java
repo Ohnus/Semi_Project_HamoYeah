@@ -13,6 +13,10 @@ public class ParticipateService {
 	public void Add(ParticipateVo vo) {
 		dao.insert(vo);
 	}
+	
+	public void del(int boardNum, String memberId) {
+		dao.delete(boardNum, memberId);
+	}
 
 	// update (승인)
 	public void editOk1(ParticipateVo vo) {
@@ -37,5 +41,10 @@ public class ParticipateService {
 	// select memberId -- 참여한 모임에 띄울 거.
 	public ArrayList<ParticipateVo> getPvo(String memberId) {
 		return dao.selectPvo(memberId);
+	}
+	
+	// select participateVo -- 보드 디테일에서 참여신청 여부 확인
+	public ParticipateVo getOne(int boardNum, String memberId) {
+		return dao.selectOne(boardNum, memberId);
 	}
 }
