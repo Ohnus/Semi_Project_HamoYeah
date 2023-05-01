@@ -32,6 +32,6 @@ public class SearchHandler implements Handler {
 		request.setAttribute("list", list);
 		request.setAttribute("view", "/review/search.jsp");
 		
-		return "/main.jsp";
+		return "/review/search.jsp";
 	}
 }

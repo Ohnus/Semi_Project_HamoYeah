@@ -24,7 +24,7 @@ public class EditHandler implements Handler {
 		String view = "/review/edit.jsp";
 		if (request.getMethod().equals("GET")) { // 수정 버튼 누르면 기존 게시글의 정보를 담아서 수정 폼으로 이동
 
-			int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+			int reviewNum = Integer.parseInt(request.getParameter("num"));
 			System.out.println(reviewNum);
 			reviewService service = new reviewService();
 			reviewVo vo = service.getByReviewNum(reviewNum);
@@ -34,26 +34,20 @@ public class EditHandler implements Handler {
 			
 		} else {
 			int size = 100 * 1024 * 1024; // 100M
-
+			
 			MultipartRequest multipart;
 
 			try {
 				multipart = new MultipartRequest(request, BoardService.path, size, "UTF-8",
 						new DefaultFileRenamePolicy());
 				// 폼파라메터 읽기
-				String memberId = multipart.getParameter("memberId");
 				
-				int boardNum = Integer.parseInt(multipart.getParameter("boardNum"));
-				
-				String title = multipart.getParameter("title");
+				int reviewNum = Integer.parseInt(multipart.getParameter("reviewNum"));
 				String content = multipart.getParameter("content");
 				String imagepath = multipart.getParameter("imagepath");
-				String place = multipart.getParameter("place");
-				String dDay = multipart.getParameter("dDay");
-				String tag = multipart.getParameter("tag");
-				int peopleMax = Integer.parseInt(multipart.getParameter("peopleMax"));
 				
-				BoardService service = new BoardService();
+				
+				reviewService service = new reviewService();
 				
 				// 업로드된 파일의 파일객체 반환
 				File f = multipart.getFile("imagepath");
@@ -63,17 +57,14 @@ public class EditHandler implements Handler {
 				if (f != null) {
 					fname = "\\img\\" + f.getName();
 				}else {
-					BoardVo vo = service.getByBoardNum(boardNum);
+					reviewVo vo = service.getByReviewNum(reviewNum);
 					fname = vo.getImagepath();
 				}
 
-				service.editBoard(
-						new BoardVo(null, boardNum, null, title, content, fname, place, dDay, tag, peopleMax, 0, 0, 0));
+				service.editReview(new reviewVo(null,reviewNum,0,null,0,fname,content,null));
 
-				BoardVo vo = service.getByBoardNum(boardNum);
-				request.setAttribute("vo", vo);
 
-				view = "redirect:/board/boardDetail.do?boardNum=" + boardNum;
+				view = "redirect:/review/detail.do?reviewNum="+reviewNum;
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

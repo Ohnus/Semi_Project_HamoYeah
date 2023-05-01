@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.BoardService;
 import board.BoardVo;
 import handler.Handler;
+import review.reviewService;
+import review.reviewVo;
 
 public class TagsearchHandler implements Handler {
 
@@ -28,12 +29,12 @@ public class TagsearchHandler implements Handler {
 		
 		String tag = request.getParameter("id");
 		
-		BoardService service = new BoardService();
-		ArrayList<BoardVo> list = service.getByTag(tag);
+		reviewService service = new reviewService();
+		ArrayList<reviewVo> list = service.getByTag(tag);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("view", "/review/list.jsp");
 		
-		return "/main.jsp";
+		return "/review/list.jsp";
 	}
 }

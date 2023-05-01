@@ -19,7 +19,6 @@ public class DelHandler implements Handler {
 		reviewService service = new reviewService();
 		service.delReview(reviewNum);
 		
-		
 		return "/review/list.do";
 	}
 }
