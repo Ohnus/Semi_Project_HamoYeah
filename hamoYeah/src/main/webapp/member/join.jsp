@@ -238,13 +238,11 @@
 				<input type="checkbox" name="tag" id="t" value="문화/예술" class="tagtest">문화/예술 
 				<input type="checkbox" name="tag" id="t" value="운동/액티비티" class="tagtest">운동/액티비티 
 				<input type="checkbox" name="tag" id="t" value="푸드/드링크" class="tagtest">푸드/드링크 
-				<input type="checkbox" name="tag" id="t" value="취미" class="tagtest">취미 
-				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동 <br />
+				<input type="checkbox" name="tag" id="t" value="취미" class="tagtest">취미 <br />
+				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동
 				<input type="checkbox" name="tag" id="t" value="반려동물" class="tagtest">반려동물 
-				<input type="checkbox" name="tag" id="t" value="자기계발" class="tagtest">자기계발 
-				<input type="checkbox" name="tag" id="t" value="대화" class="tagtest">대화 
-				<input type="checkbox" name="tag" id="t" value="창작" class="tagtest">창작 
-				<input type="checkbox" name="tag" id="t" value="멍때리기" class="tagtest">멍때리기 
+				<input type="checkbox" name="tag" id="t" value="성정/자기계발" class="tagtest">성장/자기계발 
+				<input type="checkbox" name="tag" id="t" value="대화/친목" class="tagtest">대화/친목 
 				<script>
 				const maxAllowed = 3;
 				const checkboxes = document.querySelectorAll('input[type=checkbox]');

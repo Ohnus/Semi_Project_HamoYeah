@@ -56,7 +56,7 @@ function searchByTag(id) {
  
 <div class="body">
    <c:if test= "${not empty sessionScope.loginId }">
-        <a href="${pageContext.request.contextPath }/board/participate.do?id=${vo.memberId}">리뷰작성하러 가기</a>
+        <a href="${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}">리뷰작성하러 가기</a>
    </c:if>
 </div>
 

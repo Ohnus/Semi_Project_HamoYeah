@@ -228,13 +228,11 @@
 			<input type="checkbox" name="tag" id="t1" value="문화/예술" ${tag.contains("문화/예술") ? "checked" : ""}>문화/예술 
 			<input type="checkbox" name="tag" id="t2" value="운동/액티비티" ${tag.contains("운동/액티비티") ? "checked" : ""}>운동/액티비티 
 			<input type="checkbox" name="tag" id="t3" value="푸드/드링크" ${tag.contains("푸드/드링크") ? "checked" : ""}>푸드/드링크 
-			<input type="checkbox" name="tag" id="t4" value="취미" ${tag.contains("취미") ? "checked" : ""}>취미 
-			<input type="checkbox" name="tag" id="t5" value="봉사활동" ${tag.contains("봉사활동") ? "checked" : ""}>봉사활동 <br />
+			<input type="checkbox" name="tag" id="t4" value="취미" ${tag.contains("취미") ? "checked" : ""}>취미<br />
+			<input type="checkbox" name="tag" id="t5" value="봉사활동" ${tag.contains("봉사활동") ? "checked" : ""}>봉사활동
 			<input type="checkbox" name="tag" id="t6" value="반려동물" ${tag.contains("반려동물") ? "checked" : ""}>반려동물 
-			<input type="checkbox" name="tag" id="t7" value="자기계발" ${tag.contains("자기계발") ? "checked" : ""}>자기계발 
-			<input type="checkbox" name="tag" id="t8" value="대화" ${tag.contains("대화") ? "checked" : ""}>대화 
-			<input type="checkbox" name="tag" id="t9" value="창작" ${tag.contains("창작") ? "checked" : ""}>창작 
-			<input type="checkbox" name="tag" id="t10" value="멍때리기" ${tag.contains("멍때리기") ? "checked" : ""}>멍때리기
+			<input type="checkbox" name="tag" id="t7" value="자기계발" ${tag.contains("성장/자기계발") ? "checked" : ""}>성장/자기계발 
+			<input type="checkbox" name="tag" id="t8" value="대화" ${tag.contains("대화/친목") ? "checked" : ""}>대화 
 <%-- 			<br/>${tag[0]} / ${tag[1]} / ${tag[2]} --%>
 			<script>
 				const maxAllowed = 3;
