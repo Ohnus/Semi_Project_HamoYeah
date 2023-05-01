@@ -78,8 +78,8 @@ public class EditHandler implements Handler {
 				// db에는 수정된 imagepath만 등록되므로 db삭제는 안해도 될 듯?
 				String path = "C:\\Users\\Hi there\\Desktop\\webProgramming\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\";
 				String delimg = path + vo.getImagepath();
-				f = new File(delimg);
-				f.delete();
+				File f2 = new File(delimg);
+				f2.delete();
 
 				imagepath = "\\HmemberImg\\" + f.getName();
 			}

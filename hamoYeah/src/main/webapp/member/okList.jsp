@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function userinfo(memberId){
+	let win = open('${pageContext.request.contextPath}/member/otherInfo.jsp?memberId=' + memberId, '', 'width=400, height=400 top=200, left=600');
+}
+</script>
 </head>
 <style>
 h2, h4, h5 {
@@ -80,8 +85,8 @@ function ok(num){
 	<c:forEach var="vo" items="${list1}">
 		<table>
 			<tr>
-				<td rowspan="2"><img src="${vo.imagepath}"
-					style="width: 100px; height: 100px;"></td>
+				<td rowspan="2"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
+					name="img" style="width: 100px; height: 100px;"></a></td>
 				<td>${vo.nickname}</td>
 			</tr>
 			<tr>
@@ -96,9 +101,11 @@ function ok(num){
 	<c:forEach var="vo" items="${list0}">
 		<table>
 			<tr>
-			<td rowspan="2"><input type="checkbox" name="check" value="${vo.memberId}"></td>
-				<td rowspan="2"><img src="${vo.imagepath}"
-					style="width: 100px; height: 100px;"></td>
+			<td rowspan="2">
+			<input type="checkbox" name="check" value="${vo.memberId}">
+			</td>
+				<td rowspan="2"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
+					name="img" style="width: 100px; height: 100px;"></a></td>
 				<td>${vo.nickname}</td>
 			</tr>
 			<tr>

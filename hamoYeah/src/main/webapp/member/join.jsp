@@ -241,7 +241,7 @@
 				<input type="checkbox" name="tag" id="t" value="취미" class="tagtest">취미 <br />
 				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동
 				<input type="checkbox" name="tag" id="t" value="반려동물" class="tagtest">반려동물 
-				<input type="checkbox" name="tag" id="t" value="성정/자기계발" class="tagtest">성장/자기계발 
+				<input type="checkbox" name="tag" id="t" value="성장/자기계발" class="tagtest">성장/자기계발 
 				<input type="checkbox" name="tag" id="t" value="대화/친목" class="tagtest">대화/친목 
 				<script>
 				const maxAllowed = 3;

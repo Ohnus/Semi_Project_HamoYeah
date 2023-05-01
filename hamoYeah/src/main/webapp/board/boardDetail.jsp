@@ -227,6 +227,9 @@ function reportBoard(){
 		}
 	}
 }
+function userinfo(memberId){
+	let win = open('${pageContext.request.contextPath}/member/otherInfo.jsp?memberId=' + memberId, '', 'width=400, height=400 top=200, left=600');
+}
 </script>
 </head>
 <body>
@@ -315,7 +318,7 @@ function reportBoard(){
 	<br/><br/>
 <div id="host">
 	<h4> host </h4>
-	<img src="${membervo.imagepath }" style="width:50px; height:50px;"><!-- membervo 프로필사진  -->
+	<a onclick="userinfo('${membervo.memberId}')"><img src="${membervo.imagepath }" style="width:50px; height:50px;"></a><!-- membervo 프로필사진  -->
 	<p>${membervo.nickname } </p>
 <%-- 	<h5>${membervo.intro }</h5> <!-- membervo 한줄소개  --> --%>
 </div>
@@ -327,7 +330,7 @@ function reportBoard(){
 	<h4> participate </h4>
 	<div id="ok">
 		<c:forEach var="mvo" items="${boardvo.mvolist}">
-			<div id="${mvo.memberId }">
+			<div id="${mvo.memberId }" onclick="userinfo('${mvo.memberId}')">
 				<img src="${mvo.imagepath }" style="width:50px; height:50px;"><br/>
 				${mvo.nickname }
 			</div>
