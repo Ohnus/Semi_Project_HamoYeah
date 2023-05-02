@@ -45,7 +45,7 @@ public class AddHandler implements Handler {
 			
 			int size = 100 * 1024 * 1024;
 
-			String path = "C:\\Users\\Heesoo KIM\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
+			String path = "C:\\Users\\Hi there\\Desktop\\webProgramming\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\HmemberImg\\";
 
 			MultipartRequest multipart = null;
 			try {
@@ -65,12 +65,7 @@ public class AddHandler implements Handler {
 
 			// 업로드된 파일객체 반환
 			File f = multipart.getFile("imagepath");
-			String fname = "\\img\\" + f.getName();
-			System.out.println(memberId);
-			System.out.println(boardNum);
-			System.out.println(content);
-			System.out.println(tag);
-			System.out.println(fname);
+			String fname = "\\HmemberImg\\" + f.getName();
 			
 			reviewService service = new reviewService();
 			service.addReview(new reviewVo(memberId, 0, boardNum, null, 0, fname, content, tag));

@@ -66,8 +66,7 @@ function delreview(){
 			<tr>
 				<td colspan="3" align="right">
 					<c:if test="${sessionScope.loginId eq vo.memberId }">
-						<a href="${pageContext.request.contextPath }/review/edit.do?num=${vo.reviewNum}">
-						<input type="button" value="수정"></a>
+						<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath }/review/edit.do?reviewNum=${vo.reviewNum}'">
 						<input type="button" value="삭제" onclick="delreview()">
 					</c:if></td>
 			</tr>

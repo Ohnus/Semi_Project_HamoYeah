@@ -23,15 +23,10 @@
 		document.getElementById('imgpath').value = null;
 	}
 
-	function finCheck() {
-		let member_id = document.getElementById("member_id").value;
-		let board_num = document.getElementById("board_num").value;
+	function fincheck() {
 		let imagepath = document.getElementById("imagepath").value;
-		let tag = document.getElementById("tag").value;
 		let content = document.getElementById("content").value;
-
-		if (member_id == '' || board_num == '' || imagepath == '' || tag == ''
-				|| content == '') {
+		if (imagepath == '' || content == '') {
 			alert("입력되지 않은 값이 있습니다. 다시 확인해주세요.")
 			event.preventDefault();
 			return;

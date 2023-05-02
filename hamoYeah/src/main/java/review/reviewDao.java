@@ -121,7 +121,7 @@ public class reviewDao {
 	public ArrayList<reviewVo> selectByTag(String tag) {
 		Connection conn = dbconn.conn();
 		ArrayList<reviewVo> list = new ArrayList<>();
-		String sql = "select * from H_review where tag=?";
+		String sql = "select * from h_review where tag=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, tag);
@@ -140,7 +140,7 @@ public class reviewDao {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return list;
 	}
 
 	
@@ -196,15 +196,15 @@ public class reviewDao {
 		
 	//selectByBoardNum(BoardNum로 검색)
 		public ArrayList<reviewVo> selectByBoardNum(int BoardNum) {
-			ArrayList<reviewVo> list = new ArrayList();
 			Connection conn = dbconn.conn();
-			String sql = "select * from H_Board where Board_num=?";
+			ArrayList<reviewVo> list = new ArrayList<>();
+			String sql = "select * from h_review where Board_num=?";
 			try {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, BoardNum);
 				ResultSet rs = pstmt.executeQuery();
 				while(rs.next()) {
-					list.add(new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+					list.add(new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8)));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

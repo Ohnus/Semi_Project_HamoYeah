@@ -216,7 +216,7 @@ public class BoardDao {
 		Connection conn = dbconn.conn();
 		ArrayList<BoardVo> list = new ArrayList();
 
-		String sql = "select * from H_board where tag=? and D_DAY > to_char(SYSDATE, 'YY/MM/DD') order by board_num desc";
+		String sql = "select * from H_board where tag=? and y_card < 3 and D_DAY > to_char(SYSDATE, 'YY/MM/DD') order by board_num desc";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

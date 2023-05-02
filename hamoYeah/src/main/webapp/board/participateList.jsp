@@ -121,10 +121,10 @@ h3, h4, h5 {
 	</table>
 	<c:if test="${vo.already eq 0 }">
 	<input type="button" value="후기 작성하기" onclick="location.href='${pageContext.request.contextPath}/review/add.do?boardNum=${vo.boardNum}'">
-	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
+	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">
 	</c:if>
 	<c:if test="${vo.already eq 1 }">
-	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
+	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">
 	</c:if>
 </c:if>
 </c:forEach>

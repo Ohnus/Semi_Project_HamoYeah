@@ -56,7 +56,7 @@ h3, h4 {
 		<tr><td>${vo.place}/${vo.dDay}</td></tr>
 		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
 	</table>
-	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/searchByBoard.do?boardNum=${vo.boardNum}'">
+	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">
 </c:if>
 </c:forEach>
 </c:if>

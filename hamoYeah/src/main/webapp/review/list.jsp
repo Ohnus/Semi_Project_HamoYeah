@@ -28,8 +28,7 @@ function searchByTag(id) {
 
    let param = "?id=" + document.getElementById(id).value; // 해당 구문은 무조건 쌍으로 설정. 보냈을 때 어떤 것의 값인지 알아야하기 때문
 
-   f.action = "${pageContext.request.contextPath }/review/tagsearch.do" + param;
-   f.submit();
+   location.href = "${pageContext.request.contextPath }/review/tagsearch.do" + param;
 }
 </script>
 </head>
@@ -37,7 +36,7 @@ function searchByTag(id) {
 
 
 
-<form action="" method="post" id="f">
+<!-- <form action="" method="post" id="f"> -->
 <input type="button" value="전체" onclick="location.href='${pageContext.request.contextPath }/review/list.do'">
 <input type="button" id="1" value="문화/예술" onclick="searchByTag(1)">
 <input type="button" id="2" value="운동/액티비티" onclick="searchByTag(2)">
@@ -47,7 +46,7 @@ function searchByTag(id) {
 <input type="button" id="6" value="반려동물" onclick="searchByTag(6)">
 <input type="button" id="7" value="성장/자기계발" onclick="searchByTag(7)">
 <input type="button" id="8" value="대화/친목" onclick="searchByTag(8)">
-</form>
+<!-- </form> -->
 
 
 <div class="header">
@@ -66,19 +65,17 @@ function searchByTag(id) {
 
 <c:forEach var="vo" items="${list }">
 <br/>
-<form action="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}" method="post">
+<%-- <form action="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}" method="post"> --%>
 <%-- <input type="button" value="리뷰작성" onclick="location.href='${pageContext.request.contextPath }/review/add.do?reviewNum=${vo.reviewNum}"> --%>
 <table border ="1" style="width:600px, height:200px">
-
 
 <tr><td rowspan="4"><a href="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum }" ><img src="${vo.imagepath }" style="width:100px; height:100px"></a></td><td>리뷰번호: ${vo.reviewNum }</td><td>작성자: ${vo.memberId }</td></tr>
 <tr><td colspan="2">태그: ${vo.tag }</td></tr>
 <tr><td colspan="2">날짜: ${vo.rDate }</td></tr>
 <tr><td colspan="2">내용: ${vo.content }</td></tr>
 
-
 </table>
-</form>
+<!-- </form> -->
 </c:forEach>
 </body>
 </html>
