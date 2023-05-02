@@ -31,7 +31,7 @@
 	justify-content: center; /* 모달창 세로 위치 */
 	background: rgba(255, 255, 255, 0);
 	/*  	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
-	backdrop-filter: blur(1.5px); /* 오버레이 배경 흐리게 */
+/* 	backdrop-filter: blur(1.5px); /* 오버레이 배경 흐리게 */ */
 	-webkit-backdrop-filter: blur(1.5px); 
 	/* 	border-radius: 10px; */
 	/* 	border: 1px solid rgba(255, 255, 255, 0.18); */
@@ -39,12 +39,12 @@
 
 #modal .modal-window {
 	background: #fff; /* 모달창 배경색 */
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* 테두리 그림자 */
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* 테두리 그림자 */
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px; /* 테두리 둥글게 */
 	border: 5px solid rgba(0, 0, 0, 0); /* 경계 투명 */
 	width: 400px;
-	height: 300px;
+	height: 380px;
 	position: relative;
 	top: -100px;
 	padding: 10px;
@@ -71,7 +71,7 @@
 }
 
 #modal .content {
-	margin-top: 20px;
+	margin-top: 40px;
 	padding: 0px 10px;
 	/* 	text-shadow: 1px 1px 2px gray; */
 	color: gray;
@@ -257,11 +257,13 @@ function userinfo(memberId){
 				<form action="" method="post" name="f">
 				<input type="hidden" name="memberId" value="${sessionScope.loginId }">
 				<input type="hidden" name="boardNum" id="${boardvo.boardNum}" value="${boardvo.boardNum}">
-				<input type="radio" name="content" id="warn" value="정치적 글" onclick="this.form.textarea.disabled=true">정치적 글<br/>
-				<input type="radio" name="content" id="warn" value="테러조장 글" onclick="this.form.textarea.disabled=true">테러조장 글<br/>
-				<input type="radio" name="content" id="warn" value="폭력적 글" onclick="this.form.textarea.disabled=true">폭력적 글<br/>
-				<input type="radio" name="content" id="warn" value="홍보목적 글" onclick="this.form.textarea.disabled=true">홍보목적 글<br/>
-				<input type="radio" name="content" id="warn" value="유해한 글" onclick="this.form.textarea.disabled=true">유해한 글<br/>
+				<input type="radio" name="content" id="warn" value="혐오 발언 또는 상징" onclick="this.form.textarea.disabled=true">혐오 발언 또는 상징<br/>
+				<input type="radio" name="content" id="warn" value="폭력적인 게시글" onclick="this.form.textarea.disabled=true">폭력적인 게시글<br/>
+				<input type="radio" name="content" id="warn" value="불법 또는 규제 상품 판매" onclick="this.form.textarea.disabled=true">불법 또는 규제 상품 판매<br/>
+				<input type="radio" name="content" id="warn" value="이미지 도용" onclick="this.form.textarea.disabled=true">이미지 도용<br/>
+				<input type="radio" name="content" id="warn" value="자살 또는 자해 유도성 게시글" onclick="this.form.textarea.disabled=true">자살 또는 자해 유도성 게시글<br/>
+				<input type="radio" name="content" id="warn" value="사기 또는 거짓" onclick="this.form.textarea.disabled=true">사기 또는 거짓<br/>
+				<input type="radio" name="content" id="warn" value="정치적 또는 종교적 성향 게시글" onclick="this.form.textarea.disabled=true">정치적 또는 종교적 성향 게시글<br/>
 				<input type="radio" name="content" id="warnetc" value="6" onclick="this.form.textarea.disabled=false">기타<br/>
 				<textarea name="textarea" id="etc" cols="50" rows="7" style="scrolling:yes" placeholder="기타 의견을 입력해 주세요." disabled></textarea>
 				<input type="hidden" name="memberId" id="id" value="s1">
