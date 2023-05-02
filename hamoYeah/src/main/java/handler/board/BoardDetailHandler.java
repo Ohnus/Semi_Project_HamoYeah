@@ -38,6 +38,15 @@ public class BoardDetailHandler implements Handler {
 			BoardService boardService = new BoardService();
 			BoardVo boardvo = boardService.getByBoardNum(boardNum);
 			
+			// 완료 여부 체크
+			ArrayList<BoardVo> complete = boardService.getByComplete();
+			int off = 0;
+			for (BoardVo bvo:complete) {
+				if(bvo.getBoardNum()==boardNum) {
+					off = 1;
+				}
+			}
+			
 			// 승인된 참여자 select
 			ArrayList<String> listOk1 = servPar.getOk1(boardNum); // memberId select
 			
@@ -80,7 +89,7 @@ public class BoardDetailHandler implements Handler {
 			ArrayList<CommentVo> list = comservice.getByboardNum(boardNum);
 			boardvo.setReps(list);
 
-
+			request.setAttribute("off", off);
 			request.setAttribute("boardvo", boardvo); // 여기에 참여자 리스트가 담겨있어요~
 			request.setAttribute("membervo", membervo);
 

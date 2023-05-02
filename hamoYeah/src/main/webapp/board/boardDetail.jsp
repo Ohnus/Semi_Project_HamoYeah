@@ -86,7 +86,7 @@ function par(boardNum, memberId){
 	xhttp.onload = function(){
 		let obj = JSON.parse(xhttp.responseText);
 		if(obj.flag){ // 참가신청 버튼을 눌렀음.
-			let result = confirm('신청되었습니다. 주최자의 사정에 의해 거절될 수 있습니다. 히스토리로 이동하시겠습니까?');
+			let result = confirm('신청되었습니다.\n주최자의 사정에 의해 거절될 수 있습니다.\n히스토리로 이동하시겠습니까?');
 			if(result){
 				location.href = "${pageContext.request.contextPath}/board/participateList.do?memberId=${sessionScope.loginId}";
 			} else {
@@ -106,38 +106,38 @@ function par(boardNum, memberId){
 }
 
 //댓글
-function comm(){
-	//alert("comm");
-	const xhttp = new XMLHttpRequest();
+// function comm(){
+// 	//alert("comm");
+// 	const xhttp = new XMLHttpRequest();
     
-    xhttp.onload = function(){ 
-    	//alert("result");
-    	let arr = JSON.parse(xhttp.responseText);
-    	html = '';
-    	for(let obj of arr){
-    		html += '<div id=' + obj.repNum + '>';
-    		html += '<span class="author">' + obj.memberId + '   </span>';
-    		html += '<span class="content">' + obj.content;
-    		// ajax 에서는 jstl을 못씀! jstl은 페이지 로드될 때에만 작동되기 때문..
-    		html += '<c:if test="${sessionScope.loginId eq' + obj.memberId + '}">';
-    		html += "<input type='button' value='삭제' onclick='del(\"" + obj.repNum + "\")'>";
-    		html += '</c:if></span></div><br/>'
-    	}
-		let div = document.getElementById("reps");
-    	div.innerHTML = html;
-    	repf.content.value = '';
-	}
+//     xhttp.onload = function(){ 
+//     	//alert("result");
+//     	let arr = JSON.parse(xhttp.responseText);
+//     	html = '';
+//     	for(let obj of arr){
+//     		html += '<div id=' + obj.repNum + '>';
+//     		html += '<span class="author">' + obj.memberId + '   </span>';
+//     		html += '<span class="content">' + obj.content;
+//     		// ajax 에서는 jstl을 못씀! jstl은 페이지 로드될 때에만 작동되기 때문..
+//     		html += '<c:if test="${sessionScope.loginId eq' + obj.memberId + '}">';
+//     		html += "<input type='button' value='삭제' onclick='del(\"" + obj.repNum + "\")'>";
+//     		html += '</c:if></span></div><br/>'
+//     	}
+// 		let div = document.getElementById("reps");
+//     	div.innerHTML = html;
+//     	repf.content.value = '';
+// 	}
 
 
-	let param = "memberId=${sessionScope.loginId}";
-	param += "&boardNum=${boardvo.boardNum}"; 
-	param += "&content=" + repf.content.value; 
-	param += "&reRepNum=0";
-	//alert(param);
-	xhttp.open("POST", "${pageContext.request.contextPath}/board/comment.do");
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(param);	
-}	
+// 	let param = "memberId=${sessionScope.loginId}";
+// 	param += "&boardNum=${boardvo.boardNum}"; 
+// 	param += "&content=" + repf.content.value; 
+// 	param += "&reRepNum=0";
+// 	//alert(param);
+// 	xhttp.open("POST", "${pageContext.request.contextPath}/board/comment.do");
+// 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+// 	xhttp.send(param);	
+// }	
 //댓글 삭제
 function del(repNum) {
     //alert("del");
@@ -337,18 +337,18 @@ function userinfo(memberId){
 		</c:forEach>
 	</div>
 	<br/>
-	<!-- 로그인했고 본인 글 아닐 때에만 참여신청 버튼 뜸! -->
-	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne boardvo.memberId }">
-		<!-- 참여 신청 안했다면? -->
-		<c:if test="${membervo.participate eq 0 && boardvo.ok ne boardvo.peopleMax}">
+	<!-- 로그인 + 본인 글 아님 + 진행중 => 참여신청 버튼 뜸! -->
+	<c:if test="${not empty sessionScope.loginId && sessionScope.loginId ne boardvo.memberId && off eq 0}">
+		<!-- 참여 신청 안함 + 인원수 다 안참 + 신고 누적 3미만  -->
+		<c:if test="${membervo.participate eq 0 && boardvo.ok ne boardvo.peopleMax && boardvo.y_card ne 3}">
 			<input type="button" value="참여신청" onclick="par('${boardvo.boardNum}', '${sessionScope.loginId}')" style="background-color:red;">
 		</c:if>
 		<!-- 참여 신청을 이미 했다면? 혹은 승인됐지만 신청 취소하고 싶다면? -->
-		<c:if test="${membervo.participate eq 1 || membervo.participate eq 2 }">
+		<c:if test="${membervo.participate eq 1 || membervo.participate eq 2}">
 			<input type="button" value="신청취소" onclick="par('${boardvo.boardNum}', '${sessionScope.loginId}')" style="background-color:grey;">
 		</c:if>
-		<!-- 참여 신청 안했는데 최대 인원이 다 찼다면?-->	
-		<c:if test="${membervo.participate eq 0 && boardvo.ok eq boardvo.peopleMax}">
+		<!-- 참여 신청 안했는데 최대 인원이 다 찼다면? + 신고누적 3미만-->	
+		<c:if test="${membervo.participate eq 0 && boardvo.ok eq boardvo.peopleMax && boardvo.y_card ne 3}">
 			<input type="button" value="신청마감" onclick="alert('신청이 마감되었습니다.')" style="background-color:grey;">
 		</c:if>
 	</c:if>
@@ -373,11 +373,12 @@ function userinfo(memberId){
 			</c:forEach>
 		</div>
 		
-		<form action="" name="repf" method="post">
+		<form action="${pageContext.request.contextPath}/board/comment.do" name="repf" method="post">
 			<input type="hidden" name="boardNum" value="${boardvo.boardNum}" readonly> 
 			<input type="hidden" name="memberId"value="${sessionScope.loginId}" readonly>
+			<input type="hidden" name="reRepNum" value="0" readonly>
 			<input type="text" name="content" id="content"> 
-			<input type="button" value="작성" onclick="comm()">
+			<input type="submit" value="작성">
 		</form>
 </div>
 </c:if>

@@ -43,20 +43,20 @@ public class CommentHandler implements Handler {
 		CommentService service = new CommentService();
 		service.addComment(vo);
 		
-		ArrayList<CommentVo> reps = service.getByboardNum(boardNum); //원글 번호로 원글에 달린 댓글 전부 불러오기
-		JSONArray arr = new JSONArray();
-		for (CommentVo cvo : reps) {
-		    JSONObject obj = new JSONObject();
-		    //obj.put("imagepath", mvo.getImagepath());
-		    obj.put("memberId", cvo.getMemberId());
-		    obj.put("content", cvo.getContent());
-		    obj.put("repNum", cvo.getRepNum()); // repNum 변수 추가
-		    arr.add(obj);
-		}
-		String txt = arr.toJSONString();
+//		ArrayList<CommentVo> reps = service.getByboardNum(boardNum); //원글 번호로 원글에 달린 댓글 전부 불러오기
+//		JSONArray arr = new JSONArray();
+//		for (CommentVo cvo : reps) {
+//		    JSONObject obj = new JSONObject();
+//		    //obj.put("imagepath", mvo.getImagepath());
+//		    obj.put("memberId", cvo.getMemberId());
+//		    obj.put("content", cvo.getContent());
+//		    obj.put("repNum", cvo.getRepNum()); // repNum 변수 추가
+//		    arr.add(obj);
+//		}
+//		String txt = arr.toJSONString();
 
-		
-		return "responsebody/" + txt; // JSON 형식으로 반환
+//		return "responsebody/" + txt; // JSON 형식으로 반환
+		return "redirect:/board/boardDetail.do?boardNum="+boardNum+"&memberId="+memberId;
 	}
 
 }
