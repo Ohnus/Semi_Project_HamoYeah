@@ -54,7 +54,7 @@ public class reviewService {
 	}
 	
 	//selectByBoardNum(BoardNum로 검색)
-			public ArrayList<BoardVo> getByBoardNum(int BoardNum) {
+			public ArrayList<reviewVo> getByBoardNum(int BoardNum) {
 				return dao.selectByBoardNum(BoardNum);
 			}
 	

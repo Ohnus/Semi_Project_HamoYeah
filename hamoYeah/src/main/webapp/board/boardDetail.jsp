@@ -218,7 +218,7 @@ function reportBoard(){
 		let obj = JSON.parse(val);
 		if (obj.flag) {
 			alert("신고 접수가 완료되었습니다.");
-			event.preventDefault();
+			location.href = "${pageContext.request.contextPath }/board/boardAllList.do";
 			return;
 		} else {
 			alert("이미 신고한 게시글입니다.");
@@ -257,11 +257,11 @@ function userinfo(memberId){
 				<form action="" method="post" name="f">
 				<input type="hidden" name="memberId" value="${sessionScope.loginId }">
 				<input type="hidden" name="boardNum" id="${boardvo.boardNum}" value="${boardvo.boardNum}">
-				<input type="radio" name="content" id="warn" value="1" onclick="this.form.textarea.disabled=true">정치적 글<br/>
-				<input type="radio" name="content" id="warn" value="2" onclick="this.form.textarea.disabled=true">테러조장 글<br/>
-				<input type="radio" name="content" id="warn" value="3" onclick="this.form.textarea.disabled=true">폭력적 글<br/>
-				<input type="radio" name="content" id="warn" value="4" onclick="this.form.textarea.disabled=true">홍보목적 글<br/>
-				<input type="radio" name="content" id="warn" value="5" onclick="this.form.textarea.disabled=true">유해한 글<br/>
+				<input type="radio" name="content" id="warn" value="정치적 글" onclick="this.form.textarea.disabled=true">정치적 글<br/>
+				<input type="radio" name="content" id="warn" value="테러조장 글" onclick="this.form.textarea.disabled=true">테러조장 글<br/>
+				<input type="radio" name="content" id="warn" value="폭력적 글" onclick="this.form.textarea.disabled=true">폭력적 글<br/>
+				<input type="radio" name="content" id="warn" value="홍보목적 글" onclick="this.form.textarea.disabled=true">홍보목적 글<br/>
+				<input type="radio" name="content" id="warn" value="유해한 글" onclick="this.form.textarea.disabled=true">유해한 글<br/>
 				<input type="radio" name="content" id="warnetc" value="6" onclick="this.form.textarea.disabled=false">기타<br/>
 				<textarea name="textarea" id="etc" cols="50" rows="7" style="scrolling:yes" placeholder="기타 의견을 입력해 주세요." disabled></textarea>
 				<input type="hidden" name="memberId" id="id" value="s1">
