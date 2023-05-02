@@ -2,6 +2,7 @@ package handler.board;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +56,10 @@ public class AddBoardHandler implements Handler {
 				BoardService service = new BoardService();
 				service.addBoard(new BoardVo(memberId, 0, null, title, content, fname, place, dDay, tag, peopleMax, y_card, process, ok));
 				
-				view = "redirect:/board/boardAllList.do?memberId="+memberId;
+				ArrayList<BoardVo> myList = service.getById(memberId);
+				BoardVo myBoard = myList.get(0);
+				
+				view = "redirect:/board/boardDetail.do?boardNum="+myBoard.getBoardNum()+"&memberId="+memberId;
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
