@@ -38,7 +38,6 @@ public class SelectHandler implements Handler {
 				obj.put("boardNum", vo.getBoardNum());
 				obj.put("title", vo.getTitle());
 				obj.put("memberId", vo.getMemberId());
-				obj.put("process", vo.getProcess());
 				arr.add(obj);
 			}
 
@@ -57,7 +56,6 @@ public class SelectHandler implements Handler {
 					obj.put("boardNum", vo.getBoardNum());
 					obj.put("title", vo.getTitle());
 					obj.put("memberId", vo.getMemberId());
-					obj.put("process", vo.getProcess());
 					arr.add(obj);
 				}
 			}

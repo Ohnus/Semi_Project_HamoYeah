@@ -11,7 +11,7 @@ function pro(num){
 	const xhttp = new XMLHttpRequest();
 	let param = "proNum=" + num;
 	param += "&boardNum=" + f.boardNum.value;
-	alert(param);
+	//alert(param);
 	xhttp.open("POST", "${pageContext.request.contextPath}/admin/process.do");
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
@@ -40,26 +40,28 @@ function pro(num){
 <form action="" method="post" name="f">
 <div id="d1">
 <table border="1">
-<tr><td rowspan="6">신고 글 정보</td><td>글번호</td><td>${bvo.boardNum }111</td></tr>
+<tr><td rowspan="6">신고 글 정보</td><td>글번호</td><td>${bvo.boardNum }</td></tr>
 <tr><td>작성자</td>
 <td>
-${bvo.memberId }111
+${bvo.memberId }
 <input type="hidden" name="boardNum" value="${bvo.boardNum }">
 </td>
 </tr>
-<tr><td>글 제목</td><td>${bvo.title }111</td></tr>
-<tr><td>글 내용</td><td>${bvo.content }111</td></tr>
-<tr><td>모임장소</td><td>${bvo.place }111</td></tr>
-<tr><td>모임시간</td><td>${bvo.dDay }111</td></tr>
+<tr><td>글 제목</td><td>${bvo.title }</td></tr>
+<tr><td>글 내용</td><td>${bvo.content }</td></tr>
+<tr><td>모임장소</td><td>${bvo.place }</td></tr>
+<tr><td>모임시간</td><td>${bvo.dDay }</td></tr>
 <c:forEach var="wvo" items="${list }">
 <tr><td>신고 정보</td><td colspan="2">신고자 아이디: ${wvo.memberId }<br/>신고 내용: ${wvo.content }</td></tr>
 </c:forEach>
 </table>
 </div>
+<c:if test="${bvo.y_card eq 3 && bvo.process ne 2}">
 <div id="d2">
 <input type="button" id="btn1" value="복구" onclick="pro(1)">
 <input type="button" id="btn2" value="정지" onclick="pro(2)">
 </div>
+</c:if>
 </form>
 </body>
 </html>

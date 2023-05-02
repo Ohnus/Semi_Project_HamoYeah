@@ -20,13 +20,13 @@ function go(){
 		xhttp.onload = function(){
 			let arr = JSON.parse(xhttp.responseText);
 			let html = '';
-			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td><td>처리결과</td></tr>";
+			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td></tr>";
 			for(let obj of arr){
 				html += "<tr><td>"+ obj.boardNum;
 				html += "</td><td>" + obj.title;
 				html += "</td><td>" + obj.memberId;
 				html += "</td><td><a href='${pageContext.request.contextPath}/admin/process.do?boardNum="+ obj.boardNum;
-				html += "'>[상세보기]</a></td><td>" + obj.process + "</td></tr>";
+				html += "'>[상세보기]</a></td></tr>";
 			}
 			let table = document.getElementById("table");
 			table.innerHTML = html;
@@ -38,13 +38,13 @@ function go(){
 		xhttp.onload = function(){
 			let arr = JSON.parse(xhttp.responseText);
 			let html = '';
-			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td><td>처리결과</td></tr>";
+			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td></tr>";
 			for(let obj of arr){
 				html += "<tr><td>"+ obj.boardNum;
 				html += "</td><td>" + obj.title;
 				html += "</td><td>" + obj.memberId;
 				html += "</td><td><a href='${pageContext.request.contextPath}/admin/process.do?boardNum="+ obj.boardNum;
-				html += "'>[상세보기]</a></td><td>" + obj.process + "</td></tr>";
+				html += "'>[상세보기]</a></td></tr>";
 			}
 			let table = document.getElementById("table");
 			table.innerHTML = html;
@@ -57,13 +57,13 @@ function go(){
 		xhttp.onload = function(){
 			let arr = JSON.parse(xhttp.responseText);
 			let html = '';
-			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td><td>처리결과</td></tr>";
+			html += "<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td></tr>";
 			for(let obj of arr){
 				html += "<tr><td>"+ obj.boardNum;
 				html += "</td><td>" + obj.title;
 				html += "</td><td>" + obj.memberId;
 				html += "</td><td><a href='${pageContext.request.contextPath}/admin/process.do?boardNum="+ obj.boardNum;
-				html += "'>[상세보기]</a></td><td>" + obj.process + "</td></tr>";
+				html += "'>[상세보기]</a></td></tr>";
 			}
 			let table = document.getElementById("table");
 			table.innerHTML = html;
@@ -81,12 +81,11 @@ function go(){
 </select>
 
 <table border="1" id="table">
-<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td><td>처리결과</td></tr>
+<tr><td>글번호</td><td>제목</td><td>작성자</td><td>신고내용</td></tr>
 <c:forEach var="vo" items="${list}">
 <tr>
 <td>${vo.boardNum }</td><td>${vo.title }</td><td>${vo.memberId }</td>
 <td><a href="${pageContext.request.contextPath}/admin/process.do?boardNum=${vo.boardNum}">상세보기</a></td>
-<td>${vo.process }</td>
 </tr>
 </c:forEach>
 </table>
