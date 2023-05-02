@@ -33,7 +33,7 @@ public class ManageHandler implements Handler {
 		if (request.getMethod().equals("GET")) { // 처음 올 때 (동기방식, 처리중)
 			// 처리중
 			for (BoardVo vo : all) {
-				if (vo.getProcess() == 0) {
+				if (vo.getProcess() != 2) {
 					list.add(vo);
 				}
 			}
@@ -48,12 +48,11 @@ public class ManageHandler implements Handler {
 			
  			JSONArray arr = new JSONArray();
  			for (BoardVo vo : all) {
- 				if (vo.getProcess() == 0) {
+ 				if (vo.getProcess() != 2) {
  					JSONObject obj = new JSONObject();
  					obj.put("boardNum", vo.getBoardNum());
  					obj.put("title", vo.getTitle());
  					obj.put("memberId", vo.getMemberId());
- 					obj.put("process", vo.getProcess());
  					arr.add(obj);
  				}
  			}
