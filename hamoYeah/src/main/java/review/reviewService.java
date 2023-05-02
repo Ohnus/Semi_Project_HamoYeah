@@ -6,7 +6,7 @@ import board.BoardVo;
 
 public class reviewService {
 	private reviewDao dao;
-	public final static String path = "C:\\Users\\Heesoo KIM\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\img\\";
+	public final static String path = "C:\\Users\\Hi there\\Desktop\\webProgramming\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\HmemberImg\\";
 	
 	public reviewService() {
 		dao = new reviewDao();
@@ -25,6 +25,10 @@ public class reviewService {
 	//리뷰삭제(delete): primary key(reviewNum)로 찾아서 삭제
 	public void delReview(int reviewNum) {
 		dao.delete(reviewNum);
+	}
+	
+	public reviewVo getByIdNum(String memberId, int BoardNum) {
+		return dao.selectIdNum(memberId, BoardNum);
 	}
 	
 	//selectAll(review 전체목록 띄우기)

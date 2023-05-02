@@ -22,7 +22,7 @@
 		}
 	}
 	function imgReset() {
-		document.getElementById('preview').src = "../img/a.jpg";
+		document.getElementById('preview').src = "../img/nopic.jpg";
 		document.getElementById('img').value = null;
 	    }
 	function checkId() {
@@ -201,7 +201,7 @@
 				<select name="phone1" id="H_phone1">
 					<option value="010">010</option>
 					<option value="011">011</option>
-					<option value="017">011</option>
+					<option value="017">017</option>
 				</select>
 				<input type="text" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 				<input type="text" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
@@ -222,9 +222,9 @@
 			</tr>
 			<tr>
 				<td>성별</td>
-				<td><input type="radio" name="gender" value="m" id="H_gender">남성
-					<input type="radio" name="gender" value="w" id="H_gender">여성
-					<input type="radio" name="gender" value="n" id="H_gender" checked>선택안함</td>
+				<td><input type="radio" name="gender" value="남성" id="H_gender">남성
+					<input type="radio" name="gender" value="여성" id="H_gender">여성
+					<input type="radio" name="gender" value="선택안함" id="H_gender" checked>선택안함</td>
 			</tr>
 			<tr>
 				<td>닉네임</td>

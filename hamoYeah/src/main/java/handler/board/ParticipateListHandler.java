@@ -10,6 +10,8 @@ import board.BoardVo;
 import handler.Handler;
 import participate.ParticipateService;
 import participate.ParticipateVo;
+import review.reviewService;
+import review.reviewVo;
 
 public class ParticipateListHandler implements Handler {
 
@@ -104,7 +106,20 @@ public class ParticipateListHandler implements Handler {
 			servBoard.EditParticipate(bvo);
 			cnt = 0;
 		}
-
+		
+		
+		// listOff
+		reviewService service = new reviewService();
+		reviewVo rvo = null;
+		for(BoardVo bdvo : listOff) {
+			rvo = service.getByIdNum(memberId, bdvo.getBoardNum());
+			if(rvo==null) {
+				bdvo.setAlready(0); // 검색된 유저, 검색된 게시글 번호로 작성된 리뷰글 없음
+			} else {
+				bdvo.setAlready(1); // 이미 작성된 리뷰가 있음
+			}
+		}
+		
 		request.setAttribute("listOn0", listOn0);
 		request.setAttribute("listOn1", listOn1);
 		request.setAttribute("listOn2", listOn2);

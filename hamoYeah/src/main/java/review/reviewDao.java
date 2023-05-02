@@ -66,7 +66,30 @@ public class reviewDao {
 		}
 	}
 
-	
+	public reviewVo selectIdNum(String memberId, int BoardNum) {
+		Connection conn = dbconn.conn();
+		String sql = "select * from h_review where member_id=? and board_num=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, BoardNum);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return new reviewVo(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 	
 	//selectAll(review 전체목록 띄우기)
 	public ArrayList<reviewVo> selectAll(){

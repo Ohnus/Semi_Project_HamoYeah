@@ -29,18 +29,18 @@
 	flex-direction: column; /* 아이템(글자)가 세로방향으로 */
 	align-items: center; /* 모달창 가로 위치 */
 	justify-content: center; /* 모달창 세로 위치 */
-	background: rgba(255, 255, 255, 0.25);
+	background: rgba(255, 255, 255, 0);
 	/*  	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
 	backdrop-filter: blur(1.5px); /* 오버레이 배경 흐리게 */
-	/*  	-webkit-backdrop-filter: blur(1.5px); */
+	-webkit-backdrop-filter: blur(1.5px); 
 	/* 	border-radius: 10px; */
 	/* 	border: 1px solid rgba(255, 255, 255, 0.18); */
 }
 
 #modal .modal-window {
-	background: rgba(1, 1, 1, 0); /* 모달창 배경색 */
+	background: #fff; /* 모달창 배경색 */
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* 테두리 그림자 */
-	/* 	-webkit-backdrop-filter: blur(13.5px); */
+	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px; /* 테두리 둥글게 */
 	border: 5px solid rgba(0, 0, 0, 0); /* 경계 투명 */
 	width: 400px;

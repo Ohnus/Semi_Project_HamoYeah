@@ -23,6 +23,15 @@ public class BoardVo {
 	private ArrayList<CommentVo> reps; //추가(boardDetail.jsp에서 댓글 리스트 불러오는데 사용됨)
 	private ArrayList<HMemberVo> mvolist; //추가(boardDetail.jsp에서 참여자 리스트 불러오는데 사용됨)
 	private int fav; // 보드 리스트에서 즐겨찾기 여부 담음.
+	private int already;
+
+	public int getAlready() {
+		return already;
+	}
+
+	public void setAlready(int already) {
+		this.already = already;
+	}
 
 	public BoardVo() {
 	}

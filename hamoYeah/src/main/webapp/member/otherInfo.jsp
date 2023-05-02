@@ -25,7 +25,7 @@ request.setAttribute("vo", vo);
 <tr><td>${vo.intro }</td></tr>
 <tr><td>성별</td><td>${vo.gender }</td></tr>
 <tr><td>연령대</td><td>${vo.age }</td></tr>
-<tr><td>태그</td>
+<tr><td>관심사</td>
 <td>
 ${vo.tag1 }<br/>
 ${vo.tag2 }<br/>
