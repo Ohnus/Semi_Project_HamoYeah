@@ -9,6 +9,20 @@
 <!-- <script type="text/javascript" src="upload.js"></script> -->
 <script type="text/javascript">
 	// 파일 업로드 미리보기
+// 	window.onload = function() {
+//      document.getElementById("imagepath").addEventListener("change", function(event) {
+//          var file = event.target.files[0];
+//            var reader = new FileReader();
+     
+//          reader.onload = function(e) {
+//           document.getElementById("upload-preview").src = e.target.result;
+//          document.getElementById("imagepath").src = e.target.result;
+//      };
+
+//      reader.readAsDataURL(file);
+//    });
+// }
+	
 	function thumbnail(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -21,8 +35,9 @@
 			document.getElementById('preview').src = e.target.result;
 		}
 	}
+	
 	function imgReset() {
-		document.getElementById('preview').src = "../img/nopic.jpg";
+		document.getElementById('upload-preview').src = "../img/nopic.jpg";
 		document.getElementById('img').value = null;
 	    }
 	function checkId() {
@@ -169,9 +184,11 @@
 		<table border="1">
 			<tr>
 				<td colspan="2">
-				<input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
-				<img src="../img/nopic.jpg" id="preview" style="width: 200px; height: 200px"><br/>
-				<input type="button" value="삭제" id="del" onclick="imgReset();">
+				<input type="file" id="imagepath" name="imagepath" style="display:none" accept="image/*" >
+				 <label for="imagepath"> <!-- 이미지를 누르면 file이 떠요! 짱! 단, file id와 같아야 함. -->
+				<img src="../img/imageadd.png" id="upload-preview" style="width: 200px; height: 200px" onchange="thumbnail(this);"><br/>
+				</label>
+				<input type="button" value="기본이미지로 설정" id="del" onclick="imgReset();">
 				</td>
 			</tr>
 			<tr>
@@ -259,7 +276,7 @@
 			</tr>
 			<tr>
 				<td>한줄 소개</td>
-				<td><textarea cols="80" rows="10" name="intro"></textarea></td>
+				<td><textarea cols="80" rows="10" name="intro" maxlength="200"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
