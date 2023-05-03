@@ -5,60 +5,137 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주최한 모임 리스트</title>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+<link rel="stylesheet" href="./style.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+
 <style>
-h3, h4 {
-	 text-align: center;
+
+body {
+	font-family:'NanumSquareNeo';
+}
+
+ .list-container { 
+ 	display: grid; 
+  	grid-template-columns: repeat(2, 1fr);
+   	grid-gap: 1rem; 
+ 	justify-content: center; 
+ 	align-items: center; 
+ 	font-family: "NanumSquareNeoLight"; 
+ 	margin: 0 auto; 
+ 	font-family: 'NanumSquareNeoLight', sans-serif; 
 }
 
 </style>
+
 </head>
 <body>
-<h3>내가 주최한 모임</h3>
-<c:if test="${empty listOn && empty listOff}">
-<h5>주최한 모임이 없습니다.</h5>
-</c:if>
+
+<!-- <div class="container my-5"> -->
+<c:if test="${empty listOn && empty listOff}"><p style="text-align:center"></br>주최한 모임이 없습니다.</p></c:if>
 
 <c:if test="${not empty listOn || not empty listOff}">
-<h4>진행중인 모임</h4>
+
+<h5 style="font-weight:bold; text-align:center; line-height:250%">진행중인 모임</h5><br/>
+
+<div class="list-container grid">
+
 <c:forEach var="vo" items="${listOn}">
-<c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
-	<table border="1" style="border-color:red;">
-		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">${vo.title }</a></td></tr> <!-- 디테일 링크 걸기 -->
-		<tr><td>${vo.place}/${vo.dDay}</td></tr>
-	</table>
-</c:if>
-<c:if test="${vo.y_card ne 3}"> <!-- ne: != -->
-	<table border="1">
-		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td><td>${vo.tag}</td></tr>
-		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">${vo.title }</a></td></tr>
-		<tr><td>${vo.place}/${vo.dDay}</td></tr>
-		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
-	</table>
-	<input type="button" value="승인하기" onclick="location.href='${pageContext.request.contextPath}/member/okList.do?boardNum=${vo.boardNum}'">
+<c:if test="${vo.y_card ne 3}"> <!-- eq: == -->
+ <div class="container mx-auto">
+  <div class="grid-cols-3 gap-10">
+   <div>
+     <div class="d-flex transition duration-500 ease-in-out flex-grow-1 p-2 border" style="box-shadow: 0 0 2px #eee; width:470px">
+     <a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">
+       <img class="img-fluid mr-3" style="width:100px; height:100px" src="${vo.imagepath }"></a>
+        <div>
+          <div class="d-flex transition duration-500 ease-in-out flex-grow-2" style="width:260px">
+            <medium style="color:#40e0d0; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+            ${vo.title }</medium></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">⏰모임일시 | ${vo.dDay }</small></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🚩모임장소 | ${vo.place }</small></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🙋🏻‍♀️신청현황 | ${vo.ok} / ${vo.peopleMax }</small>
+          </div>
+        </div>
+         <div class="d-flex transition duration-500 ease-in-out flex-grow-3">
+          <button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px" 
+          onclick="location.href='${pageContext.request.contextPath}/member/okList.do?boardNum=${vo.boardNum}'">멤버승인</br>하러가기</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
 </c:if>
 </c:forEach>
 
-<h4>완료된 모임</h4>
-<c:forEach var="vo" items="${listOff}">
-<c:if test="${vo.y_card eq 3}">  <!-- eq: == -->
-	<table border="1" style="border-color:red;">
-		<tr><td>신고된 게시글입니다.</td></tr>
-		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">${vo.title }</a></td></tr> <!-- 디테일 링크 걸기 -->
-		<tr><td>${vo.place}/${vo.dDay}</td></tr>
-	</table>
-</c:if>
-<c:if test="${vo.y_card ne 3}"> <!-- ne: != -->
-	<table border="1">
-		<tr><td rowspan="4"><img src="${vo.imagepath}" style="width:100px; height:100px;"></td><td>${vo.tag}</td></tr>
-		<tr><td><a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">${vo.title }</a></td></tr>
-		<tr><td>${vo.place}/${vo.dDay}</td></tr>
-		<tr><td>참여인원 ${vo.ok}/${vo.peopleMax}</td></tr>
-	</table>
-	<input type="button" value="후기 보러가기" onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">
+<c:forEach var="vo" items="${listOn}">
+<c:if test="${vo.y_card eq 3}"> <!-- eq: == -->
+<div class="container mx-auto">
+  <div class="grid-cols-3 gap-10">
+   <div>
+     <div class="d-flex transition duration-500 ease-in-out flex-grow-1 p-2 border" style="box-shadow: 0 0 2px #eee; width:470px">
+     <a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">
+       <img class="img-fluid mr-3" style="width:100px; height:100px; filter:blur(3px)" src="${vo.imagepath }"></a>
+        <div>
+          <div class="d-flex transition duration-500 ease-in-out flex-grow-2" style="filter:blur(3px); width:260px">
+            <medium style="color:#40e0d0; font-weight:bold; width:250px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+            ${vo.title }</medium></div>
+          <div style="filter:blur(3px)"><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">⏰모임일시 | ${vo.dDay }</small></div>
+          <div style="filter:blur(3px)"><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🚩모임장소 | ${vo.place }</small></div>
+          <div style="filter:blur(3px)"><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🙋🏻‍♀️신청현황 | ${vo.ok} / ${vo.peopleMax }</small>
+          </div>
+        </div>
+         <div class="d-flex transition duration-500 ease-in-out flex-grow-3">
+          <button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px; color:red" 
+          onclick="location.href='${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}'">신고글</br>보러가기</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
 </c:if>
 </c:forEach>
+</div>
+
+<br/>
+<br/>
+<hr style="color:#EAEAEA; width:97%; margin:auto;">
+<br/>
+
+<h5 style="font-weight:bold; text-align:center; line-height:250%">완료된 모임</h5>
+<div class="list-container grid">
+
+<c:forEach var="vo" items="${listOff}">
+<c:if test="${vo.y_card ne 3}"> <!-- eq: == -->
+
+ <div class="container mx-auto">
+  <div class="grid-cols-3 gap-10">
+   <div>
+     <div class="d-flex transition duration-500 ease-in-out flex-grow-1 p-2 border" style="box-shadow: 0 0 2px #eee; width:470px">
+     <a href="${pageContext.request.contextPath }/board/boardDetail.do?boardNum=${vo.boardNum}">
+       <img class="img-fluid mr-3" style="width:100px; height:100px" src="${vo.imagepath }"></a>
+        <div>
+          <div class="d-flex transition duration-500 ease-in-out flex-grow-2" style="width:260px">
+            <medium style="color:#40e0d0; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+            ${vo.title }</medium></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">⏰모임일시 | ${vo.dDay }</small></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🚩모임장소 | ${vo.place }</small></div>
+          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🙋🏻‍♀️신청현황 | ${vo.ok} / ${vo.peopleMax }</small>
+          </div>
+        </div>
+         <div class="d-flex transition duration-500 ease-in-out flex-grow-3">
+          <button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px" 
+          onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">후기</br>보러가기</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
 </c:if>
+</c:forEach>
+</div>
+</c:if>  
+<br/>
 </body>
 </html>

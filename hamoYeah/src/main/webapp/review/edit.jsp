@@ -1,12 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>í›„ê¸° ìˆ˜ì •</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.7.3/tailwind.min.css'>
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+ 
+ <style>
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
+}
+
+body {
+	font-family: 'NanumSquareNeoLight', sans-serif;
+	font-size: 13px;
+}
+</style>
+
 <script type="text/javascript">
-//ÆÄÀÏ ¾÷·Îµå ¹Ì¸®º¸±â
+//íŒŒì¼ ì—…ë¡œë“œ ë¯¸ë¦¬ë³´ê¸°
 function thumbnail(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -25,24 +40,57 @@ function imgReset() {
 </script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/review/edit.do" method="post" enctype="multipart/form-data">
-<table border="1">
-<tr><th>ÀÛ¼ºÀÚ</th><td>
-<input type="hidden" value="${vo.reviewNum }" name="reviewNum">
-<input type="text" name="writer" id="member_id" value="${sessionScope.loginId}" readonly>
-</td></tr>
-<tr><th>ÅÂ±×</th><td><input type="text" name="tag" id="tag" value="${vo.tag }" readonly></td></tr>
-<tr><th>±Û³»¿ë</th><td><textarea rows="10" cols="100" name="content">${vo.content }</textarea></td></tr>
-<tr><th>ÀÌ¹ÌÁö</th>
-<td><input type="file" id="imagepath" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
-<img src="${vo.imagepath }" id="preview" style="width: 200px; height: 200px"><br />
-<input type="button" value="»èÁ¦" id="del" onclick="imgReset();">
-</td></tr>
-<tr><th>ÀÛ¼º</th><td>
-	<input type="submit" value="¼öÁ¤¿Ï·á"> <!-- ÀúÀå´©¸£¸é post·Î Àü¼Û-->
-	<input type="button" value="¼öÁ¤Ãë¼Ò" onclick="location.href='${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}'"></td></tr>
 
-</table>
-</form>
+<div class="max-w-screen-md mx-auto p-5">
+  <div class="text-center mb-16">
+    <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase" style=font-family:NanumSquareNeo>
+        Hamoyeah 
+      </p>
+      <h5 class="sm:text-2xl leading-normal font-extrabold tracking-tight" style="color:rgb(64,224,208); font-family:NanumSquareNeoExtraBold">í›„ê¸°ë¥¼ ìˆ˜ì •í•´ë³´ì„¸ìš”ğŸ“</h5>
+  </div>
+  
+<form class="w-full" action="${pageContext.request.contextPath }/review/edit.do" enctype="multipart/form-data" method="post" >
+  <div class="flex flex-wrap -mx-3 mb-6">
+   <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="memberId">WRITER</label>
+	<input class="appearance-none bg-transparent border-b border-blue-400 w-full text-gray-700 mr-3 p-4 leading-tight focus:outline-none focus:bg-gray-200" 
+	type="text" name="writer" id="member_id" value="${sessionScope.loginId}" readonly style="border-bottom-color:rgb(64, 224, 208)">
+	<input type="hidden" value="${vo.reviewNum }" name="reviewNum">
+	</div>
+
+	<div class="w-full md:w-1/2 px-3">
+	<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="tag">TAG</label>
+	<input class="appearance-none bg-transparent border-b border-blue-400 w-full text-gray-700 mr-3 p-4 leading-tight focus:outline-none focus:bg-gray-200"
+	type="text" name="tag" id="tag" value="${vo.tag }" readonly  style="border-bottom-color:rgb(64, 224, 208)">
+	</div></div>
+  
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="content">CONTENT</label>
+	<textarea name="content" id="content"  rows="10" cols="100" 
+	class="appearance-none bg-transparent border-b border-blue-400 w-full text-gray-700 mr-3 p-4 focus:bg-gray-200 leading-tight focus:outline-none" aria-label="content" style="border-bottom-color:rgb(64, 224, 208)">${vo.content }</textarea>
+  </div></div>
+
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="imagepath">IMAGE</label>
+<input class="appearance-none bg-transparent border-b border-blue-400 w-full text-gray-700 mr-3 p-4 leading-tight focus:outline-none focus:bg-gray-200"
+type="file" id="imagepath" name="imagepath" accept="image/*" onchange="thumbnail(this);">
+ <label for="imagepath">
+<img src="${vo.imagepath }" id="preview" style="width: 400px; height: 400px">
+<!-- <input type="button" value="ì‚­ì œ" id="del" onclick="imgReset();"> -->
+</label>
+  </div>
+  </div>
+  </form>
+  
+   <div class="flex justify-between w-full px-3">
+	<input class="shadow bg-blue-400 hover:bg-blue-200 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+	type="submit" value="ìˆ˜ì •" style="background-color:rgb(64, 224, 208)"> <!-- ì €ì¥ì„ ëˆ„ë¥´ë©´ postë¡œ ì „ì†¡ -->
+	<input class="shadow bg-blue-400 hover:bg-blue-200 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+	type="button" value="ì·¨ì†Œ" onclick="location.href='${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}'" style="background-color:rgb(64, 224, 208)">
+  </div>
+</div>
+
 </body>
 </html>
