@@ -1,0 +1,72 @@
+body {
+   font-family: 'NanumSquareNeo';
+}
+.title {
+	margin-top: 6%;
+	margin-bottom:3%;
+	font-size: 26px;
+	text-align: center;
+}
+
+h2, h4, h5 {
+    text-align: center;
+    font-size: 16px;
+}
+
+.header {
+   display: flex;
+}
+div.head1 {
+   flex: 1;
+}
+div.head2 {
+   flex: 1;
+   
+}
+
+/* .content{ */
+/*    display: flex; */
+/*    justify-content: center; 수평 가운데 정렬 */
+/*     align-items: center; 수직 가운데 정렬 */
+/*     gap: 20px; 각각의 자식 요소 사이의 간격 */
+/* } */
+
+/* div.con1{ */
+/*    margin-right: 18%; */
+/* } */
+
+/* div.con3{ */
+/*    flex:1; */
+/*     justify-content: center; 좌우 중앙 */
+/*     align-items: center; 위아래 중앙 */
+/* } */
+    
+/* div.con2{ */
+/*    margin-left: 18px; */
+/* } */
+
+/* #ok { */
+/*    float: left; */
+/* } */
+/* .OK_container { */
+/*   margin-left: 225%; */
+/*   text-align: center; 가운데 정렬 */
+/*   display: flex; */
+/* } */
+/* .NO_container { */
+/*   margin-right: 225%; */
+/*   text-align: center; */
+/*   display: flex; */
+/* } */
+
+.content{
+   display: flex;
+   justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 20px; /* 각각의 자식 요소 사이의 간격 */
+    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+}
+
+.content > * {
+    flex: 1; /* 각각의 자식 요소를 동일한 너비로 설정 */
+}

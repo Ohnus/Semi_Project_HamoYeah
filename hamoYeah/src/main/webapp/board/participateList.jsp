@@ -241,12 +241,23 @@ body {
           <div class="d-flex transition duration-500 ease-in-out flex-grow-2" style="width:260px">
             <medium style="color:#40e0d0; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
             ${vo.title }</medium></div>
-          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">⏰모임일시 | ${vo.dDay }</small></div>
-          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🚩모임장소 | ${vo.place }</small></div>
-          <div><small style="line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🙋🏻‍♀️신청현황 | ${vo.ok} / ${vo.peopleMax }</small>
+          <div><small style="line-height:1; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">⏰모임일시 | ${vo.dDay }</small></div>
+          <div><small style="line-height:1; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🚩모임장소 | ${vo.place }</small></div>
+          <div><small style="line-height:1; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">🙋🏻‍♀️신청현황 | ${vo.ok} / ${vo.peopleMax }</small>
           </div>
         </div>
          <div class="d-flex transition duration-500 ease-in-out flex-grow-3">
+
+			<c:if test="${vo.already eq 0 }">
+        		 <button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px" 
+         		 onclick="location.href='${pageContext.request.contextPath}/review/add.do?boardNum=${vo.boardNum}'">후기 작성</button>
+         		<button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px" 
+         		 onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">후기 보기</button>
+           </c:if> 
+           <c:if test="${vo.already eq 1 }">
+           		<button style="background-color:transparent; border:none; font-family:NanumSquareNeoBold; font-size:15px" 
+         		 onclick="location.href='${pageContext.request.contextPath}/review/search.do?boardNum=${vo.boardNum}'">후기</br>보러가기</button>
+           </c:if>
         </div>
       </div>
     </div>

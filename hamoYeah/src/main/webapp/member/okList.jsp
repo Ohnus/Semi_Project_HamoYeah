@@ -5,62 +5,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>모임 멤버 승인</title>
+<link rel="stylesheet" href="./style.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/oklist.css">
+
 <script type="text/javascript">
 function userinfo(memberId){
 	let win = open('${pageContext.request.contextPath}/member/otherInfo.jsp?memberId=' + memberId, '', 'width=400, height=400 top=200, left=600');
 }
 </script>
 </head>
-<style>
-h2, h4, h5 {
-	 text-align: center;
-}
-.header {
-	display: flex;
-}
-div.head1 {
-	flex: 1;
-}
-div.head2 {
-	flex: 1;
-}
-
-.content{
-	display: flex;
-}
-div.con1{
-	flex: 1;
-}
-div.con2{
-	flex: 1;
-}
-#ok {
-	float: left;
-}
-
-</style>
-
 
 <body>
-	<h2>${title }</h2>
-<c:if test="${empty list0 && empty list1}">
-<h5>참여 신청한 사람이 없습니다.</h5>
-</c:if>
-<c:if test="${not empty list0 || not empty list1}">
-<div class="header">
-<div class="head1">
-	<h4>승인</h4>
-	<h5>${now} / ${max}</h5>
+<div class="oktitle">
+<div class="title">${title }</div>
+<c:if test="${empty list0 && empty list1}"><h5>참여 신청한 사람이 없습니다.</h5></c:if>
 </div>
-<div class="head2">
-	<h4>미승인</h4>
-	<h5><span id="cnt">0</span> / ${rest}</h5>
-	<c:if test="${rest ne 0}">
-	<input type="button" id="ok" value="승인하기" onclick="ok(${boardNum})">
-	</c:if>
 
+
+<c:if test="${not empty list0 || not empty list1}">
+
+<div class="header">
+<div class="head2">
+   <h5>승인요청</h5>
+   <h4><span id="cnt">0</span> / ${rest}</h4>
 </div>
+<div> 
+   <c:if test="${rest ne 0 }">
+   <input type="button" id="ok" value="▶" onclick="ok(${boardNum})" style="background-color:transparent">
+   </c:if>
 </div>
 <script>
 	// 승인하기 버튼 누름 
@@ -78,60 +52,78 @@ function ok(num){
 	}
 }
 </script>
+<div class="head1">
+   <h4>승인완료</h4>
+   <h5>${now} / ${max}</h5>
+</div>
+
+</div>
+
 
 <div class="content">
-<div class="con1">
-	<!-- 승인한 사람 리스트 -->
-	<c:forEach var="vo" items="${list1}">
-		<table>
-			<tr>
-				<td rowspan="2"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
-					name="img" style="width: 100px; height: 100px;"></a></td>
-				<td>${vo.nickname}</td>
-			</tr>
-			<tr>
-				<td>${vo.intro}</td>
-			</tr>
-		</table>
-	</c:forEach>
+
+<div class="NO_container" style="width: 200px;">
+   <!-- 미승인 사람 리스트 -->
+   <form action="" method="post" name="f">
+   <c:forEach var="vo" items="${list0}">
+   <br/>
+      <div class="No_container" style="margin-left: 47%; border-collapse: collapse; width:200px">
+         <div>
+         <div rowspan="2" style="width:10%">
+         <input type="checkbox" name="check" value="${vo.memberId}" >
+         </div>
+            <div rowspan="2" style="width:20%"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
+               name="img" style="width:50px; height:50px; border-radius:50%"></a></div>
+            <div style="font-size:12px">${vo.nickname}</div>
+         </div>
+         <div>
+         <div style="font-size:12px; width:70%; height:25px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.intro}</div>
+         </div>
+      </div>
+   </c:forEach>
+         <script>
+         // 체크된 수가 잔여 수와 같으면 더 선택 안되게...
+         let rest = ${rest};
+         const checkboxes = document.querySelectorAll('input[type=checkbox]');
+         checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('click', function() {
+               const checkedCount = document.querySelectorAll('input[type=checkbox]:checked').length;
+               if (checkedCount > rest) {
+                  checkbox.checked = false;
+               } else {
+                  document.getElementById("cnt").innerHTML = checkedCount;
+               }
+            });
+         });
+         </script>
+   </form>
 </div>
-<div class="con2">
-	<!-- 미승인 사람 리스트 -->
-	<form action="" method="post" name="f">
-	<c:forEach var="vo" items="${list0}">
-		<table>
-			<tr>
-			<td rowspan="2">
-			<input type="checkbox" name="check" value="${vo.memberId}">
-			</td>
-				<td rowspan="2"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
-					name="img" style="width: 100px; height: 100px;"></a></td>
-				<td>${vo.nickname}</td>
-			</tr>
-			<tr>
-				<td>${vo.intro}</td>
-			</tr>
-		</table>
-	</c:forEach>
-			<script>
-			// 체크된 수가 잔여 수와 같으면 더 선택 안되게...
-			let rest = ${rest};
-			const checkboxes = document.querySelectorAll('input[type=checkbox]');
-			checkboxes.forEach(function(checkbox) {
-				checkbox.addEventListener('click', function() {
-					const checkedCount = document.querySelectorAll('input[type=checkbox]:checked').length;
-					if (checkedCount > rest) {
-						checkbox.checked = false;
-					} else {
-						document.getElementById("cnt").innerHTML = checkedCount;
-					}
-				});
-			});
-			</script>
-	</form>
+
+<!-- <div class="con3" style="width:50px;"> -->
+<!-- 버튼있던 자리 --> 
+<!-- </div> -->
+
+
+<div class="con1" style="width: 200px;">
+   <!-- 승인한 사람 리스트 -->
+   <c:forEach var="vo" items="${list1}">
+   <br/>
+   <div class="OK_container" style="margin-left: 47%;; border-collapse: collapse; width:200px">
+         <div class="img">
+            <div rowspan="2" style="width:20%"><a onclick="userinfo('${vo.memberId}')"><img src="${vo.imagepath}"
+               name="img" style="width:50px; height:50px; border-radius:50%"></a></div>
+         </div>
+         
+         <div class="nic">
+            <div style="font-size:12px">${vo.nickname}</div>
+            <div style="font-size:12px; width:100%; height:25px;">${vo.intro}</div>
+         </div>
+   </div>
+
+   </c:forEach>
 </div>
+
 </div>
 </c:if>
-
 </body>
 </html>
