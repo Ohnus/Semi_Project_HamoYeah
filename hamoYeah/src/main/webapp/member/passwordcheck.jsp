@@ -24,7 +24,6 @@
 </script>
 </head>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-
 <style>
 label {
 	font-family: 'NanumSquareNeo', sans-serif;
@@ -32,7 +31,17 @@ label {
 
 body {
 	font-family: 'NanumSquareNeoLight', sans-serif;
-	font-size: 13px;
+}
+
+ .list-container { 
+ 	display: grid; 
+  	grid-template-columns: repeat(2, 1fr);
+   	grid-gap: 1rem; 
+ 	justify-content: center; 
+ 	align-items: center; 
+ 	font-family: "NanumSquareNeoLight"; 
+ 	margin: 0 auto; 
+ 	font-family: 'NanumSquareNeoLight', sans-serif; 
 }
 </style>
 <body>
@@ -43,7 +52,7 @@ body {
 	<label>Password</label>
 	</div>
 	
-	  <a href="#">
+	  <a href="">
         <span></span>
         <span></span>
         <span></span>

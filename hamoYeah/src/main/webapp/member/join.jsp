@@ -175,7 +175,7 @@ $(document).ready(function() {
 				let tnc = document.querySelector('input[name="tnc"]:checked').value;
 				// querySelector: DOM 요소를 선택하는 데 사용, getElementBy는 HTMLCollection 또는 NodeList형태로 반환
 				// querySelector는 NodeList형태로 반환, 선택자의 다양한 유형을 지원하므로 복잡한 선택 작업 가능함
-// 				let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
+				let str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/; // 비밀번호 입력 가능한 문자 & 글자수 제한
 				if(password != passwordcheck) {
 					alert("입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.");
 					event.preventDefault();
@@ -190,11 +190,11 @@ $(document).ready(function() {
 					event.preventDefault();
 					return;
 				}
-// 				if (!str.test(password)) {
-// 					alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
-// 					event.preventDefault();
-// 					return;
-// 				}
+				if (!str.test(password)) {
+					alert("비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.");
+					event.preventDefault();
+					return;
+				}
 				if (tnc == 'n') {
 					alert("회원가입을 위해 이용약관에 동의해주세요.")
 					event.preventDefault();
@@ -252,10 +252,10 @@ $(document).ready(function() {
               <div class="col-6">
               	<div class="form-group">
               		<label for="imagepath">
-              		<img src="../img/imageadd.png"" id="preview" style="width: 230px; height: 250px; border-radius: 50%;">
+              		<img src="../img/imageadd.png" id="preview" style="width: 230px; height: 230px; border-radius: 50%;">
 	                </label>
 	                <input type="file" id="imagepath" name="imagepath" style="display:none" accept="image/*" onchange="thumbnail(this);" >
-					<input type="button" value="기본 이미지로 설정" id="del" class="H_btn_del" onclick="imgReset();">
+					<div id="" style="text-align:center; margin-top:15px; padding-right:80px"><input type="button" value="기본 이미지로 설정" id="del" class="H_btn_del" onclick="imgReset();"></div>
                 </div>
               </div>
               
@@ -283,7 +283,7 @@ $(document).ready(function() {
               </div>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" style="width:255px; margin-left:285px">
                   <label class="text-black" for="H_name">이름</label>
                   <input type="text" name="name" class="form-control" id="H_name">
                   <span id="res"></span>
@@ -300,8 +300,8 @@ $(document).ready(function() {
 				</select>
 				<input type="text" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 				<input type="text" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
-				<span id="res2"></span>
 				<input type="button" value="중복확인" class="H_btn" onclick="checkPhone()">
+				<span id="res2"></span>
             </div>
           </form>
         </div>
@@ -310,8 +310,8 @@ $(document).ready(function() {
          <div class="form-group">
                 <label class="text-black" for="H_nickname">닉네임</label>
                 <input type="text" name="nickname" class="form-control" id="H_nickname">
-                <span id="res3"></span>
 				<input type="button" value="중복확인" class="H_btn" onclick="checkNickname()">
+                <span id="res3"></span>
          </div>
          <div class="form-group">
 			<label class="text-black" for="H_age">연령</label>
@@ -352,12 +352,13 @@ $(document).ready(function() {
 				</script><br/>
 	            <div class="form-group">
 	              <label class="text-black" for="message">한줄소개</label>
-	              <textarea name="" class="form-control" id="message" name="intro" cols="30" rows="5" placeholder="한줄소개는 최대 50자까지 입력 가능합니다." maxlength="100"></textarea>
+	              <textarea class="form-control" id="message" name="intro" cols="30" rows="5" placeholder="한줄소개는 최대 50자까지 입력 가능합니다." style="resize:none" maxlength="100"></textarea>
 	              <br/>
 	              <span id="counter">0/50자</span>
 	            </div>
 	            
-	            <form class="form-group">이용약관
+	            <form class="form-group">
+	             <label class="text-black" for="tnc">이용약관</label>
 	            <div class="form-group" style="text-align:center;">
 				<iframe src="../tnc/tnc" width="500" height="250"></iframe>
 				<input type="radio" value="y" name="tnc"> 동의 

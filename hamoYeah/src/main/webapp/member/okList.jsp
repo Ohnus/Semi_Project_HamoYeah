@@ -10,9 +10,17 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/oklist.css">
 
+
+<style>
+body {
+font-family: 'NanumSquareNeo', sans-serif;
+}
+
+</style>
+
 <script type="text/javascript">
 function userinfo(memberId){
-	let win = open('${pageContext.request.contextPath}/member/otherInfo.jsp?memberId=' + memberId, '', 'width=400, height=400 top=200, left=600');
+	let win = open('${pageContext.request.contextPath}/member/otherInfo.jsp?memberId=' + memberId, '', 'width=270, height=355 top=200, left=600');
 }
 </script>
 </head>
@@ -28,8 +36,8 @@ function userinfo(memberId){
 
 <div class="header">
 <div class="head2">
-   <h5>승인요청</h5>
-   <h4><span id="cnt">0</span> / ${rest}</h4>
+   <h5 style="font-family:'NanumSquareNeo', sans-serif;">승인요청</h5>
+   <h4 style="font-family:'NanumSquareNeo', sans-serif;"><span id="cnt">0</span> / ${rest}</h4>
 </div>
 <div> 
    <c:if test="${rest ne 0 }">
@@ -52,8 +60,8 @@ function ok(num){
 	}
 }
 </script>
-<div class="head1">
-   <h4>승인완료</h4>
+<div class="head1" style="font-family:'NanumSquareNeo', sans-serif;">
+   <h4 style="font-family:'NanumSquareNeo', sans-serif;">승인완료</h4>
    <h5>${now} / ${max}</h5>
 </div>
 

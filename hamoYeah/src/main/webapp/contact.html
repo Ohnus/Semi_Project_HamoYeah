@@ -1,0 +1,293 @@
+<!-- /*
+* Template Name: Tour
+* Template Author: Untree.co
+* Tempalte URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="fonts/icomoon/style.css">
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="css/daterangepicker.css">
+	<link rel="stylesheet" href="css/aos.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<title>HAMO YEAH</title>
+	
+</head>
+
+<body>
+
+<!-- navbar -->
+  <div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="site-navigation">
+				<a href="index.html" class="logo m-0">HAMO YEAH <span class="text-primary"></span></a>
+
+				<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
+					<li class="active"><a href="index.html">Home</a></li>
+					<li><a href="${pageContext.request.contextPath}/member/login.jsp">LogIn</a></li>
+					<li><a href="services.html">Services</a></li>
+				</ul>
+
+				<a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+					<span></span>
+				</a>
+
+			</div>
+		</div>
+	</nav>
+	<!-- 페이지 줄어들때 생기는 버거 바 -->
+    <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+       <span></span>
+    </a>
+
+  <div class="hero hero-inner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mx-auto text-center">
+          <div class="intro-wrap">
+            <h1 class="mb-0"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 작성폼 -->
+  <div class="untree_co-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+        
+          <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-6">
+              	<div class="form-group">
+              		<img src="../img/nopic.jpg" id="preview" style="width: 250px; height: 250px" rounded>
+	                <input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
+					<input type="button" value="삭제" id="del" onclick="imgReset();">
+                </div>
+              </div>
+              
+              <div class="col-6">
+
+              	<div class="form-group">
+                  <label class="text-black" for="H_id">아이디</label>
+                  <input type="text" name="memberId" class="form-control" id="H_id">
+                  <input type="button" value="중복확인" class="H_btn" onclick="checkId()">
+                  <span id="res"></span>
+                </div>
+
+                <div class="form-group">
+                  <label class="text-black" for="H_pwd">비밀번호</label>
+                  <input type="password" name="pwd" class="form-control" id="H_pwd">
+                  <h6 style="color: red">영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상</h6>
+                </div>
+				
+                <div class="form-group">
+                  <label class="text-black" for="H_pwdcheck">비밀번호 확인</label>
+                  <input type="password" name="pwdcheck" class="form-control" id="H_pwdcheck">
+                  <span id="res4"></span>
+                </div>
+                
+              </div>
+            </div>
+            
+            <div class="form-group">
+                  <label class="text-black" for="H_name">이름</label>
+                  <input type="text" name="name" class="form-control" id="H_name">
+                  <span id="res"></span>
+            </div>
+            <div>
+            
+            </div>
+            <div class="form-group">
+                  <label class="text-black" for="H_phone1">핸드폰번호</label>
+                  <select name="phone1" id="H_phone1">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="017">011</option>
+				</select>
+				<input type="text" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
+				<input type="text" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
+				<span id="res2"></span>
+				<input type="button" value="중복확인" class="H_btn" onclick="checkPhone()">
+            </div>
+          </form>
+        </div>
+        
+        <div class="col-lg-5 ml-auto">
+         <div class="form-group">
+                <label class="text-black" for="H_nickname">닉네임</label>
+                <input type="text" name="name" class="form-control" id="H_nickname">
+                <span id="res"></span>
+				<input type="button" value="중복확인" class="H_btn" onclick="checkNickname()">
+         </div>
+         <div class="form-group">
+			<label class="text-black" for="H_age">연령</label>
+			<select name="age" id="H_age">
+					<option value="10대">10대</option>
+					<option value="20대">20대</option>
+					<option value="30대">30대</option>
+					<option value="40대">40대</option>
+					<option value="50대 이상">50대 이상</option>
+				</select>
+			<label class="text-black" for="H_gender"></label>
+				<input type="radio" name="gender" value="m" id="H_gender">남성
+				<input type="radio" name="gender" value="w" id="H_gender">여성
+				<input type="radio" name="gender" value="n" id="H_gender" checked>선택안함	
+			</div>
+         
+ 		<div class="form-group">
+ 		<label class="text-black" for="H_like">관심사</label><br/>
+				<input type="checkbox" name="tag" id="t" value="문화/예술" class="tagtest">문화/예술 
+				<input type="checkbox" name="tag" id="t" value="운동/액티비티" class="tagtest">운동/액티비티 
+				<input type="checkbox" name="tag" id="t" value="푸드/드링크" class="tagtest">푸드/드링크 
+				<input type="checkbox" name="tag" id="t" value="취미" class="tagtest">취미 
+				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동 <br />
+				<input type="checkbox" name="tag" id="t" value="반려동물" class="tagtest">반려동물 
+				<input type="checkbox" name="tag" id="t" value="자기계발" class="tagtest">자기계발 
+				<input type="checkbox" name="tag" id="t" value="대화" class="tagtest">대화 
+				<input type="checkbox" name="tag" id="t" value="창작" class="tagtest">창작 
+				<input type="checkbox" name="tag" id="t" value="멍때리기" class="tagtest">멍때리기 <br/>
+				<script>
+				const maxAllowed = 3;
+				const checkboxes = document.querySelectorAll('input[type=checkbox]');
+				checkboxes.forEach(function(checkbox) {
+					checkbox.addEventListener('click', function() {
+						const checkedCount = document.querySelectorAll('input[type=checkbox]:checked').length;
+						if (checkedCount > maxAllowed) {
+							checkbox.checked = false;
+						}
+					});
+				});
+				</script><br/>
+	            <div class="form-group">
+	              <label class="text-black" for="message">한줄소개</label>
+	              <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+	            </div>
+	            
+	            <form class="form-group">이용약관
+	            <div class="form-group" style="text-align:center;">
+				<a href="../tnc/tnc" style="width:700; height:250"></a>
+				<input type="radio" value="y" name="tnc"> 동의 
+				<input type="radio" value="n" name="tnc" checked> 미동의 
+				</div>
+				</form>
+	
+	            <form class=form-group  style="text-align:center;">
+	            <button type="submit" class="btn btn-primary">Join</button>
+				</form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<div>
+		<div class="container">
+			<div class="col-md-12">
+			</div>
+		</div>
+	</div>
+	
+	<div class="site-footer">
+		<div class="inner first">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-4">
+						<div class="widget">
+							<h3 class="heading">UBD.crop</h3>
+							<p>© 2021 KOSTA All rights reserved.</p>
+						</div>
+						<div class="widget">
+							<ul class="list-unstyled social">
+								<li><a href="#"><span class="icon-twitter"></span></a></li>
+								<li><a href="#"><span class="icon-instagram"></span></a></li>
+								<li><a href="#"><span class="icon-facebook"></span></a></li>
+								<li><a href="#"><span class="icon-apple"></span></a></li>
+								<li><a href="#"><span class="icon-google"></span></a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-lg-2">
+						<div class="widget">
+							<h3 class="heading">Resources</h3>
+							<ul class="links list-unstyled">
+								<li><a href="#">Blog</a></li>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6">
+						<div class="widget">
+							<h3 class="heading">Contact</h3>
+							<ul class="list-unstyled quick-info links">
+								<li class="email"><a href="#">kosta257@kosta.com</a></li>
+								<li class="phone"><a href="#">02-6278-9352</a></li>
+								<li class="address"><a href="#">(13637) 경기도 성남시 분당구 성남대로 34 6층(구미동 하나프라자빌딩) </a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+
+  <script src="js/typed.js"></script>
+  
+  <script src="js/custom.js"></script>
+
+</body>
+
+</html>

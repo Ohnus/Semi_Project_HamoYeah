@@ -18,7 +18,6 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><link rel="stylesheet" href="./style.css">
   
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-
 <style>
 label {
 	font-family: 'NanumSquareNeo', sans-serif;
@@ -26,7 +25,17 @@ label {
 
 body {
 	font-family: 'NanumSquareNeoLight', sans-serif;
-	font-size: 13px;
+}
+
+ .list-container { 
+ 	display: grid; 
+  	grid-template-columns: repeat(2, 1fr);
+   	grid-gap: 1rem; 
+ 	justify-content: center; 
+ 	align-items: center; 
+ 	font-family: "NanumSquareNeoLight"; 
+ 	margin: 0 auto; 
+ 	font-family: 'NanumSquareNeoLight', sans-serif; 
 }
 </style>
 
@@ -149,7 +158,7 @@ function change(board, id) {
     </div>
     <div class="col-md-6">
       <div class="input-group">
-        <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 내용을 입력해주세요" style="font-family:NanumSquareNeoLight">
+        <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 내용을 입력해주세요" style="font-family:NanumSquareNeoLight; border:1px solid #ced4da">
         <div class="input-group-append">
           <button class="btn btn-info" type="button" value="검색" onclick="searchByKeyword()">
             <i class="fa fa-search"></i>

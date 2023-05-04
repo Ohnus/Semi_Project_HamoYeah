@@ -142,7 +142,7 @@ function searchByTag(id) {
 		  <div class="grid grid-cols-1 gap-10">
 			<div class="card">		 
 		    <div class="rounded overflow-hidden shadow-sm flex flex-col">
-		    <a href="${pageContext.request.contextPath }/review/detail.do?boardNum=${vo.boardNum}">
+		    <a href="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}">
 		    <img class="w-full" src="${vo.imagepath }" style="width:300px; height:200px;"></a>    
 			</div>		
 		

@@ -114,7 +114,7 @@ function change(board, id) {
 </head>
 
 <body>
-
+<div id="" style="margin-top:5%"></div>
 
 <form action="" method="post" id="k">
 <div class="container mt-3">
@@ -130,7 +130,7 @@ function change(board, id) {
     </div>
     <div class="col-md-6">
       <div class="input-group">
-        <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 내용을 입력해주세요" style="font-family:NanumSquareNeoLight">
+        <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색할 내용을 입력해주세요" style="font-family:NanumSquareNeoLight;  border:1px solid #ced4da">
         <div class="input-group-append">
           <button class="btn btn-info" type="button" value="검색" onclick="searchByKeyword()">
             <i class="fa fa-search"></i>

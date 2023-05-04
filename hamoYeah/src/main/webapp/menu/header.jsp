@@ -38,7 +38,6 @@ label {
 
 body {
 	font-family: 'NanumSquareNeoLight', sans-serif;
-	font-size: 13px;
 }
 </style>
 

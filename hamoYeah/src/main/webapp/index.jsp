@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="css/daterangepicker.css">
 	<link rel="stylesheet" href="css/aos.css">
 	<link rel="stylesheet" href="css/style.css">
-  <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 
 <style>
 label {
@@ -36,7 +36,6 @@ label {
 
 body {
 	font-family: 'NanumSquareNeoLight', sans-serif;
-	font-size: 13px;
 }
 </style>
 </head>
@@ -109,7 +108,7 @@ body {
 		<div class="container">
 			<div class="row text-center">
 				<div class="col-md-12">
-					<h2 class="mb-2 text-white">소중한 인연, 뜻깊은 하루</h2>
+					<h2 class="mb-2 text-white" style="font-family:'NanumSquareNeo', sans-serif;">소중한 인연, 뜻깊은 하루</h2>
 					<p class="mb-4 lead text-white text-white-opacity">당신의 하루는 누구와 보내실껀가요?</p>
 					<p class="mb-0"><a href="${pageContext.request.contextPath }/board/boardAllList.do" class="btn btn-outline-white text-white btn-md font-weight-bold">만나러가기</a></p>
 				</div>

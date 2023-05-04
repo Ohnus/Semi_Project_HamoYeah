@@ -9,11 +9,13 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
 <link rel="stylesheet" href="./style.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-
 <style>
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
+}
 
 body {
-	font-family:'NanumSquareNeo';
+	font-family: 'NanumSquareNeoLight', sans-serif;
 }
 
  .list-container { 
