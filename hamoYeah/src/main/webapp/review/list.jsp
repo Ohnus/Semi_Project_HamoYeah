@@ -15,6 +15,8 @@ response.setCharacterEncoding("utf-8");
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><link rel="stylesheet" href="./style.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+
+<title>후기 피드</title>
 <style>
 label {
 	font-family: 'NanumSquareNeo', sans-serif;
@@ -24,9 +26,6 @@ body {
 	font-family: 'NanumSquareNeoLight', sans-serif;
 	font-size: 13px;
 }
-</style>
-<title>후기 피드</title>
-<style>
 .list-container {
 	display: grid;
  	grid-template-columns: repeat(4, 1fr);
@@ -91,7 +90,6 @@ function searchByTag(id) {
 </script>
 </head>
 <body>
-<div id="" style="margin-top:5%"> </div>
 			<form action="" method="post" id="f" class="tagbutton">
 			<button type="button" style="background-color: rgba(0, 0, 0, 0); border-color: transparent;" id="1" value="전체" 
 			onclick="location.href='${pageContext.request.contextPath }/review/list.do'">ALL</button>
@@ -111,33 +109,53 @@ function searchByTag(id) {
 <!-- 	------------------------------------------------------------------------------------ -->
 
 		
-		<div class="icon" style="width:1000px;">
+<!-- 		<div class="icon" style="width:1000px;"> -->
+<%-- 				<c:if test= "${not empty sessionScope.loginId }"> --%>
+<%-- 		        <div class="writereview" style="text-align:center;"><a href="${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}" > --%>
+<%-- 		        <img src="${pageContext.request.contextPath }/review/write.png" class="w_review" style="width:30px; height:30px; text-align:center;"> --%>
+<!-- 		        </a></div> -->
+<%-- 		  	 	</c:if> --%>
+<!--   	 	</div> -->
+
+
+<!-- 리뷰작성하러 가기  -->
+		<div class="icon" style="width:1300px; display:flex; text-align:right; margin-left:5px;">
+			<div class="container"  style="padding-right:0px">
 				<c:if test= "${not empty sessionScope.loginId }">
-		        <div class="writereview"><a href="${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}" class="w2_review">
-		        리뷰작성하기<img src="${pageContext.request.contextPath }/review/write.png" class="w_review" style="width:30px; height:30px;">
-		        </a></div>
-		  	 	</c:if>
+		        <div class="1" style="text-align:right;">
+		        <button href='${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}' >
+		       	<img src="${pageContext.request.contextPath }/review/write.png" class="w_review rounded mx-auto d-block" style="width:30px; height:30px;"></button>
+		       	<strong style="margin:auto;">리뷰작성하러 가기</strong></div>
+		        </c:if></div>
   	 	</div>
+
+
+
+
 
 		<div class="list-container grid">
 
 		<c:forEach var="vo" items="${list }">
 		
 		
-		<div class="container mx-auto px-10" id="list" style="width:300px; height:500px">
+		<div class="container mx-auto px-10" id="list" style="width:300px; height:350px">
 		  <div class="grid grid-cols-1 gap-10">
 			<div class="card">		 
 		    <div class="rounded overflow-hidden shadow-sm flex flex-col">
-		    <a href="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum }">
+		    <a href="${pageContext.request.contextPath }/review/detail.do?boardNum=${vo.boardNum}">
 		    <img class="w-full" src="${vo.imagepath }" style="width:300px; height:200px;"></a>    
 			</div>		
 		
+		
+		
+		
+		
 		    <div class="px-6 py-3 mb-auto flex">
-		    <div class="text-xs transition duration-500 ease-in-out flex-grow-1" style="color:rgb(64,224,208); font-family:NanumSquareNeo; font-size:13px">${vo.tag }</div></div>
+		    <div class="text-xs transition duration-500 ease-in-out flex-grow-1" style="color:rgb(64,224,208); font-family:NanumSquareNeo; font-size:17px"><strong>${vo.tag }</strong></div><div style="font-size:10px">${vo.rDate }</div></div>
 		    
 		 
 	
-		    <div class="text-gray-500 text-sm mb-2" style="width:225px; height:44px; font-family:NanumSquareNeo; display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${vo.content }</div>
+		    <div class="text-gray-500 text-sm mb-2" style="width:225px; padding:5px; height:44px; font-family:NanumSquareNeo; display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><strong>${vo.content }</strong></div>
 		     </div></div></div>
 		</c:forEach>
 		</div>
