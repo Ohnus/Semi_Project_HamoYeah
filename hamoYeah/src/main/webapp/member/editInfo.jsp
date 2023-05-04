@@ -5,7 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="upload.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#intro').keyup(function (e){
+	    var content = $(this).val();
+	    
+	    $('#counter').html(content.length+"/50자");    //글자수 실시간 카운팅
+
+	    if (content.length > 50){
+	        $(this).val(content.substring(0, 50));
+	        $('#counter').html("50/50자");
+	    }
+	});
+});
+</script>
 <script  type="text/javascript">
 // 파일 업로드 미리보기
 	function thumbnail(input) {
@@ -22,7 +36,7 @@
 		}
 	}
 	function imgReset() {
-		document.getElementById('preview').src = "../img/nopic.jpg";
+		document.getElementById('preview').src = "../img/imageadd.png";
 		document.getElementById('img').value = null;
 //		input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
 //		따라서 초기화하고자 할 경우 아래 코드
@@ -163,10 +177,12 @@
 	<table border="1">
 		<tr>
 			<td colspan="2">
-				<input type="file" id="img" name="imagepath" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
+				<input type="file" id="imagepath" name="imagepath" style="display:none" accept="image/jpeg,image/jpg,image/png" onchange="thumbnail(this);">
 				<!-- 경로 오류날 때 입력값 띄워서 확인해보기! -->
-				<img src="${vo.imagepath }" id="preview" style="width: 200px; height: 200px"><br/>
-				<input type="button" value="삭제" id="del" onclick="imgReset();">
+				<label for="imagepath">
+				<img src="${vo.imagepath }" id="preview" style="width: 230px; height: 250px; border-radius: 50%;"><br/>
+				</label>
+				<input type="button" value="기본 이미지로 설정" id="del" onclick="imgReset();">
 			</td>
 		</tr>
 		<tr>
@@ -250,7 +266,10 @@
 		</tr>
 		<tr>
 			<td>한줄 소개</td>
-			<td><textarea cols="80" rows="10" name="intro">${vo.intro }</textarea></td>
+			<td><textarea id="intro" cols="80" rows="10" name="intro" placeholder="한줄소개는 최대 50자까지 입력 가능합니다." maxlength="100">${vo.intro }</textarea>
+			<br/>
+			<span id="counter">0/50자</span>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">

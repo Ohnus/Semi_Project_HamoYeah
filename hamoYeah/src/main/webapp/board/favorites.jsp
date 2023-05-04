@@ -87,7 +87,7 @@ function change(board, id){
 </script>
 </head>  
 <body>
-
+<div id="" style="margin-top:5%"></div>
 <c:if test="${empty finalList }"><p style="text-align:center; font-family:NanumSquareNeo">즐겨찾기한 모임이 없습니다.</p></c:if>
 
 <div class="list-container grid">

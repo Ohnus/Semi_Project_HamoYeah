@@ -39,13 +39,6 @@ public class LoginHandler implements Handler {
 					flag = 1;
 				}
 			}
-//				if(pwd.equals(vo.getPwd())) {
-//					flag = 2;
-//					HttpSession session = request.getSession();
-//					session.setAttribute("loginId", memberId);
-//				} else {
-//					flag = 1;
-//				}
 			JSONObject obj = new JSONObject();
 			obj.put("flag", flag);
 			String txt = obj.toJSONString();

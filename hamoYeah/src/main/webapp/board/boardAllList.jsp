@@ -20,6 +20,17 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 
 <style>
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
+}
+
+body {
+	font-family: 'NanumSquareNeoLight', sans-serif;
+	font-size: 13px;
+}
+</style>
+
+<style>
 .list-container {
 	display: grid;
  	grid-template-columns: repeat(4, 1fr);
@@ -124,7 +135,7 @@ function change(board, id) {
 
 <body>
 
-<form action="" method="post" id="k">
+<form action="" method="post" id="k" style="margin-top:5%;">
 <div class="container mt-3">
 
   <div class="row">

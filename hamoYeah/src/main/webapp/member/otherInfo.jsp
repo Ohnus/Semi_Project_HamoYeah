@@ -12,26 +12,43 @@ request.setAttribute("vo", vo);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>회원 정보</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="./otherInfostyle.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+<style type="text/css">
+body{
+font-family: 'NanumSquareNeo';
+}
+</style>
+
 </head>
 <body>
-<h3>땡땡님 정보</h3>
 <form action="" method="post" name="ff">
-<table border="1">
-<tr>
-<td rowspan="2"><img src="${vo.imagepath }" name="img" style="width: 100px; height: 100px;"></td>
-<td>${vo.nickname }</td>
-</tr>
-<tr><td>${vo.intro }</td></tr>
-<tr><td>성별</td><td>${vo.gender }</td></tr>
-<tr><td>연령대</td><td>${vo.age }</td></tr>
-<tr><td>관심사</td>
-<td>
-${vo.tag1 }<br/>
-${vo.tag2 }<br/>
-${vo.tag3 }
-</td></tr>
-</table>
+  <div class="container">
+    <div class="box">
+      <div class="top">
+        <div class="profile">
+        <img src="${vo.imagepath }" style="width: 80px; height: 80px; border-radius: 70%">
+        </div>
+        <h1 class="title">${vo.nickname }</h1>
+        <h3 class="job">${vo.tag1 }  ${vo.tag2 }  ${vo.tag3 }</h3>
+      </div>
+      <div class="bottom">
+        <div class="links">
+          <ul>
+            <li>${vo.gender }</li>
+            <li>${vo.age }</li>
+            <li></li>
+            <li><textarea rows=3px cols=25px disabled style="line-height:130%; resize:none; border:none; font-family: 'NanumSquareNeo';">${vo.intro }</textarea></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
 </body>
 </html>

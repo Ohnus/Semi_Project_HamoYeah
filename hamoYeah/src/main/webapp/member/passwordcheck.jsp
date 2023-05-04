@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/login.css">
 <script type="text/javascript">
 	function check() {
 		let inputpwd = document.getElementById("pwdip").value;
@@ -22,18 +23,36 @@
 	}
 </script>
 </head>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+
+<style>
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
+}
+
+body {
+	font-family: 'NanumSquareNeoLight', sans-serif;
+	font-size: 13px;
+}
+</style>
 <body>
-	<h3>My page</h3>
-	<table border="1">
-		<tr>
-			<td>비밀번호</td>
-			<td>
-				<form action="" method="post" id="f">
-					<input type="password" name="pwd" id="pwdip">
-					<input type="submit" value="확인" onclick="check();">
-				</form>
-			</td>
-		</tr>
-	</table>
+<div class="login-box">
+	<form action="" method="post" id="f">
+	<div class="user-box">
+	<input type="password" name="pwd" id="pwdip" required>
+	<label>Password</label>
+	</div>
+	
+	  <a href="#">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        
+	<button class="button1" onclick="check();">확인</button>
+	<button class="button2" style="float: right;" ><a href="${pageContext.request.contextPath}/board/boardAllList.do?memberId=${sessionScope.loginId}">취소</a></button>
+	</form>
+</div>
 </body>
 </html>

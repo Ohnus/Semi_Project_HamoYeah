@@ -9,18 +9,76 @@ response.setCharacterEncoding("utf-8");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.7.3/tailwind.min.css'>
+  <link rel="stylesheet" href="list.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><link rel="stylesheet" href="./style.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <style>
-.header {
-  width: 25%;
-  border: 2px solid black;
-}
-.body{
-   width: 25%;
-     border: 2px solid black;
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
 }
 
+body {
+	font-family: 'NanumSquareNeoLight', sans-serif;
+	font-size: 13px;
+}
+</style>
+<title>후기 피드</title>
+<style>
+.list-container {
+	display: grid;
+ 	grid-template-columns: repeat(4, 1fr);
+  	grid-gap: 4rem;
+	justify-content: center;
+	align-items: center;
+	font-family: "NanumSquareNeoLight";
+	margin: 0 auto;
+	max-width: 1200px;
+	font-family: 'NanumSquareNeoLight', sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+  align-items: start;
+}
+
+
+.list {
+  	width: 300px;
+}
+
+.tagbutton {
+	font-family: "NanumSquareNeoBold";
+	background-color: transparent;
+    border: none;
+    text-align: center;
+}
+
+.tagbutton button {
+    margin: 10px; 
+}
+
+#f button {
+	justify-content: center;
+	align-items: center;
+}
+
+.icon{
+justify-content: space-around;
+}
+.card{
+overflow: hidden;  	
+text-overflow: ellipsis; 
+white-space: nowrap; 
+word-break:break-all;
+line-height: 1;
+}
+.con{
+line-height:20px;
+}
 </style>
 <script>
 
@@ -33,49 +91,55 @@ function searchByTag(id) {
 </script>
 </head>
 <body>
+<div id="" style="margin-top:5%"> </div>
+			<form action="" method="post" id="f" class="tagbutton">
+			<button type="button" style="background-color: rgba(0, 0, 0, 0); border-color: transparent;" id="1" value="전체" 
+			onclick="location.href='${pageContext.request.contextPath }/review/list.do'">ALL</button>
+			<button type="button" id="1" value="문화/예술" onclick="searchByTag(1)">🎨문화/예술</button>
+			<button type="button" id="2" value="운동/액티비티" onclick="searchByTag(2)">⚽운동/액티비티</button>
+			<button type="button" id="3" value="푸드/드링크" onclick="searchByTag(3)">🍕푸드/드링크</button>
+			<button type="button" id="4" value="취미" onclick="searchByTag(4)">🎮취미</button>
+			<button type="button" id="5" value="봉사활동" onclick="searchByTag(5)">💙봉사활동</button>
+			<button type="button" id="6" value="반려동물" onclick="searchByTag(6)">🐶반려동물</button>
+			<button type="button" id="7" value="성장/자기계발" onclick="searchByTag(7)">📚성장/자기계발</button>
+			<button type="button" id="8" value="대화/친목" onclick="searchByTag(8)">👨‍👩‍👦대화/친목</button>
+			</form>
+			<br/>
 
+<!-- 	------------------------------------------------------------------------------------ -->
+		<c:if test="${empty list }"><p align="center" class="text_not">선택하신 관심사로 작성된 글이 없습니다.</p></c:if>
+<!-- 	------------------------------------------------------------------------------------ -->
 
+		
+		<div class="icon" style="width:1000px;">
+				<c:if test= "${not empty sessionScope.loginId }">
+		        <div class="writereview"><a href="${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}" class="w2_review">
+		        리뷰작성하기<img src="${pageContext.request.contextPath }/review/write.png" class="w_review" style="width:30px; height:30px;">
+		        </a></div>
+		  	 	</c:if>
+  	 	</div>
 
-<!-- <form action="" method="post" id="f"> -->
-<input type="button" value="전체" onclick="location.href='${pageContext.request.contextPath }/review/list.do'">
-<input type="button" id="1" value="문화/예술" onclick="searchByTag(1)">
-<input type="button" id="2" value="운동/액티비티" onclick="searchByTag(2)">
-<input type="button" id="3" value="푸드/드링크" onclick="searchByTag(3)">
-<input type="button" id="4" value="취미" onclick="searchByTag(4)">
-<input type="button" id="5" value="봉사활동" onclick="searchByTag(5)">
-<input type="button" id="6" value="반려동물" onclick="searchByTag(6)">
-<input type="button" id="7" value="성장/자기계발" onclick="searchByTag(7)">
-<input type="button" id="8" value="대화/친목" onclick="searchByTag(8)">
-<!-- </form> -->
+		<div class="list-container grid">
 
-
-<div class="header">
-  <h2>리뷰 목록</h2>
-</div> 
- 
-<div class="body">
-   <c:if test= "${not empty sessionScope.loginId }">
-        <a href="${pageContext.request.contextPath }/board/participateList.do?memberId=${sessionScope.loginId}">리뷰작성하러 가기</a>
-   </c:if>
-</div>
-
-
-<c:if test="${empty list }"><p>선택하신 관심사로 작성된 글이 없습니다.</p></c:if>
-
-
-<c:forEach var="vo" items="${list }">
-<br/>
-<%-- <form action="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum}" method="post"> --%>
-<%-- <input type="button" value="리뷰작성" onclick="location.href='${pageContext.request.contextPath }/review/add.do?reviewNum=${vo.reviewNum}"> --%>
-<table border ="1" style="width:600px, height:200px">
-
-<tr><td rowspan="4"><a href="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum }" ><img src="${vo.imagepath }" style="width:100px; height:100px"></a></td><td>리뷰번호: ${vo.reviewNum }</td><td>작성자: ${vo.memberId }</td></tr>
-<tr><td colspan="2">태그: ${vo.tag }</td></tr>
-<tr><td colspan="2">날짜: ${vo.rDate }</td></tr>
-<tr><td colspan="2">내용: ${vo.content }</td></tr>
-
-</table>
-<!-- </form> -->
-</c:forEach>
+		<c:forEach var="vo" items="${list }">
+		
+		
+		<div class="container mx-auto px-10" id="list" style="width:300px; height:500px">
+		  <div class="grid grid-cols-1 gap-10">
+			<div class="card">		 
+		    <div class="rounded overflow-hidden shadow-sm flex flex-col">
+		    <a href="${pageContext.request.contextPath }/review/detail.do?reviewNum=${vo.reviewNum }">
+		    <img class="w-full" src="${vo.imagepath }" style="width:300px; height:200px;"></a>    
+			</div>		
+		
+		    <div class="px-6 py-3 mb-auto flex">
+		    <div class="text-xs transition duration-500 ease-in-out flex-grow-1" style="color:rgb(64,224,208); font-family:NanumSquareNeo; font-size:13px">${vo.tag }</div></div>
+		    
+		 
+	
+		    <div class="text-gray-500 text-sm mb-2" style="width:225px; height:44px; font-family:NanumSquareNeo; display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${vo.content }</div>
+		     </div></div></div>
+		</c:forEach>
+		</div>
 </body>
 </html>

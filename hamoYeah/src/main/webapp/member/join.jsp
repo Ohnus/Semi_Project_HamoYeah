@@ -1,33 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- <script type="text/javascript" src="upload.js"></script> -->
-<script type="text/javascript">
-	// 파일 업로드 미리보기
-// 	window.onload = function() {
-//      document.getElementById("imagepath").addEventListener("change", function(event) {
-//          var file = event.target.files[0];
-//            var reader = new FileReader();
-     
-//          reader.onload = function(e) {
-//           document.getElementById("upload-preview").src = e.target.result;
-//          document.getElementById("imagepath").src = e.target.result;
-//      };
+	<title>HAMO YEAH</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
 
-//      reader.readAsDataURL(file);
-//    });
-// }
-	
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="../fonts/icomoon/style.css">
+	<link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="../css/daterangepicker.css">
+	<link rel="stylesheet" href="../css/aos.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/join.css">
+	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+<style>
+label {
+	font-family: 'NanumSquareNeo', sans-serif;
+}
+
+body {
+	font-family: 'NanumSquareNeoLight', sans-serif;
+	font-size: 13px;
+}
+</style>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#message').keyup(function (e){
+	    var content = $(this).val();
+	    
+	    $('#counter').html(content.length+"/50자");    //글자수 실시간 카운팅
+
+	    if (content.length > 50){
+	        $(this).val(content.substring(0, 50));
+	        $('#counter').html("50/50자");
+	    }
+	});
+});
+</script>
+<script>
+	// 파일 업로드 미리보기
 	function thumbnail(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-// 				document.getElementById('preview').style = "width: 200px; height: 200px";
 				document.getElementById('preview').src = e.target.result;
 			};
 			reader.readAsDataURL(input.files[0]);
@@ -35,9 +67,8 @@
 			document.getElementById('preview').src = e.target.result;
 		}
 	}
-	
 	function imgReset() {
-		document.getElementById('upload-preview').src = "../img/nopic.jpg";
+		document.getElementById('preview').src = "../img/imageadd.png";
 		document.getElementById('img').value = null;
 	    }
 	function checkId() {
@@ -48,12 +79,12 @@
 
 		xhttp.onload = function() {
 			let val = xhttp.responseText;
-			let html = '<h5 style="color:';
+			let html = '<h6 style="color:';
 			let obj = JSON.parse(val);
 			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 아이디입니다.</h5>';
+				html += 'blue">사용 가능한 아이디</h6>';
 			} else {
-				html += 'red">사용 불가능한 아이디입니다.</h5>';
+				html += 'red">사용 불가능한 아이디</h6>';
 			}
 			let res = document.getElementById("res");
 			res.innerHTML = html;
@@ -71,12 +102,12 @@
 
 		xhttp.onload = function() {
 			let val = xhttp.responseText;
-			let html = '<h5 style="color:';
+			let html = '<h6 style="color:';
 			let obj = JSON.parse(val);
 			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 핸드폰번호입니다.</h5>';
+				html += 'blue">사용가능한 핸드폰번호</h6>';
 			} else {
-				html += 'red">이미 등록된 핸드폰번호입니다.</h5>';
+				html += 'red">이미 등록된 핸드폰번호</h6>';
 			}
 			let res2 = document.getElementById("res2");
 			res2.innerHTML = html;
@@ -90,12 +121,12 @@
 
 		xhttp.onload = function() {
 			let val = xhttp.responseText;
-			let html = '<h5 style="color:';
+			let html = '<h6 style="color:';
 			let obj = JSON.parse(val);
 			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 닉네임입니다.</h5>';
+				html += 'blue">사용 가능한 닉네임</h6>';
 			} else {
-				html += 'red">이미 사용중인 닉네임입니다.</h5>';
+				html += 'red">이미 사용중인 닉네임</h6>';
 			}
 			let res3 = document.getElementById("res3");
 			res3.innerHTML = html;
@@ -176,46 +207,93 @@
 
 	}
 </script>
+
 </head>
 <body>
-	<h3>회원가입 form</h3>
-	<form action="" method="post" enctype="multipart/form-data" name="f">
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+	
+<!-- navbar -->
+	<nav class="site-nav">
+		    <div class="container">
+		      <div class="site-navigation">
+		        <a href="${pageContext.request.contextPath}/index.jsp" class="logo m-0">HAMO YEAH<span class="text-primary"></span></a>
+			  </div>
+			 </div>
+		</nav>		
+		
+  <div class="hero hero-inner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mx-auto text-center">
+          <div class="intro-wrap">
+            <h1 class="mb-0"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ <!-- 작성폼 -->
+ <form action="" method="post" enctype="multipart/form-data" name="f">
+  <div class="untree_co-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+        
+          <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-6">
+              	<div class="form-group">
+              		<label for="imagepath">
+              		<img src="../img/imageadd.png"" id="preview" style="width: 230px; height: 250px; border-radius: 50%;">
+	                </label>
+	                <input type="file" id="imagepath" name="imagepath" style="display:none" accept="image/*" onchange="thumbnail(this);" >
+					<input type="button" value="기본 이미지로 설정" id="del" class="H_btn_del" onclick="imgReset();">
+                </div>
+              </div>
+              
+              <div class="col-6">
 
-		<table border="1">
-			<tr>
-				<td colspan="2">
-				<input type="file" id="imagepath" name="imagepath" style="display:none" accept="image/*" >
-				 <label for="imagepath"> <!-- 이미지를 누르면 file이 떠요! 짱! 단, file id와 같아야 함. -->
-				<img src="../img/imageadd.png" id="upload-preview" style="width: 200px; height: 200px" onchange="thumbnail(this);"><br/>
-				</label>
-				<input type="button" value="기본이미지로 설정" id="del" onclick="imgReset();">
-				</td>
-			</tr>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="memberId" id="H_id"><input type="button" value="중복확인" onclick="checkId()">
-				<span id="res"></span></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="pwd" id="H_pwd"><br/>
-				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6></td>
-			</tr>
-			<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="password" name="pwdcheck" id="H_pwdcheck"><br/>
-				<span id="res4"></span>
-<!-- 				<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6> -->
-				</td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" id="H_name"></td>
-			</tr>
-			<tr>
-				<td>핸드폰번호</td>
-				<td>
-				<select name="phone1" id="H_phone1">
+              	<div class="form-group">
+                  <label class="text-black" for="H_id">아이디</label>
+                  <input type="text" name="memberId" class="form-control" id="H_id">
+                  <input type="button" value="중복확인" class="H_btn" onclick="checkId()">
+                  <span id="res"></span>
+                </div>
+
+                <div class="form-group">
+                  <label class="text-black" for="H_pwd">비밀번호</label>
+                  <input type="password" name="pwd" class="form-control" id="H_pwd">
+                  <h6 style="color: red">영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상</h6>
+                </div>
+				
+                <div class="form-group">
+                  <label class="text-black" for="H_pwdcheck">비밀번호 확인</label>
+                  <input type="password" name="pwdcheck" class="form-control" id="H_pwdcheck">
+                  <span id="res4"></span>
+                </div>
+                
+              </div>
+            </div>
+            
+            <div class="form-group">
+                  <label class="text-black" for="H_name">이름</label>
+                  <input type="text" name="name" class="form-control" id="H_name">
+                  <span id="res"></span>
+            </div>
+            <div>
+            
+            </div>
+            <div class="form-group">
+                  <label class="text-black" for="H_phone1">핸드폰번호</label>
+                  <select name="phone1" id="H_phone1">
 					<option value="010">010</option>
 					<option value="011">011</option>
 					<option value="017">017</option>
@@ -223,35 +301,35 @@
 				<input type="text" name="phone2" ID="H_phone2" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 				<input type="text" name="phone3" ID="H_phone3" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4">
 				<span id="res2"></span>
-				<input type="button" value="중복확인" onclick="checkPhone()"></td>
-			</tr>
-			<tr>
-				<td>연령대</td>
-				<td>
-				<select name="age" id="H_age">
+				<input type="button" value="중복확인" class="H_btn" onclick="checkPhone()">
+            </div>
+          </form>
+        </div>
+        
+        <div class="col-lg-5 ml-auto">
+         <div class="form-group">
+                <label class="text-black" for="H_nickname">닉네임</label>
+                <input type="text" name="nickname" class="form-control" id="H_nickname">
+                <span id="res3"></span>
+				<input type="button" value="중복확인" class="H_btn" onclick="checkNickname()">
+         </div>
+         <div class="form-group">
+			<label class="text-black" for="H_age">연령</label>
+			<select name="age" id="H_age">
 					<option value="10대">10대</option>
 					<option value="20대">20대</option>
 					<option value="30대">30대</option>
 					<option value="40대">40대</option>
 					<option value="50대 이상">50대 이상</option>
 				</select>
-				</td>
-			</tr>
-			<tr>
-				<td>성별</td>
-				<td><input type="radio" name="gender" value="남성" id="H_gender">남성
-					<input type="radio" name="gender" value="여성" id="H_gender">여성
-					<input type="radio" name="gender" value="선택안함" id="H_gender" checked>선택안함</td>
-			</tr>
-			<tr>
-				<td>닉네임</td>
-				<td><input type="text" name="nickname" id="H_nickname">
-				<span id="res3"></span>
-				<input type="button" value="중복확인" onclick="checkNickname()"></td>
-			</tr>
-			<tr>
-				<td>관심사</td>
-				<td>
+			<label class="text-black" for="H_gender"></label>
+				<input type="radio" name="gender" value="m" id="H_gender">남성
+				<input type="radio" name="gender" value="w" id="H_gender">여성
+				<input type="radio" name="gender" value="n" id="H_gender" checked>선택안함	
+			</div>
+         
+ 		<div class="form-group">
+ 		<label class="text-black" for="H_like">관심사</label><br/>
 				<input type="checkbox" name="tag" id="t" value="문화/예술" class="tagtest">문화/예술 
 				<input type="checkbox" name="tag" id="t" value="운동/액티비티" class="tagtest">운동/액티비티 
 				<input type="checkbox" name="tag" id="t" value="푸드/드링크" class="tagtest">푸드/드링크 
@@ -259,7 +337,7 @@
 				<input type="checkbox" name="tag" id="t" value="봉사활동" class="tagtest">봉사활동
 				<input type="checkbox" name="tag" id="t" value="반려동물" class="tagtest">반려동물 
 				<input type="checkbox" name="tag" id="t" value="성장/자기계발" class="tagtest">성장/자기계발 
-				<input type="checkbox" name="tag" id="t" value="대화/친목" class="tagtest">대화/친목 
+				<input type="checkbox" name="tag" id="t" value="대화/친목" class="tagtest">대화/친목
 				<script>
 				const maxAllowed = 3;
 				const checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -271,29 +349,56 @@
 						}
 					});
 				});
-				</script>
-				</td>
-			</tr>
-			<tr>
-				<td>한줄 소개</td>
-				<td><textarea cols="80" rows="10" name="intro" maxlength="200"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-<!-- 				<textarea cols="100" rows="15" readonly>이용약관</textarea> -->
-				<iframe src="../tnc/tnc" width="700" height="250"></iframe>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="right">
-				<input type="radio" value="y" name="tnc">동의 
-				<input type="radio" value="n" name="tnc" checked>미동의 
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="right"><input type="button" value="가입" onclick="check()"></td>
-			</tr>
-		</table>
-	</form>
+				</script><br/>
+	            <div class="form-group">
+	              <label class="text-black" for="message">한줄소개</label>
+	              <textarea name="" class="form-control" id="message" name="intro" cols="30" rows="5" placeholder="한줄소개는 최대 50자까지 입력 가능합니다." maxlength="100"></textarea>
+	              <br/>
+	              <span id="counter">0/50자</span>
+	            </div>
+	            
+	            <form class="form-group">이용약관
+	            <div class="form-group" style="text-align:center;">
+				<iframe src="../tnc/tnc" width="500" height="250"></iframe>
+				<input type="radio" value="y" name="tnc"> 동의 
+				<input type="radio" value="n" name="tnc" checked> 미동의 
+				</div>
+				</form>
+	
+	            <form class="form-group"  style="text-align:center;">
+	            <button type="button" class="btn btn-primary" onclick="check()">
+	            Join</button>
+				</form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+	
+
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/owl.carousel.min.js"></script>
+  <script src="../js/jquery.animateNumber.min.js"></script>
+  <script src="../js/jquery.waypoints.min.js"></script>
+  <script src="../js/jquery.fancybox.min.js"></script>
+  <script src="../js/aos.js"></script>
+  <script src="../js/moment.min.js"></script>
+  <script src="../js/daterangepicker.js"></script>
+
+  <script src="../js/typed.js"></script>
+  
+  <script src="../js/custom.js"></script>
+
 </body>
 </html>

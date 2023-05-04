@@ -31,13 +31,13 @@ body {
 
 </head>
 <body>
-
+<div id="" style="margin-top:5%"> </div>
 <!-- <div class="container my-5"> -->
 <c:if test="${empty listOn && empty listOff}"><p style="text-align:center"></br>주최한 모임이 없습니다.</p></c:if>
 
 <c:if test="${not empty listOn || not empty listOff}">
 
-<h5 style="font-weight:bold; text-align:center; line-height:250%">진행중인 모임</h5><br/>
+<h5 style="font-weight:bold; text-align:center; line-height:250%; margin-top:5%;">진행중인 모임</h5><br/>
 
 <div class="list-container grid">
 
