@@ -61,6 +61,30 @@ $(document).ready(function() {
 	        $('#counter').html("50/50자");
 	    }
 	});
+	// 비밀번호, 비밀번호확인 일치 불일치 메세지 띄우기
+	$('#H_pwdcheck').keyup(function(e){
+		var pwd = $('#H_pwd').val();
+		var pwdcheck = $(this).val();
+		if(pwd == pwdcheck){
+			$('#res4').css("color", "blue");
+			$('#res4').html("비밀번호가 일치합니다.");
+		} else {
+			$('#res4').css("color", "red");
+			$('#res4').html("비밀번호가 일치하지 않습니다.");
+		}
+	});
+	// 비밀번호 정규표현식 충족, 불충족 메세지 띄우기
+	$('#H_pwd').keyup(function(e){
+		var str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/;
+		var pwd = $('#H_pwd').val();
+		if(!str.test(pwd)){
+			$('#str').css("color", "red");
+			$('#str').html("영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 불충족");
+		} else {
+			$('#str').css("color", "blue");
+			$('#str').html("영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 충족");
+		}
+	});
 });
 </script>
 <script  type="text/javascript">
@@ -87,45 +111,53 @@ $(document).ready(function() {
 // 		document.selection.clear();
    	 }
 	function checkPhone() {
-		const xhttp = new XMLHttpRequest();
 		let phone1 = f.phone1.value;
 		let phone2 = f.phone2.value;
 		let phone3 = f.phone3.value;
 		let phone = phone1 + phone2 + phone3;
-		let param = "?phone=" + phone;
-		xhttp.open("get", "${pageContext.request.contextPath}/member/phonecheck.do" + param);
-		xhttp.send();
+		if(phone2 != '' & phone3!= ''){
+			const xhttp = new XMLHttpRequest();
+			let param = "?phone=" + phone;
+			xhttp.open("get", "${pageContext.request.contextPath}/member/phonecheck.do" + param);
+			xhttp.send();	
 
-		xhttp.onload = function() {
-			let val = xhttp.responseText;
-			let html = '<h6 style="color:';
-			let obj = JSON.parse(val);
-			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 핸드폰번호입니다.</h6>';
-			} else {
-				html += 'red">이미 등록된 핸드폰번호입니다.</h6>';
+			xhttp.onload = function() {
+				let val = xhttp.responseText;
+				let html = '<h6 style="color:';
+				let obj = JSON.parse(val);
+				if (obj.flag) { // obj.flag(key) = true or false
+					html += 'blue">사용가능한 핸드폰번호입니다.</h6>';
+				} else {
+					html += 'red">이미 등록된 핸드폰번호입니다.</h6>';
+				}
+				let res2 = document.getElementById("res2");
+				res2.innerHTML = html;
 			}
-			let res2 = document.getElementById("res2");
-			res2.innerHTML = html;
+		} else {
+			alert("사용하실 핸드폰번호를 입력해주세요.")
 		}
 	}
 	function checkNickname() {
-		const xhttp = new XMLHttpRequest();
-		let param = "?nickname=" + f.nickname.value;
-		xhttp.open("get", "${pageContext.request.contextPath}/member/nicknamecheck.do" + param);
-		xhttp.send();
-
-		xhttp.onload = function() {
-			let val = xhttp.responseText;
-			let html = '<h6 style="color:';
-			let obj = JSON.parse(val);
-			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 닉네임입니다.</h6>';
-			} else {
-				html += 'red">이미 사용중인 닉네임입니다.</h6>';
+		if(f.nickname.value != ''){
+			const xhttp = new XMLHttpRequest();
+			let param = "?nickname=" + f.nickname.value;
+			xhttp.open("get", "${pageContext.request.contextPath}/member/nicknamecheck.do" + param);
+			xhttp.send();	
+	
+			xhttp.onload = function() {
+				let val = xhttp.responseText;
+				let html = '<h6 style="color:';
+				let obj = JSON.parse(val);
+				if (obj.flag) { // obj.flag(key) = true or false
+					html += 'blue">사용가능한 닉네임입니다.</h6>';
+				} else {
+					html += 'red">이미 사용중인 닉네임입니다.</h6>';
+				}
+				let res3 = document.getElementById("res3");
+				res3.innerHTML = html;
 			}
-			let res3 = document.getElementById("res3");
-			res3.innerHTML = html;
+		} else {
+			alert("사용하실 닉네임을 입력해주세요.")
 		}
 	}
 	function editage(){
@@ -242,12 +274,12 @@ $(document).ready(function() {
 			 		<div class="form-group">
                   	<label class="text-black" for="H_pwd">비밀번호</label>
 					<input type="hidden" value="${sessionScope.loginId }" name="memberId" id="H_memberId">
-					<input type="password" name="pwd" class="form-control" id="H_pwd"><br />
-					<h6 style="color: red">비밀번호는 영문 대소문자, 숫자, 특수문자(!, @, #, $, *)를 포함하고 8글자 이상이여야 합니다.</h6>
+					<input type="password" value=${vo.pwd } name="pwd" class="form-control" id="H_pwd">
+					<span style="color: blue" id="str">영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 충족</span>
 					</div>
 					<div class="form-group">
                   	<label class="text-black" for="H_pwdcheck">비밀번호 확인</label>
-					<input type="password" name="pwdcheck" class="form-control" id="H_pwdcheck">
+					<input type="password" value=${vo.pwd } name="pwdcheck" class="form-control" id="H_pwdcheck">
 					<span id="res4"></span>
 					</div>
 				</div>

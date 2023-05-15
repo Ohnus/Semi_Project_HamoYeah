@@ -51,7 +51,7 @@
 // 	};
 //     window.onload = function () {
 //       google.accounts.id.initialize({
-//         client_id: "119774536539-updnbhj9h7er7elhcqisnhclscrt32v4.apps.googleusercontent.com",
+//         client_id: "",
 //         callback: handleCredentialResponse
 //       });
 //       google.accounts.id.renderButton(
