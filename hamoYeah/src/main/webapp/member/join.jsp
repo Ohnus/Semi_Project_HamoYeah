@@ -42,6 +42,7 @@ body {
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	// 한줄소개 글자수 카운트
 	$('#message').keyup(function (e){
 	    var content = $(this).val();
 	    
@@ -51,6 +52,30 @@ $(document).ready(function() {
 	        $(this).val(content.substring(0, 50));
 	        $('#counter').html("50/50자");
 	    }
+	});
+	// 비밀번호, 비밀번호확인 일치 불일치 메세지 띄우기
+	$('#H_pwdcheck').keyup(function(e){
+		var pwd = $('#H_pwd').val();
+		var pwdcheck = $(this).val();
+		if(pwd == pwdcheck){
+			$('#res4').css("color", "blue");
+			$('#res4').html("비밀번호가 일치합니다.");
+		} else {
+			$('#res4').css("color", "red");
+			$('#res4').html("비밀번호가 일치하지 않습니다.");
+		}
+	});
+	// 비밀번호 정규표현식 충족, 불충족 메세지 띄우기
+	$('#H_pwd').keyup(function(e){
+		var str = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$*]).{8,}$/;
+		var pwd = $('#H_pwd').val();
+		if(!str.test(pwd)){
+			$('#str').css("color", "red");
+			$('#str').html("영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 불충족");
+		} else {
+			$('#str').css("color", "blue");
+			$('#str').html("영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 충족");
+		}
 	});
 });
 </script>
@@ -72,64 +97,76 @@ $(document).ready(function() {
 		document.getElementById('img').value = null;
 	    }
 	function checkId() {
-		const xhttp = new XMLHttpRequest();
-		let param = "?memberId=" + f.memberId.value;
-		xhttp.open("get", "${pageContext.request.contextPath}/member/idcheck.do" + param);
-		xhttp.send();
-
-		xhttp.onload = function() {
-			let val = xhttp.responseText;
-			let html = '<h6 style="color:';
-			let obj = JSON.parse(val);
-			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용 가능한 아이디</h6>';
-			} else {
-				html += 'red">사용 불가능한 아이디</h6>';
-			}
-			let res = document.getElementById("res");
-			res.innerHTML = html;
+		if(f.memberId.value != ''){
+			const xhttp = new XMLHttpRequest();
+			let param = "?memberId=" + f.memberId.value;
+			xhttp.open("get", "${pageContext.request.contextPath}/member/idcheck.do" + param);
+			xhttp.send();
+	
+			xhttp.onload = function() {
+				let val = xhttp.responseText;
+				let html = '<h6 style="color:';
+				let obj = JSON.parse(val);
+				if (obj.flag) { // obj.flag(key) = true or false
+					html += 'blue">사용 가능한 아이디</h6>';
+				} else {
+					html += 'red">사용 불가능한 아이디</h6>';
+				}
+				let res = document.getElementById("res");
+				res.innerHTML = html;
+			} 
+		} else {
+			alert("사용하실 ID를 입력해주세요.")
 		}
 	}
 	function checkPhone() {
-		const xhttp = new XMLHttpRequest();
 		let phone1 = f.phone1.value;
 		let phone2 = f.phone2.value;
 		let phone3 = f.phone3.value;
 		let phone = phone1 + phone2 + phone3;
-		let param = "?phone=" + phone;
-		xhttp.open("get", "${pageContext.request.contextPath}/member/phonecheck.do" + param);
-		xhttp.send();
+		if(phone2 != '' & phone3!= ''){
+			const xhttp = new XMLHttpRequest();
+			let param = "?phone=" + phone;
+			xhttp.open("get", "${pageContext.request.contextPath}/member/phonecheck.do" + param);
+			xhttp.send();
 
-		xhttp.onload = function() {
-			let val = xhttp.responseText;
-			let html = '<h6 style="color:';
-			let obj = JSON.parse(val);
-			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용가능한 핸드폰번호</h6>';
-			} else {
-				html += 'red">이미 등록된 핸드폰번호</h6>';
+			xhttp.onload = function() {
+				let val = xhttp.responseText;
+				let html = '<h6 style="color:';
+				let obj = JSON.parse(val);
+				if (obj.flag) { // obj.flag(key) = true or false
+					html += 'blue">사용가능한 핸드폰번호</h6>';
+				} else {
+					html += 'red">이미 등록된 핸드폰번호</h6>';
+				}
+				let res2 = document.getElementById("res2");
+				res2.innerHTML = html;
 			}
-			let res2 = document.getElementById("res2");
-			res2.innerHTML = html;
+		} else {
+			alert("사용하실 핸드폰번호를 입력해주세요.")
 		}
 	}
 	function checkNickname() {
-		const xhttp = new XMLHttpRequest();
-		let param = "?nickname=" + f.nickname.value;
-		xhttp.open("get", "${pageContext.request.contextPath}/member/nicknamecheck.do" + param);
-		xhttp.send();
-
-		xhttp.onload = function() {
-			let val = xhttp.responseText;
-			let html = '<h6 style="color:';
-			let obj = JSON.parse(val);
-			if (obj.flag) { // obj.flag(key) = true or false
-				html += 'blue">사용 가능한 닉네임</h6>';
-			} else {
-				html += 'red">이미 사용중인 닉네임</h6>';
+		if(f.nickname.value != ''){
+			const xhttp = new XMLHttpRequest();
+			let param = "?nickname=" + f.nickname.value;
+			xhttp.open("get", "${pageContext.request.contextPath}/member/nicknamecheck.do" + param);
+			xhttp.send();
+	
+			xhttp.onload = function() {
+				let val = xhttp.responseText;
+				let html = '<h6 style="color:';
+				let obj = JSON.parse(val);
+				if (obj.flag) { // obj.flag(key) = true or false
+					html += 'blue">사용 가능한 닉네임</h6>';
+				} else {
+					html += 'red">이미 사용중인 닉네임</h6>';
+				}
+				let res3 = document.getElementById("res3");
+				res3.innerHTML = html;
 			}
-			let res3 = document.getElementById("res3");
-			res3.innerHTML = html;
+		} else {
+			alert("사용하실 닉네임을 입력해주세요.")
 		}
 	}
 	
@@ -271,7 +308,7 @@ $(document).ready(function() {
                 <div class="form-group">
                   <label class="text-black" for="H_pwd">비밀번호</label>
                   <input type="password" name="pwd" class="form-control" id="H_pwd">
-                  <h6 style="color: red">영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상</h6>
+                  <span style="color: red" id="str">영문 대소문자, 숫자, 특수문자(!, @, #, $, *)포함 8글자 이상: 불충족</span>
                 </div>
 				
                 <div class="form-group">
