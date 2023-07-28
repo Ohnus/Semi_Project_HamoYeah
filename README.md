@@ -1,11 +1,11 @@
 <br>
 <div align="center">
-<img src="https://github.com/Ohnus/Final_Project_Otzzang/assets/88930889/91cd377c-c4d2-4090-a29f-4ab1d3354cf8">
+<img src="https://github.com/Ohnus/Semi_Project_HamoYeah/assets/88930889/aa668d12-3708-43d2-bc42-bd0823a47a39">
 </div>
 <br>
 
 ## 🔗 Link
-- **Repository**: https://github.com/Ohnus/Final_Project_Otzzang
+- **Repository**: https://github.com/Ohnus/Semi_Project_HamoYeah
 <br>
 
 ## 🗂️ Table of Contents
