@@ -16,6 +16,8 @@
 - [📸 Screenshots](#-screenshots)
 - [🛠 Prerequisites](#-prerequisites)
 - [📥 Installation](#-installation)
+- [📝 Changelog](#-changelog)
+- [📧 Contact](#-contact)
 <br>
 
 #
@@ -43,11 +45,11 @@
 
 ### 🔍 Features
 #### 1. Member Part
-- 
+> - 
 #### 2. Event Hosting Board Part
--
+> -
 #### 3. Review Board Part
--
+> -
 <br>
 
 ### 📸 Screenshots
@@ -60,4 +62,16 @@
 
 ### 📥 Installation
 - (Under construction)
+<br>
+
+### 📝 Changelog
+- No Changes Yet
+<br>
+
+### 📧 Contact
+- 김희수: kimhee0721@gmail.com
+- 문승미: mun75056@gmail.com
+- 봉선호: sh525293@gmail.com
+- 최예은: oloer12@gmail.com
+- 원유경: wyk160@gmail.com
 <br>
