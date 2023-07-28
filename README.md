@@ -32,7 +32,7 @@
 - 김희수
 - 문승미
 - 봉선호: https://github.com/Ohnus
-- 최예은
+- 최예은: https://github.com/YeeBoss
 - 원유경
 <br>
 
