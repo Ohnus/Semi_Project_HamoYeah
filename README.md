@@ -30,7 +30,7 @@
 
 ### 🤝 Team Members
 - 김희수
-- 문승미
+- 문승미: https://github.com/moonparks
 - 봉선호: https://github.com/Ohnus
 - 최예은: https://github.com/YeeBoss
 - 원유경
