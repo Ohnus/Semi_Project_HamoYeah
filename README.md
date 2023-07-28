@@ -46,7 +46,7 @@
 - 
 #### 2. Event Hosting Board Part
 -
-#### 3. Review Board
+#### 3. Review Board Part
 -
 <br>
 
