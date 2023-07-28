@@ -26,7 +26,7 @@
 - 프로젝트 목적: 
 <br>
 
-### 🤝 Team Member
+### 🤝 Team Members
 - 김희수
 - 문승미
 - 봉선호: https://github.com/Ohnus
