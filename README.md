@@ -1,6 +1,6 @@
 <br>
 <div align="center">
-<img src="https://github.com/Ohnus/Semi_Project_HamoYeah/assets/88930889/aa668d12-3708-43d2-bc42-bd0823a47a39">
+<img src="https://github.com/Ohnus/Semi_Project_HamoYeah/assets/88930889/a3ba4498-693b-49fc-a5fd-9f021f9289e5" width="70%">
 </div>
 <br>
 
